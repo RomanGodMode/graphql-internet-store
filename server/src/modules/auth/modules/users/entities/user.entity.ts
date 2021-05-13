@@ -19,11 +19,13 @@ export class User {
   // Енамы обнуляются при коннекте к бд (во время синхронизации)
   // я не смог найти даже похожей проблемы в интернете
 
+  //Всё заработало так как надо после обновления docker-desktop
+
   @BeforeInsert()
   async beforeInsert() {
     this.password = await bcrypt.hash(
       this.password,
-      bcrypt.genSaltSync(+process.env.BCRYPT_HASH_ROUND),
+      bcrypt.genSaltSync(+process.env.BCRYPT_HASH_ROUND)
     )
   }
 

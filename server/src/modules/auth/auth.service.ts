@@ -1,23 +1,24 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { UsersService } from './modules/users/users.service'
-import { RegisterDto } from './dto/register.dto'
-import { LoginDto } from './dto/login.dto'
+import { RegisterInput } from './input/register.input'
+import { LoginInput } from './input/login.input'
 import { Response } from 'express'
 import { Session } from 'express-session'
 import { UserRole } from './modules/users/entities/user.entity'
 
 @Injectable()
 export class AuthService {
-  constructor(private usersService: UsersService) {}
+  constructor(private usersService: UsersService) {
+  }
 
-  async register(newUser: RegisterDto, role: UserRole) {
+  async register(newUser: RegisterInput, role: UserRole) {
     await this.usersService.createUser(newUser, role)
   }
 
   async login(
-    loginDto: LoginDto,
+    loginDto: LoginInput,
     session: Record<string, any>,
-    role: UserRole,
+    role: UserRole
   ) {
     const user = await this.usersService.findUserByEmailAndRole(
       loginDto.email,

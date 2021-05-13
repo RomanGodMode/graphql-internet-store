@@ -1,14 +1,15 @@
 import { ConflictException, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { UserRole, User } from './entities/user.entity'
-import { RegisterDto } from '../../dto/register.dto'
+import { User, UserRole } from './entities/user.entity'
+import { RegisterInput } from '../../input/register.input'
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User) private usersRepository: Repository<User>,
-  ) {}
+    @InjectRepository(User) private usersRepository: Repository<User>
+  ) {
+  }
 
   getAllUsers(): Promise<User[]> {
     return this.usersRepository.find()
@@ -22,7 +23,7 @@ export class UsersService {
     return this.usersRepository.findOne(id)
   }
 
-  async createUser(newUser: RegisterDto, role: UserRole): Promise<User> {
+  async createUser(newUser: RegisterInput, role: UserRole): Promise<User> {
     if (
       await this.usersRepository.findOne({ where: { email: newUser.email } })
     ) {
@@ -31,7 +32,7 @@ export class UsersService {
     console.log(role)
 
     return this.usersRepository.save(
-      this.usersRepository.create({ ...newUser, role }),
+      this.usersRepository.create({ ...newUser, role })
     )
   }
 }
