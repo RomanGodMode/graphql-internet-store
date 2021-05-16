@@ -1,1 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~normalize.css';
+
+*, *:before, *:after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --deep-back-color: #101010;
+  --content-back-color: #262626;
+  --side-back-color: #171717;
+
+  --main-fore-color: #fff;
+  --pale-fore-color: #7a7a7a;
+  --bright-fore-color: #fcd041;
+  --paled-bright-fore-color: rgba(252, 208, 65, .8);
+}
+
+html {
+  background-color: var(--side-back-color);
+  color: var(--main-fore-color);
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: var(--main-fore-color);
+  text-decoration: none;
+  transition: all .4s ease;
+}
+
+a:hover {
+  color: var(--pale-fore-color)
+}
+
+a:active {
+  color: var(--paled-bright-fore-color);
+}
+
+a.selected {
+  color: var(--bright-fore-color)
+}
+

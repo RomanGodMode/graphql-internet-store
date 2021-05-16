@@ -1,0 +1,13 @@
+<div class='caption'>
+  <a routerLinkActive='selected' routerLink='home'>ГИГА МАГАЗИН</a>
+  <a href='tel:+7(495) 123-45-67'>+7(495) 123-45-67</a>
+  <form class='find-form'>
+    <input placeholder='Поиск' type='text'>
+    <button><img src='assets/img/search-glass.svg.svg' alt=''></button>
+  </form>
+</div>
+<ul class='categories'>
+  <li class='category' *ngFor='let category of categories'>
+    <a [routerLink]='category'>{{category}}</a>
+  </li>
+</ul>

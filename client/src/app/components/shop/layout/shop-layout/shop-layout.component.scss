@@ -1,0 +1,20 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--side-back-color);
+
+
+}
+
+.content-container {
+  padding-top: 58px;
+  padding-bottom: 20px;
+  flex: 1 1 auto;
+  background-color: var(--content-back-color);
+  color: var(--main-fore-color);
+}
+
+//.content-container ::ng-deep *:nth-child(3) {
+//  Вот это да...
+//}

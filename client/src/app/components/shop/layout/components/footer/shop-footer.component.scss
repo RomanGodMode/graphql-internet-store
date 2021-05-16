@@ -1,0 +1,16 @@
+:host {
+  padding: 30px;
+  background-color: var(--deep-back-color);
+}
+
+.list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  .item {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}
+

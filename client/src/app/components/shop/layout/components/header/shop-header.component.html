@@ -1,0 +1,19 @@
+<app-container class='content'>
+  <ul class='list'>
+    <li class='item'><a routerLinkActive='selected' routerLink='home'>Дом</a></li>
+    <li class='item'><a routerLinkActive='selected' routerLink='catalog'>Каталог</a></li>
+
+  </ul>
+
+  <ul class='list' *ngIf='isAuthorized else options'>
+    <li class='item'><a routerLinkActive='selected' routerLink='register'>Регистрация</a></li>
+    <li class='item'><a routerLinkActive='selected' routerLink='login'>Логин</a></li>
+  </ul>
+  <ng-template #options>
+    <ul class='list'>
+      <li class='item'><a routerLinkActive='selected' routerLink='comparison'>Сравнение</a></li>
+      <li class='item'><a routerLinkActive='selected' routerLink='basket'>Корзина</a></li>
+    </ul>
+  </ng-template>
+
+</app-container>
