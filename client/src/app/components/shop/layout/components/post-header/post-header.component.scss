@@ -10,6 +10,23 @@
   justify-content: space-around;
   align-items: center;
   padding: 30px 0;
+
+  a {
+    img {
+      width: 16px;
+      height: 15px;
+      margin-right: 7px;
+    }
+  }
+
+  .huge-logo {
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .phone-number {
+    font-size: 19px;
+  }
 }
 
 .find-form {
@@ -41,11 +58,12 @@
 
 .categories {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   border-top: solid 1px var(--main-fore-color);
   border-bottom: solid 1px var(--main-fore-color);
 
   .category {
-    padding: 10px;
+    padding: 15px 30px;
+    font-size: 20px;
   }
 }

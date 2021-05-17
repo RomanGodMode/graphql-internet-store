@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core'
 })
 export class PostHeaderComponent implements OnInit {
 
-  categories = ['Питса', 'Печи для ног', 'Спино-соскабливалки', 'Пена для бритья']
+  categories = ['Питса', 'Кринж в пакетике', 'Спино-соскабливалки', 'Пена для бритья']
 
   constructor() {
   }

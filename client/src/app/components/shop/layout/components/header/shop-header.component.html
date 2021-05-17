@@ -5,14 +5,24 @@
 
   </ul>
 
-  <ul class='list' *ngIf='isAuthorized else options'>
-    <li class='item'><a routerLinkActive='selected' routerLink='register'>Регистрация</a></li>
-    <li class='item'><a routerLinkActive='selected' routerLink='login'>Логин</a></li>
+  <ul class='list' *ngIf='isAuthorized else authOptions'>
+    <li class='item'>
+      <a routerLinkActive='selected' routerLink='comparison'>
+        <img src='assets/img/analytics.svg' alt=''>
+        Сравнение
+      </a>
+    </li>
+    <li class='item'>
+      <a routerLinkActive='selected' routerLink='basket'>
+        <img src='assets/img/shopping-cart.svg' alt=''>
+        Корзина
+      </a>
+    </li>
   </ul>
-  <ng-template #options>
+  <ng-template #authOptions>
     <ul class='list'>
-      <li class='item'><a routerLinkActive='selected' routerLink='comparison'>Сравнение</a></li>
-      <li class='item'><a routerLinkActive='selected' routerLink='basket'>Корзина</a></li>
+      <li class='item'><a routerLinkActive='selected' routerLink='register'>Регистрация</a></li>
+      <li class='item'><a routerLinkActive='selected' routerLink='login'>Логин</a></li>
     </ul>
   </ng-template>
 

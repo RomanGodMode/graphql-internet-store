@@ -1,5 +1,11 @@
 @import '~normalize.css';
 
+@font-face {
+  font-family: cuprum;
+  src: url('assets/fonts/cuprum.otf') format('opentype');
+}
+
+
 *, *:before, *:after {
   padding: 0;
   margin: 0;
@@ -20,6 +26,8 @@
 html {
   background-color: var(--side-back-color);
   color: var(--main-fore-color);
+  font-family: cuprum, sans-serif;
+  font-weight: 300;
 }
 
 ul {
