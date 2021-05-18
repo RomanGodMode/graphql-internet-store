@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core'
 })
 export class ShopHeaderComponent implements OnInit {
 
-  isAuthorized: boolean = true
+  isAuthorized: boolean = false
 
   constructor() {
   }

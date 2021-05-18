@@ -1,0 +1,17 @@
+.decorated-titles {
+  border-bottom: 2px solid var(--main-fore-color);
+
+  ::ng-deep * {
+    display: inline-block;
+    line-height: 2;
+    margin-bottom: -2px;
+    font-size: 22px;
+  }
+
+  ::ng-deep .selected {
+    color: var(--bright-fore-color);
+    border-bottom: 2px solid var(--bright-fore-color);
+  }
+}
+
+

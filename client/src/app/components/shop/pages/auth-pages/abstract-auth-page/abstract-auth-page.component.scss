@@ -1,0 +1,53 @@
+:host {
+  flex: 1 1 auto;
+}
+
+.container {
+  max-width: 700px;
+}
+
+.auth-title {
+  display: block;
+  padding-top: 30px;
+  padding-bottom: 40px;
+
+  h1 {
+    padding: 0 20px 0 15px;
+  }
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 20px;
+
+  div {
+    margin-bottom: 30px;
+  }
+
+  ::ng-deep input {
+    display: block;
+    width: 100%;
+  }
+
+  button {
+    padding: 20px 0;
+  }
+
+  .error, .huge-logo {
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--bright-fore-color);
+    font-style: italic;
+  }
+
+  .huge-logo {
+    font-style: italic;
+    font-size: 35px;
+    text-align: center;
+    color: #fff;
+    opacity: .7;
+  }
+}

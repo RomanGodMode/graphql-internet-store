@@ -1,18 +1,3 @@
-.decorated-titles {
-  border-bottom: 2px solid var(--main-fore-color);
-
-  a {
-    display: inline-block;
-    line-height: 2;
-    margin-bottom: -2px;
-    font-size: 26px;
-  }
-}
-
-.selected-title {
-  border-bottom: 2px solid var(--bright-fore-color);
-}
-
 .advantages-list {
   display: flex;
   justify-content: space-between;

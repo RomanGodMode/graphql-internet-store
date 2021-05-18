@@ -10,23 +10,6 @@
   justify-content: space-around;
   align-items: center;
   padding: 30px 0;
-
-  a {
-    img {
-      width: 16px;
-      height: 15px;
-      margin-right: 7px;
-    }
-  }
-
-  .huge-logo {
-    font-size: 22px;
-    font-weight: 700;
-  }
-
-  .phone-number {
-    font-size: 19px;
-  }
 }
 
 .find-form {
@@ -38,9 +21,12 @@
     align-self: stretch;
     border: none;
     background-color: transparent;
-    outline: none;
     color: var(--main-fore-color);
     padding-left: 10px;
+  }
+
+  input:focus, input:active {
+    outline: var(--bright-fore-color) 1px solid;
   }
 
   button {

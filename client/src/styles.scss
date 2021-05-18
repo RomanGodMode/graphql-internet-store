@@ -28,27 +28,93 @@ html {
   color: var(--main-fore-color);
   font-family: cuprum, sans-serif;
   font-weight: 300;
+  font-size: 19px;
 }
 
 ul {
   list-style: none;
 }
 
+p {
+  text-align: center;
+
+  a {
+    color: var(--bright-fore-color);
+    font-weight: 700;
+  }
+}
+
 a {
   color: var(--main-fore-color);
   text-decoration: none;
   transition: all .4s ease;
+
+  &:hover {
+    color: var(--pale-fore-color)
+  }
+
+  &.selected {
+    color: var(--bright-fore-color)
+  }
+
+  &:active {
+    color: var(--paled-bright-fore-color);
+  }
+
 }
 
-a:hover {
-  color: var(--pale-fore-color)
+// Формы
+
+form {
+  font-size: 23px;
+
+  label {
+    display: block;
+  }
+
+  label + input {
+    margin-top: 10px;
+  }
+
+  button {
+    border: 1px solid var(--main-fore-color);
+    background-color: transparent;
+    color: var(--main-fore-color);
+    transition: all .4s ease;
+    cursor: pointer;
+
+    &:hover {
+      outline: var(--pale-fore-color) 1px solid;
+      border-color: transparent;
+    }
+
+    &:focus, &:active {
+      outline: var(--bright-fore-color) 1px solid;
+      border-color: transparent;
+    }
+  }
 }
 
-a:active {
-  color: var(--paled-bright-fore-color);
+input {
+  border: 1px var(--main-fore-color) solid;
+  background-color: transparent;
+  color: var(--main-fore-color);
+  padding: 12px 6px 12px 10px;
+  transition: all .5s ease;
+
+  &:hover {
+    outline: var(--pale-fore-color) 1px solid;
+    border-color: transparent;
+  }
+
+  &:focus, &:active {
+    outline: var(--bright-fore-color) 1px solid;
+    border-color: transparent;
+  }
 }
 
-a.selected {
-  color: var(--bright-fore-color)
+// Костыли
+.huge-logo {
+  font-size: 35px;
+  font-weight: 700;
 }
-
