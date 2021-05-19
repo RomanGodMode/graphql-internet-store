@@ -5,6 +5,7 @@ import { SharedComponentsModule } from '../../../../shared/shared-components.mod
 import { RouterModule } from '@angular/router'
 import { PasswordInputComponent } from './password-input/password-input.component'
 import { ShowPasswordService } from './password-input/show-password.service'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 
 @NgModule({
@@ -12,7 +13,9 @@ import { ShowPasswordService } from './password-input/show-password.service'
   imports: [
     CommonModule,
     SharedComponentsModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [ShowPasswordService],
   exports: [AbstractAuthPageComponent]

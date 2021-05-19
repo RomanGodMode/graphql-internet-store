@@ -68,6 +68,15 @@ a {
 form {
   font-size: 23px;
 
+  .group {
+    min-height: 120px;
+
+    small {
+      margin-top: 10px;
+      display: inline-block;
+    }
+  }
+
   label {
     display: block;
   }
@@ -83,12 +92,19 @@ form {
     transition: all .4s ease;
     cursor: pointer;
 
-    &:hover {
+    &:hover, &:focus {
       outline: var(--pale-fore-color) 1px solid;
       border-color: transparent;
     }
 
-    &:focus, &:active {
+    &:disabled {
+      border: 1px dashed var(--pale-fore-color);
+      outline: none;
+      color: var(--pale-fore-color);
+      cursor: default;
+    }
+
+    &:active {
       outline: var(--bright-fore-color) 1px solid;
       border-color: transparent;
     }

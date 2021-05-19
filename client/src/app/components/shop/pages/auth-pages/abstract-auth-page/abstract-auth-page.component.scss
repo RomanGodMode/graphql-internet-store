@@ -21,8 +21,8 @@
   flex-direction: column;
   padding: 40px 20px;
 
-  div {
-    margin-bottom: 30px;
+  .group + .group {
+    margin-top: 20px;
   }
 
   ::ng-deep input {
@@ -34,8 +34,9 @@
     padding: 20px 0;
   }
 
-  .error, .huge-logo {
-    min-height: 100px;
+  .error, .banner {
+    min-height: 60px;
+    padding-bottom: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,11 +44,8 @@
     font-style: italic;
   }
 
-  .huge-logo {
-    font-style: italic;
-    font-size: 35px;
-    text-align: center;
-    color: #fff;
-    opacity: .7;
+  .banner {
+    color: var(--main-fore-color);
   }
+
 }

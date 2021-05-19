@@ -4,31 +4,44 @@
     <h1 *ngIf='isRegister' class='selected'>Регистрация</h1>
   </app-decorated-title-wrapper>
   <p>Авторизация позволит вам пользоваться сравнением и добавлять товары в корзину</p>
-  <form class='auth-form'>
-    <div>
+
+  <form class='auth-form' [formGroup]='authForm' (ngSubmit)='onSubmit()'>
+    <div class='group'>
       <label>Email</label>
-      <input placeholder='Email' name='email' type='text'>
+      <input formControlName='email' placeholder='Email' type='text'>
+      <small *ngIf='authForm.controls["email"].errors?.required && authForm.controls["email"].touched'>
+        Обязательное поле
+      </small>
+      <small *ngIf='authForm.controls["email"].errors?.email && authForm.controls["email"].touched'>
+        Невалидный email
+      </small>
     </div>
 
-    <div *ngIf='!isRegister'>
+    <div class='group'>
       <label>Пароль</label>
-      <app-password-input placeholder='Пароль' name='password'></app-password-input>
+      <app-password-input formControlName='password' placeholder='Пароль'></app-password-input>
+      <small *ngIf='authForm.controls["password"].errors?.required && authForm.controls["password"].dirty'>
+        Обязательное поле
+      </small>
+      <small *ngIf='authForm.controls["password"].errors?.minlength'>Минимальная длина пароля 7 символов</small>
+      <small *ngIf='authForm.controls["password"].errors?.maxlength'>Максимальная длина пароля 20 символов</small>
     </div>
-    <div *ngIf='isRegister'>
-      <label>Пароль</label>
-      <app-password-input placeholder='Пароль' name='password'></app-password-input>
-    </div>
-    <div *ngIf='isRegister'>
+    <div *ngIf='isRegister' class='group'>
       <label>Повторите пароль</label>
-      <app-password-input placeholder='Повторите пароль' name='repeatPassword'></app-password-input>
+      <app-password-input formControlName='repeatPassword' placeholder='Повторите пароль'></app-password-input>
+      <small *ngIf='authForm.controls["repeatPassword"].errors?.required && authForm.controls["repeatPassword"].dirty'>Обязательное
+        поле</small>
+      <small *ngIf='authForm.controls["repeatPassword"].errors?.minlength'>Минимальная длина пароля 7 символов</small>
+      <small *ngIf='authForm.controls["repeatPassword"].errors?.maxlength'>Максимальная длина пароля 20 символов</small>
     </div>
 
-    <div *ngIf='!error' class='huge-logo'>ТУПА НЕЧЕЛОВЕЧЕСКИ ОГРОМНЫЙ ЛОГОТИП</div>
+    <div *ngIf='!error' class='banner'></div>
     <p *ngIf='error' class='error'>{{error}}</p>
 
-    <button *ngIf='!isRegister'>Войти</button>
-    <button *ngIf='isRegister'>Зарегистрироваться</button>
+    <button *ngIf='!isRegister' [disabled]='!authForm.valid'>Войти</button>
+    <button *ngIf='isRegister' [disabled]='!authForm.valid'>Зарегистрироваться</button>
   </form>
+
   <p *ngIf='!isRegister'>Нет аккаунта? <a routerLink='/register'>Зарегистрироваться!</a></p>
   <p *ngIf='isRegister'>Уже есть аккаунт? <a routerLink='/login'>Войти!</a></p>
 </app-container>
