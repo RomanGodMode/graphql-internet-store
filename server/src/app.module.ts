@@ -19,6 +19,10 @@ const isDebug = process.env.NODE_ENV !== 'production'
           'request.credentials': 'include'
         }
       },
+      cors: {
+        credentials: true,
+        origin: true
+      },
       formatError: (error: GraphQLError) => {
         const graphQLFormattedError: GraphQLFormattedError = {
           message: error.extensions.exception.response.message,
