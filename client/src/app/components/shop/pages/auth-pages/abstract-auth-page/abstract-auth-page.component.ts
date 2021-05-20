@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Apollo } from 'apollo-angular'
 import { LoginGQL } from './mutations/login.mutation.mutation'
 import { RegisterGQL } from './mutations/register.mutation'
+import { Router } from '@angular/router'
 
 
 @Component({
@@ -20,11 +21,14 @@ export class AbstractAuthPageComponent implements OnInit {
 
   authForm: FormGroup
 
+  isRegisterSuccess = false
+
   constructor(
     private formBuilder: FormBuilder,
     private apollo: Apollo,
     private loginGQL: LoginGQL,
-    private registerGQL: RegisterGQL
+    private registerGQL: RegisterGQL,
+    private router: Router
   ) {
   }
 
@@ -44,6 +48,7 @@ export class AbstractAuthPageComponent implements OnInit {
 
   onSubmit() {
     this.error = ''
+    this.isRegisterSuccess = false
 
     const email = this.authForm.value.email
     const password = this.authForm.value.password
@@ -56,7 +61,10 @@ export class AbstractAuthPageComponent implements OnInit {
       this.loading = true
 
       return this.registerGQL.mutate({ registerInput: { email, password } }).subscribe(
-        () => this.loading = false,
+        () => {
+          this.loading = false
+          this.isRegisterSuccess = true
+        },
         err => {
           this.loading = false
           if (err.networkError) {
@@ -69,7 +77,10 @@ export class AbstractAuthPageComponent implements OnInit {
     }
 
     return this.loginGQL.mutate({ loginInput: { email, password } }).subscribe(
-      () => this.loading = false,
+      () => {
+        this.loading = false
+        return this.router.navigateByUrl('/home')
+      },
       err => {
         this.loading = false
         if (err.networkError) {

@@ -34,16 +34,18 @@
     padding: 20px 0;
   }
 
-  .error {
+  .error, .register-success {
     min-height: 40px;
     margin: 5px 0 35px;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .error {
     color: var(--danger-color);
     font-style: italic;
   }
-
 
   .loader {
     margin: 10px auto 30px;

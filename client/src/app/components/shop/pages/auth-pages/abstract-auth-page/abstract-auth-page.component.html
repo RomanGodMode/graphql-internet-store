@@ -35,11 +35,14 @@
       <small *ngIf='authForm.controls["repeatPassword"].errors?.maxlength'>Максимальная длина пароля 20 символов</small>
     </div>
 
-    <p *ngIf='!loading' class='error'>{{error}}</p>
+    <p *ngIf='!loading && !isRegisterSuccess' class='error'>{{error}}</p>
     <app-long-loader *ngIf='loading' class='loader'></app-long-loader>
+    <p *ngIf='isRegisterSuccess' class='register-success'>Вы успешно зарегистрировались, теперь вы можете &nbsp;
+      <a routerLink='/login'>Войти</a>
+    </p>
 
-    <button *ngIf='!isRegister' [disabled]='!authForm.valid'>Войти</button>
-    <button *ngIf='isRegister' [disabled]='!authForm.valid'>Зарегистрироваться</button>
+    <button *ngIf='!isRegister' [disabled]='!authForm.valid || loading'>Войти</button>
+    <button *ngIf='isRegister' [disabled]='!authForm.valid || loading'>Зарегистрироваться</button>
   </form>
 
   <p *ngIf='!isRegister'>Нет аккаунта? <a routerLink='/register'>Зарегистрироваться!</a></p>
