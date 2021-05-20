@@ -1,0 +1,33 @@
+:host {
+  display: block;
+  width: 190px;
+  height: 40px;
+  position: relative;
+}
+
+span {
+  width: 2px;
+  height: 20px;
+  background-color: var(--danger-color);
+  position: absolute;
+  left: 0;
+  transform-origin: center bottom;
+  transform: rotate(-90deg);
+  animation-name: load;
+  animation-duration: 3s;
+  animation-timing-function: ease;
+  animation-iteration-count: infinite;
+
+  @for $i from 1 through 20 {
+    &:nth-child(#{$i}) {
+      left: $i * 9 + px;
+      animation-delay: $i * 0.05s;
+    }
+  }
+}
+
+@keyframes load {
+  to {
+    transform: rotate(450deg);
+  }
+}

@@ -21,6 +21,8 @@
   --pale-fore-color: #7a7a7a;
   --bright-fore-color: #fcd041;
   --paled-bright-fore-color: rgba(252, 208, 65, .8);
+  --danger-color: #e67e22;
+  //--danger-color: #cf711f;
 }
 
 html {
@@ -74,6 +76,7 @@ form {
     small {
       margin-top: 10px;
       display: inline-block;
+      color: var(--danger-color);
     }
   }
 

@@ -34,18 +34,19 @@
     padding: 20px 0;
   }
 
-  .error, .banner {
-    min-height: 60px;
-    padding-bottom: 20px;
+  .error {
+    min-height: 40px;
+    margin: 5px 0 35px;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--bright-fore-color);
+    color: var(--danger-color);
     font-style: italic;
   }
 
-  .banner {
-    color: var(--main-fore-color);
+
+  .loader {
+    margin: 10px auto 30px;
   }
 
 }

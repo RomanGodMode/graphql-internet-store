@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { Apollo, gql } from 'apollo-angular'
+import { Apollo } from 'apollo-angular'
 import { LoginGQL } from './mutations/login.mutation.mutation'
 import { RegisterGQL } from './mutations/register.mutation'
 
@@ -15,6 +15,7 @@ export class AbstractAuthPageComponent implements OnInit {
   @Input()
   isRegister: boolean
 
+  loading = false
   error: string
 
   authForm: FormGroup
@@ -38,15 +39,7 @@ export class AbstractAuthPageComponent implements OnInit {
 
     this.authForm = this.formBuilder.group(authFormConfig)
 
-    this.apollo.watchQuery({
-      query: gql`{
-        test
-      }`
-    })
-    .valueChanges.subscribe(
-      data => console.log(data),
-      err => console.log(JSON.parse(JSON.stringify(err)))
-    )
+    this.authForm.valueChanges.subscribe(() => this.error = '')
   }
 
   onSubmit() {
@@ -60,16 +53,30 @@ export class AbstractAuthPageComponent implements OnInit {
         return this.error = 'Пароли не совпадают!'
       }
 
+      this.loading = true
+
       return this.registerGQL.mutate({ registerInput: { email, password } }).subscribe(
-        data => console.log(data),
-        err => this.error = err.message
+        () => this.loading = false,
+        err => {
+          this.loading = false
+          if (err.networkError) {
+            return
+          }
+          this.error = err.message
+        }
       )
 
     }
 
     return this.loginGQL.mutate({ loginInput: { email, password } }).subscribe(
-      data => console.log(data),
-      err => this.error = err.message
+      () => this.loading = false,
+      err => {
+        this.loading = false
+        if (err.networkError) {
+          return
+        }
+        this.error = err.message
+      }
     )
 
   }
