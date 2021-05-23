@@ -6,8 +6,6 @@ import { RouterModule } from '@angular/router'
 import { PasswordInputComponent } from './password-input/password-input.component'
 import { ShowPasswordService } from './password-input/show-password.service'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { LoginGQL } from './mutations/login.mutation.mutation'
-import { RegisterGQL } from './mutations/register.mutation'
 
 
 @NgModule({
@@ -20,9 +18,7 @@ import { RegisterGQL } from './mutations/register.mutation'
     FormsModule
   ],
   providers: [
-    ShowPasswordService,
-    LoginGQL,
-    RegisterGQL
+    ShowPasswordService
   ],
   exports: [AbstractAuthPageComponent]
 })

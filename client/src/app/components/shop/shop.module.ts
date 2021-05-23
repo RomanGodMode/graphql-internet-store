@@ -9,6 +9,8 @@ import { SharedComponentsModule } from '../shared/shared-components.module'
 import { PartialShopLayoutComponent } from './layout/shop-layout/partial-shop-layout/partial-shop-layout.component'
 import { FullShopLayoutComponent } from './layout/shop-layout/full-shop-layout/full-shop-layout.component'
 import { CellphoneNumberLinkComponent } from './layout/components/cellphone-number-link/cellphone-number-link.component'
+import { BuyerAuthModule } from './buyer-auth/buyer-auth.module'
+import { BuyerAuthGuard } from './buyer-auth/buyer-auth.guard'
 
 
 @NgModule({
@@ -24,6 +26,7 @@ import { CellphoneNumberLinkComponent } from './layout/components/cellphone-numb
   imports: [
     CommonModule,
     SharedComponentsModule,
+    BuyerAuthModule,
     RouterModule.forChild([
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       {
@@ -34,6 +37,12 @@ import { CellphoneNumberLinkComponent } from './layout/components/cellphone-numb
           {
             path: 'register',
             loadChildren: () => import('./pages/auth-pages/buyer-register/buyer-register.module').then(m => m.BuyerRegisterModule)
+          },
+          {
+            path: 'cart',
+            loadChildren: () => import('./pages/cart/cart.module').then(m => m.CartModule),
+            canLoad: [BuyerAuthGuard],
+            canActivate: [BuyerAuthGuard]
           }
         ]
       },

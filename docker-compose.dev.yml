@@ -31,6 +31,7 @@ services:
   backend:
     depends_on:
       - db
+      - redis
     container_name: nestjs_api_dev
     build:
       context: ./server

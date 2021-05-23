@@ -1,9 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { Apollo } from 'apollo-angular'
-import { LoginGQL } from './mutations/login.mutation.mutation'
-import { RegisterGQL } from './mutations/register.mutation'
 import { Router } from '@angular/router'
+import { BuyerAuthService } from '../../../buyer-auth/buyer-auth.service'
 
 
 @Component({
@@ -25,10 +23,8 @@ export class AbstractAuthPageComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private apollo: Apollo,
-    private loginGQL: LoginGQL,
-    private registerGQL: RegisterGQL,
-    private router: Router
+    private router: Router,
+    private buyerAuthService: BuyerAuthService
   ) {
   }
 
@@ -60,7 +56,7 @@ export class AbstractAuthPageComponent implements OnInit {
 
       this.loading = true
 
-      return this.registerGQL.mutate({ registerInput: { email, password } }).subscribe(
+      return this.buyerAuthService.register(email, password).subscribe(
         () => {
           this.loading = false
           this.isRegisterSuccess = true
@@ -73,23 +69,19 @@ export class AbstractAuthPageComponent implements OnInit {
           this.error = err.message
         }
       )
-
     }
 
-    return this.loginGQL.mutate({ loginInput: { email, password } }).subscribe(
+    return this.buyerAuthService.login(email, password).subscribe(
       () => {
         this.loading = false
         return this.router.navigateByUrl('/home')
       },
       err => {
         this.loading = false
-        if (err.networkError) {
-          return
-        }
-        this.error = err.message
-      }
+        this.error = err.networkError ? 'Сервер умер' : err.message
+      },
+      () => console.log('Конец логина')
     )
-
   }
-
 }
+
