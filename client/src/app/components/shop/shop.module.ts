@@ -43,6 +43,12 @@ import { BuyerAuthGuard } from './buyer-auth/buyer-auth.guard'
             loadChildren: () => import('./pages/cart/cart.module').then(m => m.CartModule),
             canLoad: [BuyerAuthGuard],
             canActivate: [BuyerAuthGuard]
+          },
+          {
+            path: 'chosen',
+            loadChildren: () => import('./pages/chosen/chosen.module').then(m => m.ChosenModule),
+            canLoad: [BuyerAuthGuard],
+            canActivate: [BuyerAuthGuard]
           }
         ]
       },
