@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { BuyerAuthService } from '../../../../buyer-auth/buyer-auth.service'
 
 @Component({
   selector: 'shop-header',
@@ -7,9 +8,7 @@ import { Component, OnInit } from '@angular/core'
 })
 export class ShopHeaderComponent implements OnInit {
 
-  isAuthorized: boolean = false
-
-  constructor() {
+  constructor(public authService: BuyerAuthService) {
   }
 
   ngOnInit(): void {

@@ -5,7 +5,7 @@
 
   </ul>
 
-  <ul class='list' *ngIf='isAuthorized else authOptions'>
+  <ul class='list' *ngIf='authService.isAuth$ | async else authOptions'>
     <li class='item'>
       <a routerLinkActive='selected' routerLink='comparison'>
         <img src='../../../../../../../assets/img/analytics.svg' alt=''>
@@ -16,6 +16,11 @@
       <a routerLinkActive='selected' routerLink='cart'>
         <img src='../../../../../../../assets/img/shopping-cart.svg' alt=''>
         Корзина
+      </a>
+    </li>
+    <li class='item'>
+      <a class='logout' (click)='authService.logout()'>
+        Выйти
       </a>
     </li>
   </ul>

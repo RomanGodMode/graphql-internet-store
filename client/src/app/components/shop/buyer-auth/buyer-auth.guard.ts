@@ -11,14 +11,29 @@ export class BuyerAuthGuard implements CanActivate, CanLoad {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    this.buyerAuthService.isAuth$.subscribe(
+      isAuth => {
+        if (!isAuth) {
+          this.router.navigateByUrl('/login').then()
+        }
+
+      },
+      () => this.router.navigateByUrl('/login')
+    )
     return this.buyerAuthService.isAuth$
   }
 
   canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    this.buyerAuthService.isAuth$.subscribe(() => {
-    }, () => this.router.navigateByUrl('/login'))
+    this.buyerAuthService.isAuth$.subscribe(
+      isAuth => {
+        if (!isAuth) {
+          this.router.navigateByUrl('/login').then()
+        }
+      },
+      () => this.router.navigateByUrl('/login')
+    )
     return this.buyerAuthService.isAuth$
   }
 }

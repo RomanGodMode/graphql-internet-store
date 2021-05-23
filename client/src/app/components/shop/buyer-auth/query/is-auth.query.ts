@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core'
 import { gql, Query } from 'apollo-angular'
 
-type Response = string
+type Data = { test: string }
 
 
 @Injectable()
-export class IsAuthGQL extends Query<Response> {
+export class IsAuthGQL extends Query<Data> {
   document = gql`
     query buyerAuthorized {
       test

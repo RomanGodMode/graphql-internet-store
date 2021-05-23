@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core'
 import { IsAuthGQL } from './query/is-auth.query'
 import { Observable } from 'rxjs'
-import { Apollo } from 'apollo-angular'
-import { LoginGQL } from './mutations/login.mutation.mutation'
+import { LoginGQL } from './mutations/login.mutation'
 import { RegisterGQL } from './mutations/register.mutation'
 import { catchError, map } from 'rxjs/operators'
+import { LogoutGQL } from './mutations/logout.mutation'
+import { Router } from '@angular/router'
 
 @Injectable()
 export class BuyerAuthService {
@@ -12,15 +13,16 @@ export class BuyerAuthService {
   isAuth$: Observable<boolean>
 
   constructor(
-    private apollo: Apollo,
     private loginGQL: LoginGQL,
     private registerGQL: RegisterGQL,
-    private isAuthGQL: IsAuthGQL
+    private isAuthGQL: IsAuthGQL,
+    private logoutGQL: LogoutGQL,
+    private router: Router
   ) {
     this.isAuth$ = isAuthGQL.watch().valueChanges
       .pipe(
         catchError(() => isAuthGQL.watch().valueChanges),
-        map(s => !!s)
+        map(res => !!res.data.test)
       )
   }
 
@@ -45,4 +47,16 @@ export class BuyerAuthService {
     })
   }
 
+  logout() {
+    this.logoutGQL.mutate({}, {
+      update: cache => {
+        document.cookie.split(';').forEach(c => {
+          document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/')
+        })
+        cache.writeQuery({ query: this.isAuthGQL.document, data: { test: '' } })
+      }
+    }).subscribe(() => this.router.navigateByUrl('/home'))
+  }
+
 }
+
