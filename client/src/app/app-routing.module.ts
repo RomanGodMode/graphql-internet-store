@@ -3,10 +3,13 @@ import { RouterModule, Routes } from '@angular/router'
 
 const routes: Routes = [
   {
+    path: 'admin',
+    loadChildren: () => import('./components/cms/cms.module').then(m => m.CmsModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./components/shop/shop.module').then(m => m.ShopModule)
   }
-  //Здесь ещё будет Админ модуль, а внутри него роутинг по админке
 ]
 
 @NgModule({
