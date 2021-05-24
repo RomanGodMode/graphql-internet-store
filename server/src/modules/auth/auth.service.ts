@@ -26,13 +26,13 @@ export class AuthService {
     )
 
     if (!user) {
-      throw new UnauthorizedException('no such email')
+      throw new UnauthorizedException('Нет пользователя с таким email')
     }
 
     const passwordsMatch = await user.comparePassword(loginDto.password)
 
     if (!passwordsMatch) {
-      throw new UnauthorizedException('wrong combination of email and password')
+      throw new UnauthorizedException('Неверная комбинация почты и пароля')
     }
 
     session.userId = user.id

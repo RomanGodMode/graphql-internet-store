@@ -27,7 +27,7 @@ export class UsersService {
     if (
       await this.usersRepository.findOne({ where: { email: newUser.email } })
     ) {
-      throw new ConflictException('user with so email already exist')
+      throw new ConflictException('Пользователь с таким email уже существует')
     }
     console.log(role)
 
