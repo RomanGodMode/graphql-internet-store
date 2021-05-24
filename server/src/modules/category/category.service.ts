@@ -15,6 +15,7 @@ export class CategoryService {
     const addChildren = async (root: DeepPartial<Category>) => {
       root.children = await this.categoryRepo.find({ where: { parentId: root.id } })
       delete root.parentId
+      delete root.additionalInfo
       for (const r of root.children) {
         await addChildren(r)
       }
