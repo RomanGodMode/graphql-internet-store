@@ -5,6 +5,7 @@ import { DatabaseModule } from './modules/db/database.module'
 import { AuthModule } from './modules/auth/auth.module'
 import { GraphQLModule } from '@nestjs/graphql'
 import { GraphQLError, GraphQLFormattedError } from 'graphql'
+import { CategoryModule } from './modules/category/category.module'
 
 const isDebug = process.env.NODE_ENV !== 'production'
 
@@ -33,7 +34,8 @@ const isDebug = process.env.NODE_ENV !== 'production'
         return graphQLFormattedError
       }
     }),
-    AuthModule
+    AuthModule,
+    CategoryModule
   ],
   controllers: [AppController],
   providers: [AppService]
