@@ -16,9 +16,7 @@ export class BuyerAuthGuard implements CanActivate, CanLoad {
         if (!isAuth) {
           this.router.navigateByUrl('/login').then()
         }
-
-      },
-      () => this.router.navigateByUrl('/login')
+      }
     )
     return this.buyerAuthService.isAuth$
   }
@@ -31,8 +29,7 @@ export class BuyerAuthGuard implements CanActivate, CanLoad {
         if (!isAuth) {
           this.router.navigateByUrl('/login').then()
         }
-      },
-      () => this.router.navigateByUrl('/login')
+      }
     )
     return this.buyerAuthService.isAuth$
   }

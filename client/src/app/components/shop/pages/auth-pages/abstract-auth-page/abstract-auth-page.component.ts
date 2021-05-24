@@ -79,8 +79,7 @@ export class AbstractAuthPageComponent implements OnInit {
       err => {
         this.loading = false
         this.error = err.networkError ? 'Сервер умер' : err.message
-      },
-      () => console.log('Конец логина')
+      }
     )
   }
 }

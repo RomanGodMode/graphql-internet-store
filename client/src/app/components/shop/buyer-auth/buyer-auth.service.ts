@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core'
 import { IsAuthGQL } from './query/is-auth.query'
-import { Observable } from 'rxjs'
+import { BehaviorSubject } from 'rxjs'
 import { LoginGQL } from './mutations/login.mutation'
 import { RegisterGQL } from './mutations/register.mutation'
-import { catchError, map } from 'rxjs/operators'
+import { map } from 'rxjs/operators'
 import { LogoutGQL } from './mutations/logout.mutation'
 import { Router } from '@angular/router'
 
 @Injectable()
 export class BuyerAuthService {
 
-  isAuth$: Observable<boolean>
+  isAuthSubject = new BehaviorSubject(false)
+  isAuth$ = this.isAuthSubject.asObservable()
 
   constructor(
     private loginGQL: LoginGQL,
@@ -19,10 +20,15 @@ export class BuyerAuthService {
     private logoutGQL: LogoutGQL,
     private router: Router
   ) {
-    this.isAuth$ = isAuthGQL.watch().valueChanges
+    this.isAuth$.subscribe(console.log)
+    isAuthGQL.watch({}, { errorPolicy: 'ignore' }).valueChanges
       .pipe(
-        catchError(() => isAuthGQL.watch().valueChanges),
-        map(res => !!res.data.test)
+        map(res => res.data ? !!res.data.test : false)
+      )
+      .subscribe(
+        v => this.isAuthSubject.next(v),
+        () => this.isAuthSubject.next(false),
+        () => console.log('КОНЕЦ!')
       )
   }
 
