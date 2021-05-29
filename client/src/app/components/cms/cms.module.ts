@@ -20,6 +20,10 @@ import { SharedComponentsModule } from '../shared/shared-components.module'
           children: [
             { path: '', redirectTo: 'login' },
             {
+              path: 'categories/:id',
+              loadChildren: () => import('./pages/edit-categories/edit-categories.module').then(m => m.EditCategoriesModule)
+            },
+            {
               path: 'categories',
               loadChildren: () => import('./pages/categories/categories.module').then(m => m.CategoriesModule)
             },

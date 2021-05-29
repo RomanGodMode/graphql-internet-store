@@ -1,0 +1,24 @@
+<div class='selected-category'>
+  <ng-container *ngIf='selectedCategory'>
+    Вы выбрали категорию: <span>{{selectedCategory.title}}</span>
+  </ng-container>
+</div>
+<div class='error'>
+  <ng-container *ngIf='categoryService.error$ | async'>
+    {{categoryService.error$ | async}}
+  </ng-container>
+</div>
+
+<form class='add-category' (submit)='$event.preventDefault()'>
+  <input type='text' [formControl]='title' placeholder='Имя новой категории'>
+  <button (click)='categoryService.addSubCategory(selectedCategory?.id, title.value)'>
+    Добавить подкатегорию
+  </button>
+  <button type='button' (click)='categoryService.addRootCategory(title.value)'>Добавить корневую категорию</button>
+</form>
+<form class='edit-category' (submit)='$event.preventDefault()'>
+  <button type='button' (click)='toEditCategory()'>Редактировать категорию</button>
+  <button type='button' (click)='categoryService.deleteCategory(selectedCategory?.id)'>
+    Удалить категорию
+  </button>
+</form>

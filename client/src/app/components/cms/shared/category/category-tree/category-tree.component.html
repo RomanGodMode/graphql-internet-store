@@ -1,0 +1,5 @@
+<app-long-loader class='loader' *ngIf='!treeRoots; else tree'></app-long-loader>
+
+<ng-template #tree>
+  <app-tree-node class='root' [node]='root' *ngFor='let root of treeRoots'></app-tree-node>
+</ng-template>

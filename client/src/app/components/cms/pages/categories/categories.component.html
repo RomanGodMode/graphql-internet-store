@@ -1,1 +1,7 @@
-<p>categories works!</p>
+<app-decorated-title-wrapper>
+  <h1 class='selected'>Редактировать дерево категорий</h1>
+</app-decorated-title-wrapper>
+<app-category-tree (selectNodeEvent)='selectCategory($event)'
+                   [treeRoots]='categoryService.entireTree$ | async'
+></app-category-tree>
+<edit-category-tree-panel [selectedCategory]='selectedCategory | async'></edit-category-tree-panel>

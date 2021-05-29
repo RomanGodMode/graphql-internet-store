@@ -1,0 +1,57 @@
+:host {
+  display: block;
+}
+
+.selected-category, .error {
+  display: block;
+  padding: 35px 0;
+  text-align: center;
+  min-height: 100px;
+
+  span {
+    color: var(--bright-fore-color);
+  }
+}
+
+.error {
+  padding: 10px 0 35px;
+  color: var(--danger-color);
+}
+
+.add-category {
+  background-color: var(--deep-back-color);
+  padding: 50px 0 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  * {
+    margin: 20px 40px;
+  }
+
+  input {
+    min-width: 220px;
+  }
+
+  button {
+    padding: 15px 20px;
+    align-self: stretch;
+  }
+}
+
+.edit-category {
+  background-color: var(--deep-back-color);
+  padding: 10px 0 50px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  * {
+    margin: 10px 20px;
+  }
+
+  button {
+    padding: 15px 20px;
+  }
+
+}

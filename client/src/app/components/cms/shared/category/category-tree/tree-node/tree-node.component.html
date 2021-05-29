@@ -1,0 +1,19 @@
+<div class='caption'>
+  <button class='title'
+          [ngClass]='{selected: node.id === (selectCategoryService.selectedNode$ | async)?.id}'
+          (click)='selectThis()'
+  >{{node.title}}</button>
+
+  <div class='expand-circle' (click)='expandCategoryService.toggleExpanded(node.id)' *ngIf='node.children.length'>
+    <app-colored-svg *ngIf='expandCategoryService.isExpanded(node.id)' [src]='"assets/img/minus.svg"'
+                     class='plus-minus'></app-colored-svg>
+    <app-colored-svg *ngIf='!expandCategoryService.isExpanded(node.id)' [src]='"assets/img/plus.svg"'
+                     class='plus-minus'></app-colored-svg>
+  </div>
+</div>
+
+<div class='children' [ngClass]='{hidden: !expandCategoryService.isExpanded(node.id)}' *ngIf='node.children.length'>
+  <app-tree-node [node]='child' *ngFor='let child of node.children'></app-tree-node>
+</div>
+
+
