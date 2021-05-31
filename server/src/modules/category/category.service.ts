@@ -1,4 +1,4 @@
-import { BadRequestException, ConflictException, Injectable } from '@nestjs/common'
+import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Category } from './entities/category.entity'
 import { DeepPartial, Repository } from 'typeorm'
@@ -15,7 +15,7 @@ export class CategoryService {
     const addChildren = async (root: DeepPartial<Category>) => {
       root.children = await this.categoryRepo.find({ where: { parentId: root.id } })
       delete root.parentId
-      delete root.additionalInfo
+      delete root.productInfoFields
       for (const r of root.children) {
         await addChildren(r)
       }
@@ -28,6 +28,20 @@ export class CategoryService {
     }
 
     return result
+  }
+
+  async getCategory(id: number) {
+    const category = await this.categoryRepo.findOne({ where: { id } })
+    if (!category) {
+      throw new NotFoundException('Скорее всего эта категория удалена')
+    }
+    return category
+  }
+
+  async editCategory(id: number, payload: DeepPartial<Category>) {
+    const category = await this.getCategory(id)
+    const merged = this.categoryRepo.merge(category, payload)
+    return this.categoryRepo.save(merged)
   }
 
   async addRootCategory(title: string) {

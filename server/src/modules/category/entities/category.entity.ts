@@ -1,19 +1,21 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
-import { Field, ObjectType } from '@nestjs/graphql'
+import { Field, Int, ObjectType } from '@nestjs/graphql'
+import { GraphQLJSON } from 'graphql-type-json'
+import { ProductInfoField } from './additional-info-field'
 
 
 @ObjectType()
 @Entity()
 export class Category {
-  @Field()
+  @Field(() => Int)
   @PrimaryGeneratedColumn()
   id: number
 
   @Field()
-  @Column({ unique: true })
+  @Column()
   title: string
 
-  @Field()
+  @Field(() => Int, { nullable: true })
   @Column({ nullable: true })
   parentId: number
 
@@ -24,8 +26,8 @@ export class Category {
   @OneToMany(() => Category, category => category.parent)
   children: Category[]
 
-  // @Field(() => J)
-  @Column({ type: 'jsonb', default: {} })
-  additionalInfo: {}
+  @Field(() => GraphQLJSON)
+  @Column({ type: 'jsonb', default: [] })
+  productInfoFields: ProductInfoField[]
 
 }

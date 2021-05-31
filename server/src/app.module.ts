@@ -25,13 +25,17 @@ const isDebug = process.env.NODE_ENV !== 'production'
         origin: true
       },
       formatError: (error: GraphQLError) => {
-        const graphQLFormattedError: GraphQLFormattedError = {
-          message: error.extensions.exception.response.message,
-          extensions: {// если это поле не запросить оно всё равно прийдёт
-            code: error.extensions.exception.response.statusCode
+        try {
+          const graphQLFormattedError: GraphQLFormattedError = {
+            message: error.extensions.exception.response.message,
+            extensions: {// если это поле не запросить оно всё равно прийдёт
+              code: error.extensions.exception.response.statusCode
+            }
           }
+          return graphQLFormattedError
+        } catch {
+          return error
         }
-        return graphQLFormattedError
       }
     }),
     AuthModule,
