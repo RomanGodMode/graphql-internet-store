@@ -1,1 +1,73 @@
-<p>edit-categories works!</p>
+<ng-template #productInfoFieldTemplate let-itemData='data'>
+  <ng-template [ngIf]='isProductInfoField(itemData)' let-itemData='ngIf'>
+
+    <ng-container [formGroup]='editCategoryForm'>
+      <ng-container formArrayName='productInfoFields'>
+        <div class='productInfoField' [formGroupName]='itemData.i'>
+          <label *ngIf='itemData.data.type === "string"'>Текстовое поле</label>
+          <label *ngIf='itemData.data.type === "bool"'>Поле да / нет</label>
+          <label *ngIf='itemData.data.type === "num"'>Числовое поле</label>
+          <label *ngIf='itemData.data.type === "enum"'>Поле с вариантами</label>
+          <input class='block' type='text' formControlName='name'>
+          <div class='num-description' *ngIf='itemData.data.type === "num"'>
+            <div>
+              <label>Минимум</label>
+              <input class='block' type='text' formControlName='min'>
+            </div>
+            <div>
+              <label>Максимум</label>
+              <input class='block' type='text' formControlName='max'>
+            </div>
+          </div>
+          <ng-container *ngIf='itemData.data.type === "enum"'>
+
+            <ng-template #variantItem let-variant='data'>
+              <ng-template [ngIf]='isVariantOfEnumField(variant)' let-variant='ngIf'>
+                <ng-container [formGroup]='editCategoryForm'>
+                  <ng-container formArrayName='productInfoFields'>
+                    <ng-container [formGroupName]='itemData.i'>
+                      <ng-container formArrayName='variants'>
+                        <input class='block' type='text' [formControlName]='variant.i'>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </ng-template>
+            </ng-template>
+            <label style='margin: 10px 0'>Варианты</label>
+            <cms-editable-list [itemTemplate]='variantItem' [dataList]='itemData.data.variants'>
+              <div (click)='addProductInfoField()' class='button-content'>
+                Добавить вариант
+                <img src='assets/img/white-plus.svg' alt=''>
+              </div>
+            </cms-editable-list>
+          </ng-container>
+        </div>
+      </ng-container>
+    </ng-container>
+
+  </ng-template>
+</ng-template>
+
+<form
+  [formGroup]='editCategoryForm'
+>
+  <label>Название категории</label>
+  <input class='category-title' type='text' formControlName='title'>
+
+  <cms-editable-list class='list'
+                     (deleteDataItem)='removeProductInfoField($event)'
+                     [itemTemplate]='productInfoFieldTemplate'
+                     [dataList]='productInfoFieldsList.value'>
+    <div (click)='addProductInfoField()' class='button-content'>
+      Добавить поле
+      <img src='assets/img/white-plus.svg' alt=''>
+    </div>
+  </cms-editable-list>
+
+  <button (click)='submitToServer()' class='submit'>Отправить на сервер</button>
+</form>
+<!--
+TODO:
+  Внутри кнопки добавления Шоб ховер был и тама появлялись 4 плитки-кнопки каждая из которых добавляет в список
+-->
