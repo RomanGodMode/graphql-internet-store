@@ -132,6 +132,23 @@ input {
   }
 }
 
+input[type=number] {
+  position: relative;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  width: 100px;
+  margin: 0;
+  appearance: none;
+  cursor: pointer;
+  padding: 20px;
+}
+
+
 // Костыли
 .huge-logo {
   font-size: 35px;

@@ -1,72 +1,119 @@
-<ng-template #productInfoFieldTemplate let-itemData='data'>
-  <ng-template [ngIf]='isProductInfoField(itemData)' let-itemData='ngIf'>
-
-    <ng-container [formGroup]='editCategoryForm'>
-      <ng-container formArrayName='productInfoFields'>
-        <div class='productInfoField' [formGroupName]='itemData.i'>
-          <label *ngIf='itemData.data.type === "string"'>Текстовое поле</label>
-          <label *ngIf='itemData.data.type === "bool"'>Поле да / нет</label>
-          <label *ngIf='itemData.data.type === "num"'>Числовое поле</label>
-          <label *ngIf='itemData.data.type === "enum"'>Поле с вариантами</label>
-          <input class='block' type='text' formControlName='name'>
-          <div class='num-description' *ngIf='itemData.data.type === "num"'>
-            <div>
-              <label>Минимум</label>
-              <input class='block' type='text' formControlName='min'>
-            </div>
-            <div>
-              <label>Максимум</label>
-              <input class='block' type='text' formControlName='max'>
-            </div>
-          </div>
-          <ng-container *ngIf='itemData.data.type === "enum"'>
-
-            <ng-template #variantItem let-variant='data'>
-              <ng-template [ngIf]='isVariantOfEnumField(variant)' let-variant='ngIf'>
-                <ng-container [formGroup]='editCategoryForm'>
-                  <ng-container formArrayName='productInfoFields'>
-                    <ng-container [formGroupName]='itemData.i'>
-                      <ng-container formArrayName='variants'>
-                        <input class='block' type='text' [formControlName]='variant.i'>
-                      </ng-container>
-                    </ng-container>
-                  </ng-container>
-                </ng-container>
-              </ng-template>
-            </ng-template>
-            <label style='margin: 10px 0'>Варианты</label>
-            <cms-editable-list [itemTemplate]='variantItem' [dataList]='itemData.data.variants'>
-              <div (click)='addProductInfoField()' class='button-content'>
-                Добавить вариант
-                <img src='assets/img/white-plus.svg' alt=''>
-              </div>
-            </cms-editable-list>
-          </ng-container>
-        </div>
-      </ng-container>
-    </ng-container>
-
-  </ng-template>
-</ng-template>
-
 <form
   [formGroup]='editCategoryForm'
 >
-  <label>Название категории</label>
-  <input class='category-title' type='text' formControlName='title'>
+  <div class='group'>
+    <label>Название категории</label>
+    <input class='block' type='text' formControlName='title'>
+    <small
+      *ngIf='editCategoryForm.controls["title"].errors?.required && (editCategoryForm.controls["title"].touched || editCategoryForm.controls["title"].dirty)'
+    >Обязательное поле</small>
+    <small
+      *ngIf='editCategoryForm.controls["title"].errors?.minlength?.requiredLength && (editCategoryForm.controls["title"].touched || editCategoryForm.controls["title"].dirty)'
+    >Минимальная длина 2</small>
+    <small
+      *ngIf='editCategoryForm.controls["title"].errors?.maxlength?.requiredLength && (editCategoryForm.controls["title"].touched || editCategoryForm.controls["title"].dirty)'
+    >Максимальная длина 20</small>
+  </div>
 
-  <cms-editable-list class='list'
-                     (deleteDataItem)='removeProductInfoField($event)'
-                     [itemTemplate]='productInfoFieldTemplate'
-                     [dataList]='productInfoFieldsList.value'>
-    <div (click)='addProductInfoField()' class='button-content'>
-      Добавить поле
-      <img src='assets/img/white-plus.svg' alt=''>
+  <div class='list' formArrayName='productInfoFields'>
+    <div class='item' *ngFor='let field of fields.controls;index as i'>
+      <div class='body' [formGroupName]='i'>
+        <div class='group'>
+          <label *ngIf='field.value.type === "string"'>Текстовое поле</label>
+          <label *ngIf='field.value.type === "bool"'>Поле да / нет</label>
+          <label *ngIf='field.value.type === "num"'>Числовое поле</label>
+          <label *ngIf='field.value.type === "enum"'>Поле с вариантами</label>
+          <input class='block' type='text' formControlName='name'>
+          <small
+            *ngIf='field.get("name").errors?.required && (field.get("name").touched || field.get("name").dirty)'
+          >Обязательное поле</small>
+          <small
+            *ngIf='field.get("name").errors?.minlength?.requiredLength && (field.get("name").touched || field.get("name").dirty)'
+          >Минимальная длина 2</small>
+          <small
+            *ngIf='field.get("name").errors?.maxlength?.requiredLength && (field.get("name").touched || field.get("name").dirty)'
+          >Максимальная длина 30</small>
+        </div>
+        <div class='num-description' *ngIf='field.value.type === "num"'>
+          <div class='group'>
+            <label>Минимум</label>
+            <input class='block' type='number' formControlName='min'>
+            <small
+              *ngIf='field.get("min").errors?.required && (field.get("min").touched || field.get("min").dirty)'
+            >Обязательное поле</small>
+            <small
+              *ngIf='field.get("min").errors?.min && (field.get("min").touched || field.get("min").dirty)'
+            >Слишком маленькое число</small>
+            <small
+              *ngIf='field.get("min").errors?.max && (field.get("min").touched || field.get("min").dirty)'
+            >Слишком большое число</small>
+          </div>
+          <div class='group'>
+            <label>Максимум</label>
+            <input class='block' type='number' formControlName='max'>
+            <small
+              *ngIf='field.get("max").errors?.required && (field.get("max").touched || field.get("max").dirty)'
+            >Обязательное поле</small>
+            <small
+              *ngIf='field.get("max").errors?.min && (field.get("max").touched || field.get("max").dirty)'
+            >Слишком маленькое число</small>
+            <small
+              *ngIf='field.get("max").errors?.max && (field.get("max").touched || field.get("max").dirty)'
+            >Слишком большое число</small>
+          </div>
+        </div>
+        <div class='enum-description' *ngIf='field.value.type === "enum"'>
+          <label style='margin: 20px 0 10px'>Варианты</label>
+          <div class='list' formArrayName='variants'>
+            <div class='item' *ngFor='let variant of getVariants(field).controls;index as i'>
+              <div class='body'>
+                <div class='group'>
+                  <input class='block' type='text' [formControlName]='i'>
+                  <small
+                    *ngIf='variant.errors?.required && (variant.touched || variant.dirty)'
+                  >Обязательное поле</small>
+                  <small
+                    *ngIf='variant.errors?.minlength?.requiredLength && (variant.touched || variant.dirty)'
+                  >Минимальная длина 1</small>
+                  <small
+                    *ngIf='variant.errors?.maxlength?.requiredLength && (variant.touched || variant.dirty)'
+                  >Максимальная длина 40</small>
+                </div>
+              </div>
+              <cms-minus (click)='removeVariantFromEnumField(field, i)'></cms-minus>
+            </div>
+          </div>
+          <button (click)='addVariantToEnumField(field)' class='add-item'>
+            Добавить вариант
+            <img src='assets/img/white-plus.svg' alt=''>
+          </button>
+        </div>
+      </div>
+      <cms-minus (click)='removeProductInfoField(i)'></cms-minus>
     </div>
-  </cms-editable-list>
 
-  <button (click)='submitToServer()' class='submit'>Отправить на сервер</button>
+    <hr style='border-color: #101010; border-style: dashed; margin: 30px 0 10px;'>
+
+    <button class='add-item add-field'>
+      <span class='not-hovered'>
+        Добавить поле
+        <img src='assets/img/white-plus.svg' alt=''>
+      </span>
+      <span class='hovered'>
+        <button (click)='addTextFieldToProductInfo()'>Текстовое поле</button>
+        <button (click)='addNumFieldToProductInfo()'>Числовое поле</button>
+        <button (click)='addBoolFieldToProductInfo()'>Поле да / нет</button>
+        <button (click)='addEnumFieldToProductInfo()'>Поле с вариантами</button>
+      </span>
+    </button>
+  </div>
+
+  <p *ngIf='!(loading$ | async)' class='error'>{{error$ | async}}</p>
+  <app-long-loader *ngIf='loading$ | async' class='loader'></app-long-loader>
+
+  <button [disabled]='!editCategoryForm.valid' (click)='setCategory()' class='submit'>Отправить на сервер</button>
 </form>
+
 <!--
 TODO:
   Внутри кнопки добавления Шоб ховер был и тама появлялись 4 плитки-кнопки каждая из которых добавляет в список
