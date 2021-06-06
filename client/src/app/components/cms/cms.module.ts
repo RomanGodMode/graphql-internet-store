@@ -28,8 +28,20 @@ import { SharedComponentsModule } from '../shared/shared-components.module'
               loadChildren: () => import('./pages/categories/categories.module').then(m => m.CategoriesModule)
             },
             {
+              path: 'products/:categoryId/add-product',
+              loadChildren: () => import('./pages/products/form-product-pages/add-product/add-product.module').then(m => m.AddProductModule)
+            },
+            {
+              path: 'products/:categoryId/:productId',
+              loadChildren: () => import('./pages/products/form-product-pages/edit-product/edit-product.module').then(m => m.EditProductModule)
+            },
+            {
+              path: 'products/:categoryId',
+              loadChildren: () => import('./pages/products/edit-product-list/edit-product-list.module').then(m => m.EditProductListModule)
+            },
+            {
               path: 'products',
-              loadChildren: () => import('./pages/products/products.module').then(m => m.ProductsModule)
+              loadChildren: () => import('./pages/products/index/products.module').then(m => m.ProductsModule)
             },
             {
               path: 'login',

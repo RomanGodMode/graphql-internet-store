@@ -1,0 +1,6 @@
+<app-decorated-title-wrapper>
+  <h1 class='selected'>Выберите категорию для редактирования её товаров</h1>
+</app-decorated-title-wrapper>
+<app-category-tree (selectNodeEvent)='selectCategory($event)'
+                   [treeRoots]='categoryService.entireTree$ | async'
+></app-category-tree>
