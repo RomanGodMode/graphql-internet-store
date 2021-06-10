@@ -2,6 +2,7 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'ty
 import { Field, Int, ObjectType } from '@nestjs/graphql'
 import { GraphQLJSON } from 'graphql-type-json'
 import { ProductInfoField } from './additional-info-field'
+import { Product } from '../../products/entities/product.entity'
 
 
 @ObjectType()
@@ -30,4 +31,7 @@ export class Category {
   @Column({ type: 'jsonb', default: [] })
   productInfoFields: ProductInfoField[]
 
+  @Field(() => [Product])
+  @OneToMany(() => Product, product => product.category)
+  products: Product[]
 }

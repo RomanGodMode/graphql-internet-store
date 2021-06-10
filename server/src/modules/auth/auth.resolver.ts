@@ -7,7 +7,7 @@ import { UseGuards } from '@nestjs/common'
 import { BuyerAuthGuard } from './guards/buyer-auth.guard'
 import { AdminAuthGuard } from './guards/admin-auth.guard'
 import { Response } from '../../pipes/response.pipe'
-import { ErrorResponse } from '../../shared-types/error-response'
+import { ErrorResponse } from '../../types/error-response'
 
 
 @Resolver()

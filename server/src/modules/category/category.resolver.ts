@@ -24,7 +24,7 @@ export class CategoryResolver {
 
   @Query(() => Category)
   async getCategory(@Args() { id }: GetCategoryArgs) {
-    return this.categoryService.getCategory(id)
+    return this.categoryService.getCategory(id, true)
   }
 
   @Mutation(() => Category)

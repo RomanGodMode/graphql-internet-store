@@ -30,8 +30,10 @@ export class CategoryService {
     return result
   }
 
-  async getCategory(id: number) {
-    const category = await this.categoryRepo.findOne({ where: { id } })
+  async getCategory(id: number, withProducts = false) {
+    const category = withProducts
+      ? await this.categoryRepo.findOne({ where: { id }, relations: ['products'] })
+      : await this.categoryRepo.findOne({ where: { id } })
     if (!category) {
       throw new NotFoundException('Скорее всего эта категория удалена')
     }
