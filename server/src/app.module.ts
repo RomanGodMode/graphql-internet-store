@@ -8,6 +8,7 @@ import { GraphQLError, GraphQLFormattedError } from 'graphql'
 import { CategoryModule } from './modules/category/category.module'
 import { ProductModule } from './modules/products/product.module'
 import { graphqlUploadExpress } from 'graphql-upload'
+import { FilesModule } from './modules/files/files.module'
 
 
 const isDebug = process.env.NODE_ENV !== 'production'
@@ -43,6 +44,7 @@ const isDebug = process.env.NODE_ENV !== 'production'
         }
       }
     }),
+    FilesModule,
     AuthModule,
     CategoryModule,
     ProductModule

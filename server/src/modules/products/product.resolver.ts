@@ -3,9 +3,8 @@ import { Product } from './entities/product.entity'
 import { ProductService } from './product.service'
 import { GetProductArgs } from './input/get-product.args'
 import { createWriteStream } from 'fs'
-import { CreateProductArgs } from './input/create-product.args'
-import { Upload } from '../../types/upload-file'
 import * as path from 'path'
+import { FileUpload, GraphQLUpload } from 'graphql-upload'
 
 
 @Resolver(() => Product)
@@ -21,18 +20,13 @@ export class ProductResolver {
 
   @Mutation(() => Boolean)
   async createProduct(
-    @Args() { image }: CreateProductArgs
+    @Args({ name: 'image', type: () => GraphQLUpload }) { createReadStream, filename }: FileUpload
   ) {
-    const { createReadStream, filename }: Upload = await (image as any)
-    // TODO: Моск напряч
     return new Promise(async (resolve, reject) =>
       createReadStream()
-        .pipe(createWriteStream(path.resolve(__dirname, '..', '..', '..', 'uploads', filename)))
+        .pipe(createWriteStream(path.resolve(__dirname, '..', '..', '..', 'uploads', filename), { autoClose: true }))
         .on('finish', () => resolve(true))
-        .on('error', err => {
-          console.log(err)
-          reject(false)
-        })
+        .on('error', () => reject(false))
     )
   }
 
