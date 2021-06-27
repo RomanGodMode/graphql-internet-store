@@ -2,7 +2,10 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { Product } from './entities/product.entity'
 import { ProductService } from './product.service'
 import { GetProductArgs } from './input/get-product.args'
-import { FileUpload, GraphQLUpload } from 'graphql-upload'
+import { createWriteStream } from 'fs'
+import { CreateProductArgs } from './input/create-product.args'
+import { Upload } from '../../types/upload-file'
+import * as path from 'path'
 
 
 @Resolver(() => Product)
@@ -18,30 +21,21 @@ export class ProductResolver {
 
   @Mutation(() => Boolean)
   async createProduct(
-    // @Args({ name: 'image', type: () => GraphQLUpload }) image: FileUpload
-    @Args({ name: 'image', type: () => GraphQLUpload })
-      image: FileUpload
-  ) {// : Promise<FileUpload>
-    console.log(42)
-    // const { createReadStream, filename } = await image
-    //
-    // return new Promise((resolve, reject) => {
-    //   createReadStream()
-    //     .pipe(createWriteStream(__dirname, `/images/${filename}`))
-    //     .on('finish', () => resolve(true))
-    //     .on('error', () => reject(false))
-    // })
+    @Args() { image }: CreateProductArgs
+  ) {
+    const { createReadStream, filename }: Upload = await (image as any)
+    // TODO: Моск напряч
+    return new Promise(async (resolve, reject) =>
+      createReadStream()
+        .pipe(createWriteStream(path.resolve(__dirname, '..', '..', '..', 'uploads', filename)))
+        .on('finish', () => resolve(true))
+        .on('error', err => {
+          console.log(err)
+          reject(false)
+        })
+    )
   }
 
-  //  TODO: загрузить кортинку
-  //  TODO: и сохранять её с помощью гига сервиса
-
-  // return new Promise((resolve, reject) => {
-  //   image.createReadStream()
-  //     .pipe(createWriteStream(__dirname, `/images/${image.filename}`))
-  //     .on('finish', () => resolve(true))
-  //     .on('error', () => reject(false))
-  // })
 
   @Mutation((() => Product))
   patchProduct() {

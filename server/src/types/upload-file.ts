@@ -1,8 +1,8 @@
-import { Stream } from 'stream'
+import { Readable } from 'stream'
 
 export interface Upload {
   filename: string
   mimetype: string
   encoding: string
-  createReadStream: () => Stream
+  createReadStream: () => Readable
 }

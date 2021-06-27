@@ -6,7 +6,7 @@ type Data = {
 }
 
 type Vars = {
-  file: File
+  image: File
 }
 
 @Injectable()

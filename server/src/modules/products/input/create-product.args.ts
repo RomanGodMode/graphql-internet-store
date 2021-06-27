@@ -1,11 +1,10 @@
 import { ArgsType, Field } from '@nestjs/graphql'
-import { GraphQLUpload } from 'apollo-server-express'
-import { Upload } from '../../../types/upload-file'
+import { Upload } from '../trash/upload.scalar'
 
 @ArgsType()
 export class CreateProductArgs {
 
-  @Field(() => GraphQLUpload)
+  @Field()
   image: Upload
 
   // @Field()
