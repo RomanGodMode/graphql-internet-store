@@ -1,0 +1,16 @@
+.select {
+  display: block;
+  width: 100%;
+  padding: 10px 20px;
+  appearance: none;
+  font-size: inherit;
+  background-color: var(--side-back-color);
+  color: var(--main-fore-color);
+  transition: all .5s ease;
+  cursor: pointer;
+
+  &:active, &:focus {
+    outline: var(--paled-bright-fore-color) 1px solid;
+    border: 1px solid transparent;
+  }
+}

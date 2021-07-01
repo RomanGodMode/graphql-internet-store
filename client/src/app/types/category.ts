@@ -1,10 +1,13 @@
 import { Omit } from 'apollo-angular/types'
+import { Product } from './product'
 
 export type FullCategory = {
   id: number
   title: string
   productInfoFields: ProductInfoField[]
 }
+
+export type CategoryWithProducts = FullCategory & { products: Product[] }
 
 export type Category = Omit<FullCategory, 'productInfoFields'>
 

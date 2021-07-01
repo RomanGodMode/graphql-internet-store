@@ -1,0 +1,18 @@
+<ng-template [ngIf]='needToShow'>
+  <ng-template [ngIf]='errors?.required'>
+    Обязательное поле
+  </ng-template>
+  <ng-template [ngIf]='errors?.minlength'>
+    Минимальная длина {{errors?.minlength.requiredLength}}
+  </ng-template>
+  <ng-template [ngIf]='errors?.maxlength'>
+    Максимальная длина {{errors?.maxlength.requiredLength}}
+  </ng-template>
+  <ng-template [ngIf]='errors?.min'>
+    Минимальное значание {{errors?.min.min}}
+  </ng-template>
+  <ng-template [ngIf]='errors?.max'>
+    Максимальное значание {{errors?.max.max}}
+  </ng-template>
+</ng-template>
+{{errors | json}}

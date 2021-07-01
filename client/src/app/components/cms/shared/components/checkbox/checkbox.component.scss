@@ -1,0 +1,44 @@
+
+.label {
+  padding-bottom: 15px;
+  cursor: pointer;
+
+  .checkbox {
+    display: none;
+  }
+
+  .text {
+    position: relative;
+    padding-left: 45px;
+
+    &::before {
+      display: block;
+      width: 30px;
+      height: 30px;
+      background-color: var(--side-back-color);
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: '';
+    }
+
+    &::after {
+      opacity: 0;
+      margin-top: 5px;
+      margin-left: 5px;
+      display: block;
+      width: 20px;
+      height: 20px;
+      background-color: var(--paled-bright-fore-color);
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: '';
+      transition: all .4s ease;
+    }
+  }
+
+  .checkbox:checked + .text::after {
+    opacity: 1;
+  }
+}

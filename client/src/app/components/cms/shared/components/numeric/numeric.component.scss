@@ -1,0 +1,61 @@
+
+label + :host {
+  margin-top: 10px;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+  appearance: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+input {
+  display: block;
+  width: 100%;
+}
+
+:host {
+  display: block;
+  position: relative;
+}
+
+button {
+  position: absolute;
+}
+
+button.up {
+  outline: none;
+  right: 30px;
+  top: 12px;
+  width: 0;
+  height: 0;
+  border-width: 0 15px 8px 15px;
+  border-color: transparent transparent var(--main-fore-color) transparent;
+  border-style: solid;
+
+  &:hover, &:focus {
+    border-color: transparent transparent var(--bright-fore-color) transparent;
+  }
+}
+
+button.down {
+  outline: none;
+  right: 30px;
+  bottom: 12px;
+  width: 0;
+  height: 0;
+  border-width: 8px 15px 0 15px;
+  border-color: var(--main-fore-color) transparent transparent transparent;
+  border-style: solid;
+
+  &:hover, &:focus {
+    border-color: var(--bright-fore-color) transparent transparent transparent;
+  }
+}
+
+

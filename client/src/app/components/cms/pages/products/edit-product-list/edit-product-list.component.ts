@@ -1,38 +1,39 @@
-import { Component, OnInit } from '@angular/core'
-import { UploadFileGQL } from './mutation/upload-file.mutation'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
+import { map, switchMap, takeUntil, tap } from 'rxjs/operators'
+import { GetCategoryWithProductsGQL } from '../../../../shared/quyery/get-category-with-products.query'
+import { Observable, ReplaySubject } from 'rxjs'
+import { CategoryWithProducts } from '../../../../../types/category'
 
 @Component({
   selector: 'app-edit-product-list',
   templateUrl: './edit-product-list.component.html',
   styleUrls: ['./edit-product-list.component.scss'],
-  providers: [UploadFileGQL]
+  providers: [GetCategoryWithProductsGQL]
 })
-export class EditProductListComponent implements OnInit {
+export class EditProductListComponent implements OnInit, OnDestroy {
 
-  constructor(private uploadFileGQL: UploadFileGQL) {
-  }
+  _destroyed$ = new ReplaySubject()
 
-  onFileSelect(event) {
-    const file = <File> event.target.files[0]
-    this.uploadFileGQL.mutate(
-      { image: file },
-      {
-        context: {
-          useMultipart: true
-        }
-      }
-    ).subscribe(
-      console.log,
-      err => console.dir(err)
-      // () => console.log('Ого, конец')
-    )
+  category$: Observable<CategoryWithProducts>
+
+  constructor(private activatedRoute: ActivatedRoute, private getCategoryWithProductsGQL: GetCategoryWithProductsGQL) {
   }
 
   ngOnInit(): void {
+    this.category$ = this.activatedRoute.params.pipe(
+      map(params => +params.categoryId),
+      tap(console.log),
+      switchMap(id => this.getCategoryWithProductsGQL.fetch({ id })),
+      map(res => res.data.getCategory),
+      tap(console.log),
+      takeUntil(this._destroyed$)
+    )
+  }
+
+  ngOnDestroy(): void {
+    this._destroyed$.next()
+    this._destroyed$.complete()
   }
 
 }
-
-// const formData = new FormData()
-// formData.append('image', this.file, this.file.name)
-// console.log(formData)

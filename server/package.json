@@ -26,6 +26,7 @@
     "@nestjs/core": "^7.6.15",
     "@nestjs/graphql": "^7.10.6",
     "@nestjs/platform-express": "^7.6.15",
+    "@nestjs/serve-static": "^2.1.4",
     "@nestjs/typeorm": "^7.1.5",
     "@types/bcryptjs": "^2.4.2",
     "apollo-server-express": "^2.24.0",
@@ -44,7 +45,8 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.6",
-    "typeorm": "^0.2.32"
+    "typeorm": "^0.2.32",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@apollo/gateway": "^0.26.3",
@@ -59,6 +61,7 @@
     "@types/node": "^14.14.36",
     "@types/redis": "^2.8.28",
     "@types/supertest": "^2.0.10",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
     "eslint": "^7.22.0",

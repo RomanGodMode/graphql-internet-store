@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { gql, Query } from 'apollo-angular'
-import { FullCategory } from '../../../../../types/category'
+import { FullCategory } from '../../../types/category'
 
 type Data = { getCategory: FullCategory }
 

@@ -75,6 +75,11 @@ h1 {
 form {
   font-size: 23px;
 
+  .block {
+    display: block;
+    width: 100%;
+  }
+
   .group {
     min-height: 120px;
 
@@ -83,6 +88,10 @@ form {
       display: inline-block;
       color: var(--danger-color);
     }
+  }
+
+  .group.small {
+    min-height: 50px;
   }
 
   label {

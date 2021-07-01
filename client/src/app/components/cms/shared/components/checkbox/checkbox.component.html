@@ -1,0 +1,10 @@
+<label class='label'>
+  <input
+    class='checkbox'
+    type='checkbox'
+    (ngModelChange)='onChange($event)'
+    [(ngModel)]='value'
+    [name]=name
+  >
+  <span class='text'>{{title}}</span>
+</label>

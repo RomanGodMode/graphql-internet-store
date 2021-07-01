@@ -1,0 +1,7 @@
+<input #numeric
+       type='number'
+       (ngModelChange)='onChange($event)'
+       [(ngModel)]='value'
+>
+<button (click)='increment()' type='button' class='up'></button>
+<button (click)='decrement()' type='button' class='down'></button>

@@ -19,6 +19,10 @@ export class Product {
   @Column({ type: 'numeric', precision: 10, scale: 2 })
   price: number
 
+  @Field()
+  @Column()
+  image: string
+
   @Field(() => GraphQLJSON)
   @Column({ type: 'jsonb' })
   infoValues: {}

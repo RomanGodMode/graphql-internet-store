@@ -9,6 +9,8 @@ import { CategoryModule } from './modules/category/category.module'
 import { ProductModule } from './modules/products/product.module'
 import { graphqlUploadExpress } from 'graphql-upload'
 import { FilesModule } from './modules/files/files.module'
+import { ServeStaticModule } from '@nestjs/serve-static'
+import * as path from 'path'
 
 
 const isDebug = process.env.NODE_ENV !== 'production'
@@ -44,6 +46,7 @@ const isDebug = process.env.NODE_ENV !== 'production'
         }
       }
     }),
+    ServeStaticModule.forRoot({ rootPath: path.resolve(__dirname, '..', 'uploads') }),
     FilesModule,
     AuthModule,
     CategoryModule,

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { GetFullCategoryGQL } from './quyery/get-category.query'
+import { GetFullCategoryGQL } from '../../../shared/quyery/get-category.query'
 import { map, switchMap } from 'rxjs/operators'
 import { BehaviorSubject, Observable, Subscription } from 'rxjs'
 import { EditCategoryGQL } from './mutation/edit-category.mutation'
