@@ -34,4 +34,20 @@ export class ProductService {
 
     return this.productRepo.save(product)
   }
+
+  async replaceProduct(id: number, imageUpload: FileUpload, dto: CreateProductInput) {
+    const product = await this.getProduct(id)
+    const { categoryId, ...meat } = dto
+
+    const image = await this.filesService.createFile(imageUpload)
+
+    const merged = this.productRepo.merge(product, { ...meat, image })
+
+    return this.productRepo.save(merged)
+  }
+
+  async deleteProduct(id: number) {
+    const result = await this.productRepo.delete({ id })
+    return !!result.affected
+  }
 }

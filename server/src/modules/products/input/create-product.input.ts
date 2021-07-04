@@ -13,6 +13,9 @@ export class CreateProductInput {
   @Field()
   price: number
 
+  @Field(() => Int)
+  amount: number
+
   @Field(() => GraphQLJSON)
   infoValues: {}
 }

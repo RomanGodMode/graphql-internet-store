@@ -23,6 +23,10 @@ export class Product {
   @Column()
   image: string
 
+  @Field(() => Int)
+  @Column()
+  amount: number
+
   @Field(() => GraphQLJSON)
   @Column({ type: 'jsonb' })
   infoValues: {}
