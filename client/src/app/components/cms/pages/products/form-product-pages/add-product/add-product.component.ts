@@ -45,7 +45,8 @@ export class AddProductComponent implements OnInit, OnDestroy {
         infoValues: form.infoValues.map(infoValue => ({ name: infoValue.name, value: infoValue.value })),
         name: form.name,
         categoryId: this._category$.value.id,
-        price: form.price
+        price: form.price,
+        amount: 2
       },
       {
         context: {
