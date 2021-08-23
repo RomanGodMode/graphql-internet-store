@@ -1,17 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { map, switchMap, takeUntil } from 'rxjs/operators'
 import { BehaviorSubject, ReplaySubject } from 'rxjs'
 import { CreateProductGQL } from './mutation/upload-file.mutation'
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { GetFullCategoryGQL } from '../../../../../shared/quyery/get-category.query'
 import { FullCategory, ProductInfoField } from '../../../../../../types/category'
+import { GetCategoryWithProductsGQL } from '../../../../../shared/quyery/get-category-with-products.query'
 
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.scss'],
-  providers: [GetFullCategoryGQL, CreateProductGQL]
+  providers: [GetFullCategoryGQL, CreateProductGQL, GetCategoryWithProductsGQL]
 })
 export class AddProductComponent implements OnInit, OnDestroy {
 
@@ -20,11 +21,18 @@ export class AddProductComponent implements OnInit, OnDestroy {
   private _category$ = new BehaviorSubject<FullCategory>({ id: 0, title: 'Форма загружается..', productInfoFields: [] })
   category$ = this._category$.asObservable()
 
+  private _message$ = new BehaviorSubject('')
+  message$ = this._message$.asObservable()
+  private _isLoading$ = new BehaviorSubject(false)
+  isLoading$ = this._isLoading$.asObservable()
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private getFullCategoryGQL: GetFullCategoryGQL,
-    private createProductGQL: CreateProductGQL
+    private createProductGQL: CreateProductGQL,
+    private getCategoryWithProductsGQL: GetCategoryWithProductsGQL,
+    private router: Router
   ) {
   }
 
@@ -37,8 +45,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
   createProduct() {
     const form = this.createProductForm.value
 
-    console.log(form.infoValues)
-
+    this._isLoading$.next(true)
     this.createProductGQL.mutate(
       {
         image: this._image$.value,
@@ -46,7 +53,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
         name: form.name,
         categoryId: this._category$.value.id,
         price: form.price,
-        amount: 2
+        amount: form.amount
       },
       {
         context: {
@@ -54,8 +61,11 @@ export class AddProductComponent implements OnInit, OnDestroy {
         }
       }
     ).subscribe(
-      console.log,
-      err => console.dir(err)
+      () => this.activatedRoute.params.pipe(
+        map((params) => this.router.navigateByUrl(`/admin/products/${params.categoryId}`))
+      ).subscribe(),
+      err => this._message$.next(err.message),
+      () => this._isLoading$.next(false)
     )
   }
 
@@ -98,6 +108,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
     this.createProductForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
       price: ['', Validators.required],
+      amount: ['', Validators.required],
       image: [],
       infoValues: this.formBuilder.array(productInfoFields.map(generateInfoValueField))
     })

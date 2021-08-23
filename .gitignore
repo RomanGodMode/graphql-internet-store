@@ -9,6 +9,7 @@ lerna-debug.log*
 
 # DB
 /db/data/
+/server/uploads
 
 # OS
 .DS_Store

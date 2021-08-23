@@ -4,6 +4,7 @@ import { ProductService } from './product.service'
 import { GetProductArgs } from './input/get-product.args'
 import { FileUpload, GraphQLUpload } from 'graphql-upload'
 import { CreateProductInput } from './input/create-product.input'
+import { ReplaceProductInput } from './input/replace-product.input'
 
 
 @Resolver(() => Product)
@@ -22,6 +23,7 @@ export class ProductResolver {
     @Args({ name: 'image', type: () => GraphQLUpload }) image: FileUpload,
     @Args('product') dto: CreateProductInput
   ) {
+    // sad asd
     return this.productService.createProduct(image, dto)
   }
 
@@ -30,7 +32,7 @@ export class ProductResolver {
   replaceProduct(
     @Args({ name: 'id', type: () => Int }) id: number,
     @Args({ name: 'image', type: () => GraphQLUpload }) image: FileUpload,
-    @Args('product') dto: CreateProductInput
+    @Args('product') dto: ReplaceProductInput
   ) {
     return this.productService.replaceProduct(id, image, dto)
   }

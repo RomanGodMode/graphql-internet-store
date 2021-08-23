@@ -22,6 +22,15 @@
   </div>
 
   <div class='group'>
+    <label>Количество</label>
+    <cms-numeric formControlName='amount'></cms-numeric>
+    <cms-form-error-display
+      [needToShow]='createProductForm.controls["amount"].touched || createProductForm.controls["amount"].dirty'
+      [errors]='createProductForm.controls["amount"].errors'
+    ></cms-form-error-display>
+  </div>
+
+  <div class='group'>
     <label>Картинка</label>
     <input formControlName='image' class='block' type='file' (change)='onFileSelect($event)'>
     <cms-form-error-display
@@ -51,6 +60,9 @@
       </div>
     </div>
   </div>
+
+  <p *ngIf='!(isLoading$ | async)' class='error'>{{message$ | async}}</p>
+  <app-long-loader *ngIf='isLoading$ | async' class='loader'></app-long-loader>
 
   <button [disabled]='!createProductForm.valid' class='submit'>Создать продукт</button>
 </form>

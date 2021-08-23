@@ -1,10 +1,29 @@
-{{category$ | async | json}}
+<app-decorated-title-wrapper>
+  <h1 class='selected'>Редактирование товаров категории: {{(category$ | async)?.title}}</h1>
+</app-decorated-title-wrapper>
 
 
-<!--TODO: Верстать-->
-
-Название категории
-
-<div>Списак</div>
-у каждого есть
-<div>Добавить</div>
+<table class='table'>
+  <thead>
+  <tr>
+    <td>Имя</td>
+    <td>Количество</td>
+    <td>Цена</td>
+    <td>Картинка</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class='row' *ngFor='let product of (category$|async)?.products'
+      [routerLink]='["/admin","products",(category$|async)?.id,product.id]'>
+    <td>{{product.name}}</td>
+    <td>{{product.amount}}</td>
+    <td>{{product.price}} ₽</td>
+    <td><img class='photo' [src]='staticServerUrl + product.image' alt=''></td>
+  </tr>
+  <tr class='row plus-row' [routerLink]='["/admin","products",(category$|async)?.id,"add-product"]'>
+    <td colspan='4'>
+      Добавить продукт +
+    </td>
+  </tr>
+  </tbody>
+</table>

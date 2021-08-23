@@ -4,6 +4,9 @@
 schema.gql
 
 
+/uploads
+
+
 # Logs
 logs
 *.log

@@ -3,6 +3,7 @@ export type FullProduct = {
   name: string
   price: number
   image: string
+  amount: number
   infoValues: InfoValue[]
 }
 

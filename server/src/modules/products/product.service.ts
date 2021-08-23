@@ -1,10 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common'
 import { Product } from './entities/product.entity'
 import { Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
 import { FileUpload } from 'graphql-upload'
 import { FilesService } from '../files/files.service'
 import { CreateProductInput } from './input/create-product.input'
+import { ReplaceProductInput } from './input/replace-product.input'
 
 
 @Injectable()
@@ -26,6 +27,10 @@ export class ProductService {
 
 
   async createProduct(imageUpload: FileUpload, dto: CreateProductInput) {
+    if (await this.productRepo.findOne({ where: { name: dto.name } })) {
+      throw new ConflictException('Уже есть продукт с таким именем')
+    }
+
     const image = await this.filesService.createFile(imageUpload)
 
     const { categoryId, ...meat } = dto
@@ -35,14 +40,12 @@ export class ProductService {
     return this.productRepo.save(product)
   }
 
-  async replaceProduct(id: number, imageUpload: FileUpload, dto: CreateProductInput) {
+  async replaceProduct(id: number, imageUpload: FileUpload, dto: ReplaceProductInput) {
     const product = await this.getProduct(id)
-    const { categoryId, ...meat } = dto
 
     const image = await this.filesService.createFile(imageUpload)
 
-    const merged = this.productRepo.merge(product, { ...meat, image })
-
+    const merged = this.productRepo.merge(product, { ...dto, image })
     return this.productRepo.save(merged)
   }
 

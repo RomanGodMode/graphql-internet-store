@@ -4,6 +4,7 @@ import { map, switchMap, takeUntil, tap } from 'rxjs/operators'
 import { GetCategoryWithProductsGQL } from '../../../../shared/quyery/get-category-with-products.query'
 import { Observable, ReplaySubject } from 'rxjs'
 import { CategoryWithProducts } from '../../../../../types/category'
+import { environment } from '../../../../../../environments/environment'
 
 @Component({
   selector: 'app-edit-product-list',
@@ -12,6 +13,8 @@ import { CategoryWithProducts } from '../../../../../types/category'
   providers: [GetCategoryWithProductsGQL]
 })
 export class EditProductListComponent implements OnInit, OnDestroy {
+
+  staticServerUrl = environment.staticServerUrl
 
   _destroyed$ = new ReplaySubject()
 
@@ -24,7 +27,7 @@ export class EditProductListComponent implements OnInit, OnDestroy {
     this.category$ = this.activatedRoute.params.pipe(
       map(params => +params.categoryId),
       tap(console.log),
-      switchMap(id => this.getCategoryWithProductsGQL.fetch({ id })),
+      switchMap(id => this.getCategoryWithProductsGQL.fetch({ id }, { fetchPolicy: 'no-cache' })),
       map(res => res.data.getCategory),
       tap(console.log),
       takeUntil(this._destroyed$)

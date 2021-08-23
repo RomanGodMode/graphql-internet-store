@@ -1,1 +1,72 @@
-<p>edit-product works!</p>
+<app-decorated-title-wrapper>
+  <h1 class='selected'>Изменить товар в категории: {{(category$ | async).title}}</h1>
+</app-decorated-title-wrapper>
+<form [formGroup]='editProductForm' class='createProductForm' (ngSubmit)='editProduct()'>
+
+  <div class='group'>
+    <label>Имя</label>
+    <input class='block' type='text' formControlName='name'>
+    <cms-form-error-display
+      [needToShow]='editProductForm.controls["name"].touched || editProductForm.controls["name"].dirty'
+      [errors]='editProductForm.controls["name"].errors'
+    ></cms-form-error-display>
+  </div>
+
+  <div class='group'>
+    <label>Цена</label>
+    <cms-numeric formControlName='price'></cms-numeric>
+    <cms-form-error-display
+      [needToShow]='editProductForm.controls["price"].touched || editProductForm.controls["price"].dirty'
+      [errors]='editProductForm.controls["price"].errors'
+    ></cms-form-error-display>
+  </div>
+
+  <div class='group'>
+    <label>Количество</label>
+    <cms-numeric formControlName='amount'></cms-numeric>
+    <cms-form-error-display
+      [needToShow]='editProductForm.controls["amount"].touched || editProductForm.controls["amount"].dirty'
+      [errors]='editProductForm.controls["amount"].errors'
+    ></cms-form-error-display>
+  </div>
+
+  <div class='group'>
+    <label>Картинка</label>
+    <input formControlName='image' class='block' type='file' (change)='onFileSelect($event)'>
+    <cms-form-error-display
+      [errors]='editProductForm.get("image").errors'
+      [needToShow]='true'></cms-form-error-display>
+  </div>
+
+  <div class='list' formArrayName='infoValues'>
+    <div class='item' *ngFor='let field of infoValues.controls;index as i'>
+      <div [ngClass]='{small: field.value.type === "bool"}' class='group' [formGroupName]='i'>
+        <label *ngIf='field.value.type !== "bool"'>{{field.value.name}}</label>
+
+        <input formControlName='value' *ngIf='field.value.type === "string"' class='block' type='text'>
+        <cms-numeric formControlName='value' *ngIf='field.value.type === "num"'></cms-numeric>
+        <cms-checkbox formControlName='value' *ngIf='field.value.type === "bool"'
+                      [title]='field.value.name'
+        ></cms-checkbox>
+        <cms-select formControlName='value' *ngIf='field.value.type === "enum"'
+                    [options]='field.value.variants'
+        ></cms-select>
+
+        <cms-form-error-display *ngIf='field.value.type !== "bool"'
+                                [errors]='field.get("value").errors'
+                                [needToShow]='field.get("value").dirty || field.get("value").touched'
+        ></cms-form-error-display>
+
+      </div>
+    </div>
+  </div>
+
+  <p *ngIf='!(isLoading$ | async)' class='error'>{{message$ | async}}</p>
+  <app-long-loader *ngIf='isLoading$ | async' class='loader'></app-long-loader>
+
+  <button [disabled]='!editProductForm.valid' class='submit'>Изменить товар</button>
+</form>
+
+<form (submit)='$event.preventDefault(); deleteProduct()' class='delete-form'>
+  <button type='submit' class='delete-button'>Удалить товар</button>
+</form>

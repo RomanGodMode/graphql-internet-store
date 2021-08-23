@@ -18,7 +18,8 @@ export class GetCategoryWithProductsGQL extends Query<Data, { id: number }> {
           name,
           price,
           image,
-          infoValues
+          infoValues,
+          amount
         }
       }
     }
