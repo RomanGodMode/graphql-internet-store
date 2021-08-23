@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { AdminAuthService } from '../../../admin-auth/admin-auth.service'
 
 @Component({
   selector: 'cms-header',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core'
 })
 export class CmsHeaderComponent implements OnInit {
 
-  constructor() {
+  constructor(
+    public authService: AdminAuthService
+  ) {
   }
 
   ngOnInit(): void {

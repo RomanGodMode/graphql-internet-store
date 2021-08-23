@@ -9,6 +9,8 @@ import { GetCategoryArgs } from './input/get-category.args'
 import { EditCategoryInput } from './input/edit-category.input'
 import { ProductInfoField } from './entities/additional-info-field'
 import { DeepPartial } from 'typeorm'
+import { UseGuards } from '@nestjs/common'
+import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
 
 
 @Resolver(() => Category)
@@ -27,6 +29,7 @@ export class CategoryResolver {
     return this.categoryService.getCategory(id, true)
   }
 
+  @UseGuards(AdminAuthGuard)
   @Mutation(() => Category)
   async editCategory(
     @Args('input') input: EditCategoryInput,
@@ -43,16 +46,19 @@ export class CategoryResolver {
   // ГОСПОДИ, я не нашёл как делать вложенные инпуты.. и теперь я буду делать так!
   // Поля просто не валидируются даже если добавить @NotEmpty() (как я понимаю из-за @Field({nullable: true}))
 
+  @UseGuards(AdminAuthGuard)
   @Mutation(() => Category)
   addRootCategory(@Args() { title }: AddRootCategoryArgs) {
     return this.categoryService.addRootCategory(title)
   }
 
+  @UseGuards(AdminAuthGuard)
   @Mutation(() => Category)
   addSubCategory(@Args() { title, parentId }: AddSubCategoryArgs) {
     return this.categoryService.addSubCategory(title, parentId)
   }
 
+  @UseGuards(AdminAuthGuard)
   @Mutation(() => Boolean)
   deleteCategory(@Args() { id }: DeleteCategoryArgs) {
     return this.categoryService.deleteCategory(id)

@@ -1,0 +1,48 @@
+<app-container class='container'>
+  <app-decorated-title-wrapper class='auth-title'>
+    <h1 *ngIf='!isRegister' class='selected'>Логин</h1>
+    <h1 *ngIf='isRegister' class='selected'>Регистрация</h1>
+  </app-decorated-title-wrapper>
+  <p *ngIf='isRegister'>Можно зарегистрировать нового админа</p>
+
+  <form class='auth-form' [formGroup]='authForm' (ngSubmit)='onSubmit()'>
+    <div class='group'>
+      <label>Email</label>
+      <input formControlName='email' placeholder='Email' type='text'>
+      <small *ngIf='authForm.controls["email"].errors?.required && authForm.controls["email"].touched'>
+        Обязательное поле
+      </small>
+      <small *ngIf='authForm.controls["email"].errors?.email && authForm.controls["email"].touched'>
+        Невалидный email
+      </small>
+    </div>
+
+    <div class='group'>
+      <label>Пароль</label>
+      <app-password-input formControlName='password' placeholder='Пароль'></app-password-input>
+      <small *ngIf='authForm.controls["password"].errors?.required && authForm.controls["password"].dirty'>
+        Обязательное поле
+      </small>
+      <small *ngIf='authForm.controls["password"].errors?.minlength'>Минимальная длина пароля 7 символов</small>
+      <small *ngIf='authForm.controls["password"].errors?.maxlength'>Максимальная длина пароля 20 символов</small>
+    </div>
+    <div *ngIf='isRegister' class='group'>
+      <label>Повторите пароль</label>
+      <app-password-input formControlName='repeatPassword' placeholder='Повторите пароль'></app-password-input>
+      <small *ngIf='authForm.controls["repeatPassword"].errors?.required && authForm.controls["repeatPassword"].dirty'>Обязательное
+        поле</small>
+      <small *ngIf='authForm.controls["repeatPassword"].errors?.minlength'>Минимальная длина пароля 7 символов</small>
+      <small *ngIf='authForm.controls["repeatPassword"].errors?.maxlength'>Максимальная длина пароля 20 символов</small>
+    </div>
+
+    <p *ngIf='!loading && !isRegisterSuccess' class='error'>{{error}}</p>
+    <app-long-loader *ngIf='loading' class='loader'></app-long-loader>
+    <p *ngIf='isRegisterSuccess' class='register-success'>Вы успешно зарегистрировались, теперь вы можете &nbsp;
+      <a routerLink='/login'>Войти</a>
+    </p>
+
+    <button *ngIf='!isRegister' [disabled]='!authForm.valid || loading'>Войти</button>
+    <button *ngIf='isRegister' [disabled]='!authForm.valid || loading'>Зарегистрироваться</button>
+  </form>
+
+</app-container>
