@@ -11,6 +11,7 @@ import { ProductInfoField } from './entities/additional-info-field'
 import { DeepPartial } from 'typeorm'
 import { UseGuards } from '@nestjs/common'
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
+import { PaginatedCategoryObject } from './return-objects/paginated-category.object'
 
 
 @Resolver(() => Category)
@@ -24,9 +25,9 @@ export class CategoryResolver {
     return await this.categoryService.getEntireTree()
   }
 
-  @Query(() => Category)
-  async getCategory(@Args() { id }: GetCategoryArgs) {
-    return this.categoryService.getCategory(id, true)
+  @Query(() => PaginatedCategoryObject)
+  async getCategory(@Args() { id, showOutOfStock, pageNumber, ordering, name, minPrice, maxPrice }: GetCategoryArgs) {
+    return this.categoryService.getCategory(id, true, showOutOfStock, pageNumber, ordering, name, minPrice, maxPrice)
   }
 
   @UseGuards(AdminAuthGuard)

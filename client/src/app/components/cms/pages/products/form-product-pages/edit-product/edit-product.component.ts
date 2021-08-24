@@ -9,14 +9,13 @@ import { EditProductGQL } from './mutation/edit-product.mutation'
 import { GetProductsGQL } from '../../../../../shared/quyery/get-full-product'
 import { FullProduct } from '../../../../../../types/product'
 import { mateInfosWithValues } from '../../../../../../functions/mate-infos-with-values'
-import { GetCategoryWithProductsGQL } from '../../../../../shared/quyery/get-category-with-products.query'
 import { DeleteProductGQL } from './mutation/delete-product.mutation'
 
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
   styleUrls: ['./edit-product.component.scss'],
-  providers: [GetFullCategoryGQL, GetProductsGQL, EditProductGQL, GetCategoryWithProductsGQL, DeleteProductGQL]
+  providers: [GetFullCategoryGQL, GetProductsGQL, EditProductGQL, DeleteProductGQL]
 })
 export class EditProductComponent implements OnInit, OnDestroy {
   private _destroyed$ = new ReplaySubject()
@@ -137,7 +136,6 @@ export class EditProductComponent implements OnInit, OnDestroy {
               private getFullCategoryGQL: GetFullCategoryGQL,
               private getProductGQL: GetProductsGQL,
               private editProductGQL: EditProductGQL,
-              private getCategoryWithProductsGQL: GetCategoryWithProductsGQL,
               private deleteProductGQL: DeleteProductGQL,
               private router: Router) {
   }
@@ -152,7 +150,7 @@ export class EditProductComponent implements OnInit, OnDestroy {
     ).subscribe(
       ([product, category]) => {
         this._product$.next(product.data.getProduct)
-        this._category$.next(category.data.getCategory)
+        this._category$.next(category.data.getCategory.category)
         this.initForm(this._category$.value.productInfoFields, this._product$.value)
       },
       (err) => {

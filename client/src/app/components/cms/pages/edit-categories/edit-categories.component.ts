@@ -125,7 +125,7 @@ export class EditCategoriesComponent implements OnInit, OnDestroy {
     this.sub = this.activatedRoute.params.pipe(
       map(params => +params['id']),
       switchMap(id => this.getFullCategoryGQL.watch({ id }).valueChanges.pipe(
-        map(res => res.data.getCategory)
+        map(res => res.data.getCategory.category)
       ))
     ).subscribe(
       this._category$

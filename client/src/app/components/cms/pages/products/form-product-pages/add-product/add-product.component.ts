@@ -6,13 +6,12 @@ import { CreateProductGQL } from './mutation/upload-file.mutation'
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { GetFullCategoryGQL } from '../../../../../shared/quyery/get-category.query'
 import { FullCategory, ProductInfoField } from '../../../../../../types/category'
-import { GetCategoryWithProductsGQL } from '../../../../../shared/quyery/get-category-with-products.query'
 
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.scss'],
-  providers: [GetFullCategoryGQL, CreateProductGQL, GetCategoryWithProductsGQL]
+  providers: [GetFullCategoryGQL, CreateProductGQL]
 })
 export class AddProductComponent implements OnInit, OnDestroy {
 
@@ -31,7 +30,6 @@ export class AddProductComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private getFullCategoryGQL: GetFullCategoryGQL,
     private createProductGQL: CreateProductGQL,
-    private getCategoryWithProductsGQL: GetCategoryWithProductsGQL,
     private router: Router
   ) {
   }
@@ -118,7 +116,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
     this.activatedRoute.params.pipe(
       map(params => +params.categoryId),
       switchMap(id => this.getFullCategoryGQL.fetch({ id })),
-      map(res => res.data.getCategory),
+      map(res => res.data.getCategory.category),
       takeUntil(this._destroyed$)
     ).subscribe(this._category$)
 

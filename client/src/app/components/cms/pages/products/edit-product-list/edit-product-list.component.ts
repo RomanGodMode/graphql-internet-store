@@ -28,7 +28,7 @@ export class EditProductListComponent implements OnInit, OnDestroy {
       map(params => +params.categoryId),
       tap(console.log),
       switchMap(id => this.getCategoryWithProductsGQL.fetch({ id }, { fetchPolicy: 'no-cache' })),
-      map(res => res.data.getCategory),
+      map(res => res.data.getCategory.category),
       tap(console.log),
       takeUntil(this._destroyed$)
     )

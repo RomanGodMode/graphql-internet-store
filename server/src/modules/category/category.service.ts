@@ -1,13 +1,17 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Category } from './entities/category.entity'
-import { DeepPartial, Repository } from 'typeorm'
+import { Between, DeepPartial, LessThanOrEqual, Like, MoreThanOrEqual, Not, Repository } from 'typeorm'
+import { Product } from '../products/entities/product.entity'
 
 
 @Injectable()
 export class CategoryService {
 
-  constructor(@InjectRepository(Category) private categoryRepo: Repository<Category>) {
+  constructor(
+    @InjectRepository(Category) private categoryRepo: Repository<Category>,
+    @InjectRepository(Product) private productRepo: Repository<Product>
+  ) {
   }
 
   async getEntireTree() {
@@ -30,18 +34,86 @@ export class CategoryService {
     return result
   }
 
-  async getCategory(id: number, withProducts = false) {
-    const category = withProducts
-      ? await this.categoryRepo.findOne({ where: { id }, relations: ['products'] })
-      : await this.categoryRepo.findOne({ where: { id } })
+  async getModestCategory(id: number) {
+    const category = await this.categoryRepo.findOne({ where: { id } })
+
     if (!category) {
       throw new NotFoundException('Скорее всего эта категория удалена')
     }
+
     return category
   }
 
+  async getCategory(
+    id: number, withProducts = false, showOutOfStock = false,
+    pageNumber: number = null, ordering: string = null, name: string = null, minPrice: number = null, maxPrice: number = null
+  ) {
+    const category = withProducts
+      ? await this.categoryRepo.findOne({ where: { id }, relations: ['products'] })
+      : await this.categoryRepo.findOne({ where: { id } })
+
+    if (!category) {
+      throw new NotFoundException('Скорее всего эта категория удалена')
+    }
+
+    pageNumber = pageNumber || 1
+    const take = 6
+    const skip = take * (pageNumber - 1)
+
+    const filterMutant = {} as any
+
+    if (!showOutOfStock) {
+      filterMutant.amount = Not(0)
+    }
+
+    if (name) {
+      filterMutant.name = Like('%' + name + '%')
+    }
+
+    const hasMinPrice = minPrice || minPrice === 0
+
+    if (hasMinPrice && maxPrice) {
+      filterMutant.price = Between(minPrice, maxPrice)
+    } else {
+      if (hasMinPrice) {
+        filterMutant.price = MoreThanOrEqual(minPrice)
+      }
+
+      if (maxPrice) {
+        filterMutant.price = LessThanOrEqual(maxPrice)
+      }
+    }
+
+
+    const order = {} as any
+    const gigaSwitch = {
+      'name': () => order.name = 'ASC',
+      '-name': () => order.name = 'DESC',
+      'price': () => order.price = 'ASC',
+      '-price': () => order.price = 'DESC'
+    }
+    if (ordering) {
+      gigaSwitch[ordering]()
+    }
+
+    const [result, productsCount] = await this.productRepo.findAndCount(
+      {
+        where: {
+          category: category.id,
+          ...filterMutant
+        },
+        order,
+        take,
+        skip
+      }
+    )
+
+    category.products = result
+    return { category, productsCount }
+  }
+
   async editCategory(id: number, payload: DeepPartial<Category>) {
-    const category = await this.getCategory(id)
+    const category = await this.getModestCategory(id)
     const merged = this.categoryRepo.merge(category, payload)
     return this.categoryRepo.save(merged)
   }
