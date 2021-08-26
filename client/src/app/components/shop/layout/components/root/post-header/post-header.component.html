@@ -1,13 +1,9 @@
-<section class='caption'>
-  <a class='huge-logo' routerLinkActive='selected' routerLink='home'>ГИГА МАГАЗИН</a>
-  <store-cellphone-number-link></store-cellphone-number-link>
-  <form class='find-form'>
-    <input placeholder='Поиск' type='text'>
-    <button><img src='/assets/img/search-glass.svg.svg' alt=''></button>
-  </form>
-</section>
 <ul class='categories'>
-  <li class='category' *ngFor='let category of categories'>
-    <a [routerLink]='category'>{{category}}</a>
+  <li class='category' *ngIf='!(isLoading$|async)'>
+    <a routerLinkActive='selected' [routerLink]='["categories", 0]'>Все</a>
   </li>
+  <li class='category' *ngFor='let category of categories$|async'>
+    <a routerLinkActive='selected' [routerLink]='["categories",category.id]'>{{category.title}}</a>
+  </li>
+  <app-long-loader class='loader' *ngIf='isLoading$|async'></app-long-loader>
 </ul>

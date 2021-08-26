@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core'
-import { EntireCategoryTreeGQL } from './quyery/entire-tree.query'
+import { EntireCategoryTreeGQL } from '../../../../shared/quyery/entire-tree.query'
 import { BehaviorSubject, Observable, PartialObserver } from 'rxjs'
 import { TreeNode } from '../category-tree/types/tree-node'
 import { map } from 'rxjs/operators'
@@ -31,8 +31,6 @@ export class CategoryService {
   ) {
     this.entireTree$ = this.entireCategoryTreeGQL.watch().valueChanges.pipe(
       map(v => v.data.getEntireTree)
-      // catchError(() => EMPTY),
-      // tap(console.log)
     )
   }
 

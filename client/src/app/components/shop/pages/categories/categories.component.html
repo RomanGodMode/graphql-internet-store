@@ -1,0 +1,5 @@
+<app-decorated-title-wrapper>
+  <h1 style='margin-top: 0;' class='selected'>Категории в категории: {{(category$|async)?.title}}</h1>
+</app-decorated-title-wrapper>
+
+<shop-category-tree [treeRoots]='(category$|async)?.children'></shop-category-tree>

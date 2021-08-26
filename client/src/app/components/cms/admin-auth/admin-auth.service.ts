@@ -53,7 +53,6 @@ export class AdminAuthService {
   }
 
   logout() {
-    console.log('МЫА')
     this.logoutGQL.mutate({}, {
       update: cache => {
         document.cookie.split(';').forEach(c => {

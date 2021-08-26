@@ -1,0 +1,8 @@
+<div [@listAnimation]='buyerNotificationService.messages.length'>
+  <div *ngFor='let message of buyerNotificationService.messages' class='notification-item'>
+    {{message.text}}
+    <button class='close' (click)='buyerNotificationService.closeMessage(message.id)'>
+      <app-colored-svg class='icon' src='assets/img/delete-cross.svg'></app-colored-svg>
+    </button>
+  </div>
+</div>

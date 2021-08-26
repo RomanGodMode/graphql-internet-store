@@ -1,0 +1,11 @@
+<div class='caption'>
+  <a routerLinkActive='selected' [routerLink]='["/catalog", node.id]'
+     *ngIf='!node.children.length' class='title'>{{node.title}}</a>
+  <span *ngIf='node.children.length' class='title'>{{node.title}}</span>
+</div>
+
+<div class='children' *ngIf='node.children.length'>
+  <shop-category-node [node]='child' *ngFor='let child of node.children'></shop-category-node>
+</div>
+
+

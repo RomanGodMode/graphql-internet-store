@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { gql, Query } from 'apollo-angular'
-import { TreeNode } from '../../category-tree/types/tree-node'
+import { TreeNode } from '../../cms/shared/category/category-tree/types/tree-node'
 
 type Data = { getEntireTree: TreeNode[] }
 

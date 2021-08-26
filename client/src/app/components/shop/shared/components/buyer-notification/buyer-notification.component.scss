@@ -1,0 +1,44 @@
+:host {
+  right: 30px;
+  top: 90px;
+  position: fixed;
+}
+
+.notification-item + .notification-item {
+  margin-top: 16px;
+}
+
+.notification-item {
+  height: 70px;
+
+  padding-left: 10px;
+  padding-right: 34px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: rgba(#e67e22, .6);
+  color: var(--main-fore-color);
+
+  .close {
+    padding: 7px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+    border: none;
+    color: var(--main-fore-color);
+    cursor: pointer;
+
+    .icon {
+      width: 20px;
+      height: 20px;
+      background-color: #fff;
+    }
+
+    &:hover {
+      .icon {
+        background-color: darken(#fff, 30%);
+      }
+    }
+  }
+}

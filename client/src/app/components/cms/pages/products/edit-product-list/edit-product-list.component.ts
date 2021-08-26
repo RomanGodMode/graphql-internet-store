@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { map, switchMap, takeUntil, tap } from 'rxjs/operators'
+import { map, switchMap, takeUntil } from 'rxjs/operators'
 import { GetCategoryWithProductsGQL } from '../../../../shared/quyery/get-category-with-products.query'
 import { Observable, ReplaySubject } from 'rxjs'
 import { CategoryWithProducts } from '../../../../../types/category'
@@ -26,10 +26,8 @@ export class EditProductListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.category$ = this.activatedRoute.params.pipe(
       map(params => +params.categoryId),
-      tap(console.log),
       switchMap(id => this.getCategoryWithProductsGQL.fetch({ id }, { fetchPolicy: 'no-cache' })),
       map(res => res.data.getCategory.category),
-      tap(console.log),
       takeUntil(this._destroyed$)
     )
   }

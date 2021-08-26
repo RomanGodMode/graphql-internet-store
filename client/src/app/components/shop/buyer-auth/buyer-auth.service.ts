@@ -27,8 +27,7 @@ export class BuyerAuthService {
       )
       .subscribe(
         v => this.isAuthSubject.next(v),
-        () => this.isAuthSubject.next(false),
-        () => console.log('КОНЕЦ!')
+        () => this.isAuthSubject.next(false)
       )
   }
 

@@ -7,9 +7,9 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY . .
-
-RUN npm run build
+#COPY . .
+#
+#RUN npm run start:dev
 
 FROM node:14 AS production
 

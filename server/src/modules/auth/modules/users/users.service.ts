@@ -29,7 +29,6 @@ export class UsersService {
     ) {
       throw new ConflictException('Пользователь с таким email уже существует')
     }
-    console.log(role)
 
     return this.usersRepository.save(
       this.usersRepository.create({ ...newUser, role })

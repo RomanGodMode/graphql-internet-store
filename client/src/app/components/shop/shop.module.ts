@@ -11,6 +11,8 @@ import { FullShopLayoutComponent } from './layout/shop-layout/full-shop-layout/f
 import { CellphoneNumberLinkComponent } from './layout/components/cellphone-number-link/cellphone-number-link.component'
 import { BuyerAuthModule } from './buyer-auth/buyer-auth.module'
 import { BuyerAuthGuard } from './buyer-auth/buyer-auth.guard'
+import { ProductItemModule } from './shared/components/product-item/product-item.module'
+import { BuyerNotificationModule } from './shared/components/buyer-notification/buyer-notification.module'
 
 
 @NgModule({
@@ -27,6 +29,8 @@ import { BuyerAuthGuard } from './buyer-auth/buyer-auth.guard'
     CommonModule,
     SharedComponentsModule,
     BuyerAuthModule,
+    ProductItemModule,
+    BuyerNotificationModule,
     RouterModule.forChild([
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       {
@@ -55,7 +59,12 @@ import { BuyerAuthGuard } from './buyer-auth/buyer-auth.guard'
       {
         path: '', component: FullShopLayoutComponent, children: [
           { path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
-          { path: 'catalog', loadChildren: () => import('./pages/catalog/catalog.module').then(m => m.CatalogModule) }
+          {
+            path: 'categories/:categoryId',
+            loadChildren: () => import('./pages/categories/categories.module').then(m => m.CategoriesModule)
+          },
+          { path: 'catalog/:categoryId', loadChildren: () => import('./pages/catalog/catalog.module').then(m => m.CatalogModule) },
+          { path: 'catalog', redirectTo: 'categories/0' }
         ]
       },
       { path: '**', redirectTo: 'home', pathMatch: 'full' }
