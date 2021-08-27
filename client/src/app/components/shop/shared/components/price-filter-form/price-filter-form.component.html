@@ -1,0 +1,18 @@
+<form [formGroup]='form'>
+  <div class='caption'>
+    Цена, ₽
+    <button (click)='discard()' class='discard'>Сбросить</button>
+  </div>
+  <div class='inputs'>
+    <div class='group'>
+      <label>От</label>
+      <app-numeric [max]='(catalogService.catalogData$|async)?.maxPrice'
+                   [min]='(catalogService.catalogData$|async)?.minPrice' formControlName='minPrice'></app-numeric>
+    </div>
+    <div class='group'>
+      <label>До</label>
+      <app-numeric [max]='(catalogService.catalogData$|async)?.maxPrice'
+                   [min]='(catalogService.catalogData$|async)?.minPrice' formControlName='maxPrice'></app-numeric>
+    </div>
+  </div>
+</form>

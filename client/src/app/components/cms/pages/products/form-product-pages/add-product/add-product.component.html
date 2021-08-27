@@ -14,7 +14,7 @@
 
   <div class='group'>
     <label>Цена</label>
-    <cms-numeric formControlName='price'></cms-numeric>
+    <app-numeric formControlName='price'></app-numeric>
     <cms-form-error-display
       [needToShow]='createProductForm.controls["price"].touched || createProductForm.controls["price"].dirty'
       [errors]='createProductForm.controls["price"].errors'
@@ -23,7 +23,7 @@
 
   <div class='group'>
     <label>Количество</label>
-    <cms-numeric formControlName='amount'></cms-numeric>
+    <app-numeric formControlName='amount'></app-numeric>
     <cms-form-error-display
       [needToShow]='createProductForm.controls["amount"].touched || createProductForm.controls["amount"].dirty'
       [errors]='createProductForm.controls["amount"].errors'
@@ -44,7 +44,7 @@
         <label *ngIf='field.value.type !== "bool"'>{{field.value.name}}</label>
 
         <input formControlName='value' *ngIf='field.value.type === "string"' class='block' type='text'>
-        <cms-numeric formControlName='value' *ngIf='field.value.type === "num"'></cms-numeric>
+        <app-numeric formControlName='value' *ngIf='field.value.type === "num"'></app-numeric>
         <cms-checkbox formControlName='value' *ngIf='field.value.type === "bool"'
                       [title]='field.value.name'
         ></cms-checkbox>

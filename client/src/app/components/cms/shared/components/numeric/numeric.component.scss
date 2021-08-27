@@ -4,8 +4,8 @@ label + :host {
 }
 
 input[type="number"] {
-  -moz-appearance: textfield;
-  -webkit-appearance: textfield;
+  -moz-appearance: none;
+  -webkit-appearance: none;
   appearance: none;
 }
 

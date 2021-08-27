@@ -37,9 +37,5 @@ export class CategoriesComponent implements OnInit {
     )
   }
 
-  selectCategory(category: TreeNode) {
-    console.log(category)
-  }
-
 }
 

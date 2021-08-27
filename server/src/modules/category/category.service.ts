@@ -8,6 +8,14 @@ import { Product } from '../products/entities/product.entity'
 @Injectable()
 export class CategoryService {
 
+  async getMinMax(id: number) {
+    const query = this.productRepo.createQueryBuilder('product')
+    query.select('MAX(product.price), MIN(product.price)')
+    query.where('product.category = :id', { id })
+    const { max, min } = await query.getRawOne()
+    return { max: +max, min: +min }
+  }
+
   constructor(
     @InjectRepository(Category) private categoryRepo: Repository<Category>,
     @InjectRepository(Product) private productRepo: Repository<Product>
@@ -48,6 +56,7 @@ export class CategoryService {
     id: number, withProducts = false, showOutOfStock = false,
     pageNumber: number = null, ordering: string = null, name: string = null, minPrice: number = null, maxPrice: number = null
   ) {
+
     const category = withProducts
       ? await this.categoryRepo.findOne({ where: { id }, relations: ['products'] })
       : await this.categoryRepo.findOne({ where: { id } })
@@ -55,6 +64,8 @@ export class CategoryService {
     if (!category) {
       throw new NotFoundException('Скорее всего эта категория удалена')
     }
+
+    const { max, min } = await this.getMinMax(id)
 
     pageNumber = pageNumber || 1
     const take = 6
@@ -109,7 +120,7 @@ export class CategoryService {
     )
 
     category.products = result
-    return { category, productsCount }
+    return { category, productsCount, maxPrice: max, minPrice: min }
   }
 
   async editCategory(id: number, payload: DeepPartial<Category>) {

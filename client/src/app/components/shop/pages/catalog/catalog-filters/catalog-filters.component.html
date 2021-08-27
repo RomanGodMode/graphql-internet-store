@@ -1,4 +1,6 @@
-<form class='find-form'>
-  <input placeholder='Поиск' type='text'>
-  <button><img src='/assets/img/search-glass.svg.svg' alt=''></button>
+<form [formGroup]='form' class='find-form'>
+  <input formControlName='name' placeholder='Поиск' type='text'>
+  <img src='/assets/img/search-glass.svg.svg' alt=''>
 </form>
+
+<shop-price-filter-form></shop-price-filter-form>

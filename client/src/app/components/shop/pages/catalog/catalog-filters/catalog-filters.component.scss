@@ -1,7 +1,12 @@
+:host {
+  padding-right: 20px;
+}
+
 .find-form {
-  border: 1px solid #fff;
   display: flex;
+  position: relative;
   padding: 7px;
+  border: 1px solid #fff;
 
   input {
     align-self: stretch;
@@ -9,21 +14,24 @@
     background-color: transparent;
     color: var(--main-fore-color);
     padding-left: 10px;
+    padding-right: 40px;
   }
 
   input:focus, input:active {
     outline: var(--bright-fore-color) 1px solid;
   }
 
-  button {
+  img {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
     background-color: transparent;
     border: none;
-
-    img {
-      //padding-top: 3px;
-      width: 40px;
-      height: 24px;
-      color: #fff;
-    }
+    //padding-top: 3px;
+    width: 40px;
+    height: 24px;
+    color: #fff;
   }
+
 }

@@ -1,8 +1,8 @@
-import { Component, ElementRef, ViewChild } from '@angular/core'
+import { Component, ElementRef, Input, ViewChild } from '@angular/core'
 import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms'
 
 @Component({
-  selector: 'cms-numeric',
+  selector: 'app-numeric',
   templateUrl: './numeric.component.html',
   styleUrls: ['./numeric.component.scss'],
   providers: [
@@ -38,12 +38,26 @@ export class NumericComponent implements ControlValueAccessor, Validator {
     return null
   }
 
+  @Input()
+  max: number | null
+
+  @Input()
+  min: number | null
+
   value = ''
   touched = false
   disabled = false
 
-  writeValue(value: string): void {
+  writeValue(value: string) {
+    // Math.max(minPrice, this.min)
+    // this.value = value
     this.value = value
+    // if (this.max) {
+    //   this.value = +value > this.max ? this.max.toString() : value
+    // }
+    // if (this.min) {
+    //   this.value = +value < this.min ? this.min.toString() : value
+    // }
   }
 
   onChange = (password: string) => {

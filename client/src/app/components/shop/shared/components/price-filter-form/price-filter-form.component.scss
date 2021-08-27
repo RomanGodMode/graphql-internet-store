@@ -1,0 +1,31 @@
+:host {
+  padding-top: 50px;
+  display: inline-block;
+  width: 100%;
+  max-width: 300px;
+}
+
+.caption {
+  display: flex;
+  align-items: center;
+
+  .discard {
+    margin-left: 18px;
+    padding: 10px;
+  }
+}
+
+.inputs {
+  margin-top: 16px;
+  display: flex;
+
+  div {
+    flex: 1 1 auto;
+    max-width: 50%;
+
+    input {
+      max-width: 100%;
+    }
+  }
+
+}

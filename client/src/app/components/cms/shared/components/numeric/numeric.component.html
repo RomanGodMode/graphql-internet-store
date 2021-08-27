@@ -2,6 +2,8 @@
        type='number'
        (ngModelChange)='onChange($event)'
        [(ngModel)]='value'
+       [max]='max'
+       [min]='min'
 >
-<button (click)='increment()' type='button' class='up'></button>
-<button (click)='decrement()' type='button' class='down'></button>
+<!--<button (click)='increment()' type='button' class='up'></button>-->
+<!--<button (click)='decrement()' type='button' class='down'></button>-->

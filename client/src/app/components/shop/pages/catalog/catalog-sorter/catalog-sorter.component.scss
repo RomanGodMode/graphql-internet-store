@@ -1,0 +1,9 @@
+.form {
+  display: flex;
+  align-items: center;
+
+  .select {
+    flex: 1 1 auto;
+    margin-left: 25px;
+  }
+}
