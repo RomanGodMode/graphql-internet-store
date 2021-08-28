@@ -34,14 +34,15 @@ export class CatalogFiltersComponent implements OnInit {
     )
 
     this.form.valueChanges.pipe(
+      map(form => form.name),
       debounceTime(2000),
       distinctUntilChanged()
-    ).subscribe(({ name }) => {
+    ).subscribe(name => {
         this.router.navigate(
           [],
           {
             relativeTo: this.route,
-            queryParams: { name },
+            queryParams: { name, pageNumber: '1' },
             queryParamsHandling: 'merge'
           })
       }

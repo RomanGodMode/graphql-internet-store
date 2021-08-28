@@ -44,13 +44,15 @@ export class PriceFilterFormComponent implements OnInit {
           }))
         )
       )
-    ).subscribe(({ maxPrice, minPrice }) => this.router.navigate(
-      [],
-      {
-        relativeTo: this.route,
-        queryParams: { maxPrice, minPrice },
-        queryParamsHandling: 'merge'
-      }))
+    ).subscribe(({ maxPrice, minPrice }) => {
+      this.router.navigate(
+        [],
+        {
+          relativeTo: this.route,
+          queryParams: { maxPrice, minPrice, pageNumber: '1' },
+          queryParamsHandling: 'merge'
+        })
+    })
   }
 
   discard() {

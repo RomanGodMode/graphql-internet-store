@@ -1,0 +1,31 @@
+:host {
+  padding: 30px 20px;
+  display: flex;
+}
+
+.page-set {
+  display: flex;
+  align-items: stretch;
+
+  .page {
+    margin: 0 1px;
+    display: flex;
+    align-items: center;
+    padding: 5px 15px;
+    background-color: var(--side-back-color);
+    font-size: 23px;
+  }
+}
+
+.arrow {
+  background-color: var(--side-back-color);
+  outline: none;
+  border: none;
+  padding: 5px;
+
+  .icon {
+    background-color: #fff;
+    width: 27px;
+    height: 27px;
+  }
+}

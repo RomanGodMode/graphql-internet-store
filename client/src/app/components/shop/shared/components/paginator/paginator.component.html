@@ -1,1 +1,20 @@
-<p>paginator works!</p>
+<a *ngIf='(currentPage|async) !== 1'
+   [routerLink]='[]' [queryParams]='{pageNumber: +(currentPage|async) - 1}' queryParamsHandling='merge'
+   class='arrow'>
+  <app-colored-svg class='icon' src='assets/img/left-arrow.svg'></app-colored-svg>
+</a>
+<div class='page-set'>
+  <a
+    *ngFor='let page of pageSet|async'
+    [routerLink]='[]' [queryParams]='{pageNumber: page}'
+    routerLinkActive='selected'
+    queryParamsHandling='merge'
+    class='page'>{{page}}
+  </a>
+</div>
+<a *ngIf='(currentPage|async) < PagesCount'
+   [routerLink]='[]' [queryParams]='{pageNumber: +(currentPage|async) + 1}' queryParamsHandling='merge'
+   class='arrow'>
+  <app-colored-svg class='icon' src='assets/img/right-arrow.svg'></app-colored-svg>
+</a>
+

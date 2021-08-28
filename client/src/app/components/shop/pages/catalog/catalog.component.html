@@ -2,8 +2,8 @@
   <shop-catalog-filters></shop-catalog-filters>
   <main class='content'>
     <shop-catalog-sorter></shop-catalog-sorter>
-    <shop-products-list></shop-products-list>
-    <app-paginator></app-paginator>
+    <shop-products-list class='products-list'></shop-products-list>
+    <app-paginator [totalCount]='(catalogService.catalogData$|async)?.productsCount'></app-paginator>
   </main>
 </section>
 

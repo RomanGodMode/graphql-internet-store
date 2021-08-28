@@ -1,0 +1,25 @@
+:host {
+  flex: 0.5 1 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 22px;
+}
+
+.photo {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+}
+
+.caption {
+  display: flex;
+
+  .price {
+    margin-left: 30px;
+  }
+}
+
+.footer {
+  display: flex;
+}

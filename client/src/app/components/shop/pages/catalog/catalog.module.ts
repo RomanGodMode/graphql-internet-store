@@ -9,6 +9,8 @@ import { PaginatorModule } from '../../shared/components/paginator/paginator.mod
 import { PriceFilterFormModule } from '../../shared/components/price-filter-form/price-filter-form.module'
 import { SelectModule } from '../../../cms/shared/components/select/select.module'
 import { ReactiveFormsModule } from '@angular/forms'
+import { ProductItemModule } from '../../shared/components/product-item/product-item.module'
+import { SharedComponentsModule } from '../../../shared/shared-components.module'
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { ReactiveFormsModule } from '@angular/forms'
     PaginatorModule,
     PriceFilterFormModule,
     SelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ProductItemModule,
+    SharedComponentsModule
   ]
 })
 export class CatalogModule {

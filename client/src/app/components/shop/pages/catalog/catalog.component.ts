@@ -12,7 +12,7 @@ export class CatalogComponent implements OnInit {
 
 
   constructor(
-    private catalogService: CatalogService
+    public catalogService: CatalogService
   ) {
   }
 

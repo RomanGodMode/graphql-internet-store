@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { CatalogService } from '../catalog.service'
 
 @Component({
   selector: 'shop-products-list',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core'
 })
 export class ProductsListComponent implements OnInit {
 
-  constructor() {
+  constructor(public catalogService: CatalogService) {
   }
 
   ngOnInit(): void {

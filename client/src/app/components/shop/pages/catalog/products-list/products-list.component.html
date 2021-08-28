@@ -1,1 +1,9 @@
-<p>products-list works!</p>
+<div *ngIf='catalogService._isLoading$|async' class='loader-container'>
+  <app-long-loader></app-long-loader>
+</div>
+<div *ngIf='!(catalogService._isLoading$|async)' class='products-list'>
+  <shop-product-item
+    *ngFor='let product of (catalogService.catalogData$|async)?.category?.products'
+    [product]='product'
+  ></shop-product-item>
+</div>

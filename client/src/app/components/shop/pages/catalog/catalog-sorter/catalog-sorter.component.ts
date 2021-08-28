@@ -11,7 +11,7 @@ import { distinctUntilChanged, map } from 'rxjs/operators'
 export class CatalogSorterComponent implements OnInit {
 
   options = [
-    { text: 'Выберите критерий', value: '' },
+    { text: 'Нет фильтра', value: '' },
     { text: 'Возрастание цены', value: 'price' },
     { text: 'Убывание цены', value: '-price' },
     { text: 'По алфавиту', value: 'name' },
@@ -50,7 +50,7 @@ export class CatalogSorterComponent implements OnInit {
         [],
         {
           relativeTo: this.route,
-          queryParams: { ordering: ordering || null },
+          queryParams: { ordering: ordering || null, pageNumber: '1' },
           queryParamsHandling: 'merge'
         })
     })
