@@ -1,0 +1,30 @@
+<div class='product-page'>
+  <a [routerLink]='["/catalog",(productData$|async)?.category?.id]' [queryParams]='{pageNumber: "1"}'
+     class='back-to-category'
+  >
+    <app-colored-svg class='icon' src='assets/img/left-arrow.svg'></app-colored-svg>
+    Назад к категории: {{(productData$|async)?.category?.title}}
+  </a>
+  <main class='main'>
+    <img [src]='staticUrl((productData$|async)?.product?.image)' alt=''>
+    <div class='description'>
+      <h1 class='product-name'>{{(productData$|async)?.product?.name}}</h1>
+      <h2 class='price'>Цена: {{(productData$|async)?.product?.price}} ₽</h2>
+      <shop-to-cart-button class='to-cart'></shop-to-cart-button>
+    </div>
+  </main>
+  <aside *ngIf='(specifications$|async)?.length' class='specifications'>
+    <app-decorated-title-wrapper>
+      <h4>Характеристики</h4>
+    </app-decorated-title-wrapper>
+    <table class='table'>
+      <tbody>
+      <tr *ngFor='let specification of specifications$|async'>
+        <td>{{specification.info.name}}</td>
+        <td>{{specification.value}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </aside>
+</div>
+

@@ -1,9 +1,6 @@
 <img class='photo' [src]='staticUrl(product.image)' alt=''>
 <div class='caption'>
-  <a class='name'>{{product.name}}</a>
+  <a [routerLink]='["/products",categoryId,product.id]' class='name'>{{product.name}}</a>
   <div class='price'>{{product.price}} ₽</div>
 </div>
-<div class='footer'>
-  Карт нумерик
-  В КОРЗИНУ
-</div>
+<shop-to-cart-button class='to-cart'></shop-to-cart-button>

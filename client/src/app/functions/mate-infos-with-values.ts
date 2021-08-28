@@ -8,3 +8,5 @@ export const mateInfosWithValues = (productInfoFields: ProductInfoField[], value
     info,
     value: val.value
   }))
+
+export type MatedInfos = ReturnType<typeof mateInfosWithValues>

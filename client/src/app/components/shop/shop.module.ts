@@ -64,7 +64,11 @@ import { BuyerNotificationModule } from './shared/components/buyer-notification/
             loadChildren: () => import('./pages/categories/categories.module').then(m => m.CategoriesModule)
           },
           { path: 'catalog/:categoryId', loadChildren: () => import('./pages/catalog/catalog.module').then(m => m.CatalogModule) },
-          { path: 'catalog', redirectTo: 'categories/0' }
+          { path: 'catalog', redirectTo: 'categories/0' },
+          {
+            path: 'products/:categoryId/:productId',
+            loadChildren: () => import('./pages/certain-product/certain-product.module').then(m => m.CertainProductModule)
+          }
         ]
       },
       { path: '**', redirectTo: 'home', pathMatch: 'full' }

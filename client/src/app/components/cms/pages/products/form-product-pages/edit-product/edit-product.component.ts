@@ -6,7 +6,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { GetFullCategoryGQL } from '../../../../../shared/quyery/get-category.query'
 import { EditProductGQL } from './mutation/edit-product.mutation'
-import { GetProductsGQL } from '../../../../../shared/quyery/get-full-product'
+import { GetProductGQL } from '../../../../../shared/quyery/get-full-product'
 import { FullProduct } from '../../../../../../types/product'
 import { mateInfosWithValues } from '../../../../../../functions/mate-infos-with-values'
 import { DeleteProductGQL } from './mutation/delete-product.mutation'
@@ -15,7 +15,7 @@ import { DeleteProductGQL } from './mutation/delete-product.mutation'
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
   styleUrls: ['./edit-product.component.scss'],
-  providers: [GetFullCategoryGQL, GetProductsGQL, EditProductGQL, DeleteProductGQL]
+  providers: [GetFullCategoryGQL, GetProductGQL, EditProductGQL, DeleteProductGQL]
 })
 export class EditProductComponent implements OnInit, OnDestroy {
   private _destroyed$ = new ReplaySubject()
@@ -134,7 +134,7 @@ export class EditProductComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private formBuilder: FormBuilder,
               private getFullCategoryGQL: GetFullCategoryGQL,
-              private getProductGQL: GetProductsGQL,
+              private getProductGQL: GetProductGQL,
               private editProductGQL: EditProductGQL,
               private deleteProductGQL: DeleteProductGQL,
               private router: Router) {
