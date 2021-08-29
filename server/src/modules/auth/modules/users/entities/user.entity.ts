@@ -3,6 +3,11 @@ import * as bcrypt from 'bcryptjs'
 
 export type UserRole = 'buyer' | 'admin'
 
+export type CartItem = {
+  productId: number
+  count: number
+}
+
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -32,4 +37,10 @@ export class User {
   async comparePassword(password: string): Promise<boolean> {
     return bcrypt.compare(password, this.password)
   }
+
+  @Column({ type: 'jsonb', default: { items: [] } })
+  cart: {
+    items: CartItem[]
+  }
 }
+

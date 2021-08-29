@@ -11,6 +11,7 @@ import { graphqlUploadExpress } from 'graphql-upload'
 import { FilesModule } from './modules/files/files.module'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import * as path from 'path'
+import { CartModule } from './modules/cart/cart.module'
 
 
 const isDebug = process.env.NODE_ENV !== 'production'
@@ -50,7 +51,8 @@ const isDebug = process.env.NODE_ENV !== 'production'
     FilesModule,
     AuthModule,
     CategoryModule,
-    ProductModule
+    ProductModule,
+    CartModule
   ],
   controllers: [AppController],
   providers: [AppService]
