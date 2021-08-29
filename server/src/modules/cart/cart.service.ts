@@ -16,11 +16,27 @@ export class CartService {
 
   async getCart(userId: number) {
     const user = await this.userRepo.findOne({ where: { id: userId } })
+    const items = await Promise.all(user.cart.items.map(async item => {
+      const product = await this.productRepo.findOne({ where: { id: item.productId } })
+      if (product) {
+        return {
+          count: item.count,
+          product
+        }
+      }
+
+      const idx = user.cart.items.indexOf(item)
+      user.cart.items.splice(idx, 1)
+      return null
+    }))
+
+    const filteredItems = items.filter(item => item)
+
     return {
-      items: user.cart.items.map(async item => ({
-        count: item.count,
-        product: await this.productRepo.findOne({ where: { id: item.productId } })
-      }))
+      items: filteredItems,
+      totalPrice: filteredItems.reduce((total, item) => {
+        return total + item.product.price * item.count
+      }, 0)
     }
   }
 
