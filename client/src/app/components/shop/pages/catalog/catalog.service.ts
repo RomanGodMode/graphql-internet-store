@@ -33,6 +33,7 @@ export class CatalogService {
           return EMPTY
         }),
         map(res => res.data.getCategory)
+        // tap(console.log)
       )
   }
 }

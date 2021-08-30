@@ -113,6 +113,7 @@ export class CategoryService {
           category: category.id,
           ...filterMutant
         },
+        loadRelationIds: true,
         order,
         take,
         skip

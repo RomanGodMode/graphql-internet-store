@@ -17,7 +17,7 @@ export class CartService {
   async getCart(userId: number) {
     const user = await this.userRepo.findOne({ where: { id: userId } })
     const items = await Promise.all(user.cart.items.map(async item => {
-      const product = await this.productRepo.findOne({ where: { id: item.productId } })
+      const product = await this.productRepo.findOne({ where: { id: item.productId }, loadRelationIds: true })
       if (product) {
         return {
           count: item.count,

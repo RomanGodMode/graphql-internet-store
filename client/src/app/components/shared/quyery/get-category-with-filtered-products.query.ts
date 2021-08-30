@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core'
 import { gql, Query } from 'apollo-angular'
-import { CategoryWithProducts } from '../../../types/category'
+import { Product } from '../../../types/product'
+import { FullCategory } from '../../../types/category'
+
+export type CategorizedProduct = Product & { category: number }
+
+export type CategoryWithProducts = FullCategory & { products: CategorizedProduct[] }
 
 export type CatalogData = {
   category: CategoryWithProducts
@@ -44,7 +49,8 @@ export class GetCategoryWithFilteredProductsGQL extends Query<Data, Vars> {
             price,
             image,
             infoValues,
-            amount
+            amount,
+            category
           }
         }
         productsCount,
