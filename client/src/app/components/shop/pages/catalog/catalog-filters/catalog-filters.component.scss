@@ -6,19 +6,18 @@
   display: flex;
   position: relative;
   padding: 7px;
-  border: 1px solid #fff;
 
   input {
     align-self: stretch;
-    border: none;
+    border: 1px solid var(--main-fore-color);
     background-color: transparent;
     color: var(--main-fore-color);
     padding-left: 10px;
     padding-right: 40px;
-  }
 
-  input:focus, input:active {
-    outline: var(--bright-fore-color) 1px solid;
+    &:hover {
+      border-color: transparent;
+    }
   }
 
   img {

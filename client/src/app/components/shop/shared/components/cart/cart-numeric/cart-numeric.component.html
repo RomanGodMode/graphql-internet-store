@@ -1,0 +1,9 @@
+<button (click)='decrement()' type='button' class='down'>-</button>
+<input #numeric
+       type='number'
+       (ngModelChange)='onChange($event)'
+       [(ngModel)]='value'
+       [max]='max'
+       [min]='1'
+>
+<button (click)='increment()' type='button' class='up'>+</button>

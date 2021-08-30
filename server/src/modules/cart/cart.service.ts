@@ -31,9 +31,11 @@ export class CartService {
     }))
 
     const filteredItems = items.filter(item => item)
+    const resultItems = {}
+    filteredItems.forEach(({ product, count }) => resultItems[product.id] = { product, count })
 
     return {
-      items: filteredItems,
+      items: resultItems,
       totalPrice: filteredItems.reduce((total, item) => {
         return total + item.product.price * item.count
       }, 0)

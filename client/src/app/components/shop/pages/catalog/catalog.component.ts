@@ -17,7 +17,6 @@ export class CatalogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.catalogService.catalogData$.subscribe(console.log)
   }
 
 }

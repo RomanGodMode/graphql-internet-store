@@ -1,0 +1,17 @@
+.add-to-cart {
+  min-width: 150px;
+  border-radius: 10px;
+  min-height: 31px;
+  transition: all .4s ease;
+  background-color: transparent;
+  border: 1px solid var(--main-fore-color);
+  color: var(--main-fore-color);
+
+  &:hover {
+    border: var(--pale-fore-color) 1px solid;
+  }
+
+  &:active {
+    border: var(--bright-fore-color) 1px solid;
+  }
+}

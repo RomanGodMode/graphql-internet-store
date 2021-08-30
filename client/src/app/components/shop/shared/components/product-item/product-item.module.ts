@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ProductItemComponent } from './product-item.component'
 import { RouterModule } from '@angular/router'
-import { ToCartButtonModule } from '../to-cart-button/to-cart-button.module'
+import { ToCartButtonModule } from '../cart/to-cart-button/to-cart-button.module'
 
 
 @NgModule({

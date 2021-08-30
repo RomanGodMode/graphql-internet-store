@@ -11,5 +11,5 @@ import { CartComponent } from './cart.component'
     RouterModule.forChild([{ path: '', component: CartComponent }])
   ]
 })
-export class CartModule {
+export class CartPageModule {
 }

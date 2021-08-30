@@ -10,7 +10,7 @@
     <div class='description'>
       <h1 class='product-name'>{{(productData$|async)?.product?.name}}</h1>
       <h2 class='price'>Цена: {{(productData$|async)?.product?.price}} ₽</h2>
-      <shop-to-cart-button class='to-cart'></shop-to-cart-button>
+      <shop-to-cart-button [productId]='(productData$|async)?.product?.id' class='to-cart'></shop-to-cart-button>
     </div>
   </main>
   <aside *ngIf='(specifications$|async)?.length' class='specifications'>

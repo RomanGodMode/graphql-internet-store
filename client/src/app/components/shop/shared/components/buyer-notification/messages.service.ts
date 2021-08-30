@@ -12,13 +12,15 @@ export class MessagesService {
   }
 
   showMessage(text: string) {
-    const id = Date.now()
+    if (!this.messages.some(message => message.text === text)) {
+      const id = Date.now()
 
-    this.messages.push({
-      id,
-      text
-    })
+      this.messages.push({
+        id,
+        text
+      })
 
-    setTimeout(() => this.closeMessage(id), 5000)
+      setTimeout(() => this.closeMessage(id), 5000)
+    }
   }
 }
