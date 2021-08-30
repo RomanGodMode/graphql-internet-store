@@ -1,1 +1,38 @@
-<p>cart works!</p>
+<app-decorated-title-wrapper class='decorated-titles'>
+  <h1 class='selected'>Корзина</h1>
+</app-decorated-title-wrapper>
+
+<app-long-loader class='loader' *ngIf='cartService.isLoading$|async'></app-long-loader>
+<ng-container *ngIf='!(cartService.isLoading$|async)'>
+  <table class='table'>
+    <thead>
+    <tr>
+      <td>Название</td>
+      <td>Количество</td>
+      <td>Цена ₽</td>
+      <td></td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor='let item of $items|async'>
+      <td class='name'><img class='photo' [src]='staticUrl(item.product.image)' alt=''> {{item.product.name}}</td>
+      <td>
+        <shop-to-cart-button [productId]='item.product.id' class='to-cart'></shop-to-cart-button>
+      </td>
+      <td>{{item.product.price}}</td>
+      <td>
+        <button class='delete' (click)='cartService.deleteItem(item.product.id)'>
+          <app-colored-svg class='icon' src='assets/img/delete-cross.svg'></app-colored-svg>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <main class='to-order'>
+    <div class='sum'>
+      Сумма: <span>{{(cartService.cart$|async)?.totalPrice}}</span> ₽
+    </div>
+    <a href=''>Оформить заказ</a>
+  </main>
+</ng-container>

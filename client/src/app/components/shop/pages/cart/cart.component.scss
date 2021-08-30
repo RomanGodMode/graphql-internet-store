@@ -1,0 +1,88 @@
+.table {
+  width: 100%;
+  max-width: 900px;
+  margin: 20px auto 0;
+  border-collapse: collapse;
+
+  tr {
+    border-bottom: 1px solid var(--main-fore-color);
+
+    td {
+      padding: 20px;
+    }
+
+    td.name {
+      padding: 4px;
+      display: flex;
+      align-items: center;
+
+      .photo {
+        margin-right: 20px;
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+      }
+    }
+  }
+
+}
+
+.delete {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+
+  &:hover .icon {
+    background-color: var(--pale-fore-color);
+  }
+
+  &:active .icon {
+    background-color: var(--bright-fore-color);
+  }
+}
+
+.icon {
+  transition: all .4s ease;
+  width: 30px;
+  height: 30px;
+  background-color: var(--main-fore-color);
+}
+
+.loader {
+  margin: 45px auto 0;
+}
+
+main.to-order {
+  max-width: 900px;
+  margin: 60px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .sum {
+    margin-right: 20px;
+    font-size: 22px;
+
+    span {
+      font-size: 28px;
+    }
+  }
+
+  a {
+    padding: 14px 20px;
+    border: 1px solid var(--main-fore-color);
+    background-color: transparent;
+    color: var(--main-fore-color);
+    transition: all 0.4s ease;
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--pale-fore-color);
+    }
+
+    &:active {
+      border-color: var(--bright-fore-color);
+    }
+  }
+}

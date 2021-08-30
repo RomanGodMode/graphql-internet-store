@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core'
+import { CartService } from '../../shared/components/cart/cart.service'
+import { map } from 'rxjs/operators'
+import { staticUrl } from '../../../../functions/static-url'
 
 @Component({
   selector: 'app-cart',
@@ -7,10 +10,17 @@ import { Component, OnInit } from '@angular/core'
 })
 export class CartComponent implements OnInit {
 
-  constructor() {
+  staticUrl = staticUrl
+
+  $items = this.cartService.cart$.pipe(
+    map(cart => Object.values(cart.items))
+  )
+
+  constructor(public cartService: CartService) {
   }
 
   ngOnInit(): void {
+    this.cartService.cart$.subscribe()
   }
 
 }
