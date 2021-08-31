@@ -42,5 +42,8 @@ export class User {
   cart: {
     items: CartItem[]
   }
+
+  @Column({ type: 'jsonb', default: [] })
+  chosenProducts: number[]
 }
 

@@ -12,6 +12,7 @@ import { FilesModule } from './modules/files/files.module'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import * as path from 'path'
 import { CartModule } from './modules/cart/cart.module'
+import { ChosenModule } from './modules/chosen/chosenModule'
 
 
 const isDebug = process.env.NODE_ENV !== 'production'
@@ -52,7 +53,8 @@ const isDebug = process.env.NODE_ENV !== 'production'
     AuthModule,
     CategoryModule,
     ProductModule,
-    CartModule
+    CartModule,
+    ChosenModule
   ],
   controllers: [AppController],
   providers: [AppService]
