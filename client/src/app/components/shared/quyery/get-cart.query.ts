@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core'
 import { gql, Query } from 'apollo-angular'
-import { FullProduct } from '../../../types/product'
+import { CategorizedProduct } from './get-category-with-filtered-products.query'
 
 export type Cart = {
   items: {
     [key: string]: {
-      'product': FullProduct,
+      'product': CategorizedProduct,
       'count': 3
     }
   },

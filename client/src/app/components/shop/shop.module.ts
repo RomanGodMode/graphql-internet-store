@@ -14,6 +14,7 @@ import { BuyerAuthGuard } from './buyer-auth/buyer-auth.guard'
 import { ProductItemModule } from './shared/components/product-item/product-item.module'
 import { BuyerNotificationModule } from './shared/components/buyer-notification/buyer-notification.module'
 import { CartModule } from './shared/components/cart/cart.module'
+import { ChosenModule } from './shared/components/chosen/chosen.module'
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { CartModule } from './shared/components/cart/cart.module'
     BuyerNotificationModule,
     BuyerAuthModule,
     CartModule,
+    ChosenModule,
     ProductItemModule,
     RouterModule.forChild([
       { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -52,7 +54,7 @@ import { CartModule } from './shared/components/cart/cart.module'
           },
           {
             path: 'chosen',
-            loadChildren: () => import('./pages/chosen/chosen.module').then(m => m.ChosenModule),
+            loadChildren: () => import('./pages/chosen/chosen-page.module').then(m => m.ChosenPageModule),
             canLoad: [BuyerAuthGuard],
             canActivate: [BuyerAuthGuard]
           }

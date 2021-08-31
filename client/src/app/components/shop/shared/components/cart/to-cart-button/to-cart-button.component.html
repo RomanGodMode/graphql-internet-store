@@ -1,4 +1,4 @@
-<button (click)='cartService.buyOne(productId)' *ngIf='!(inCartCount|async)' class='add-to-cart'>В корзину</button>
+<button (click)='cartService.buyOne(productId)' *ngIf='!(inCartCount|async)' class='shop-button'>В корзину</button>
 <cart-numeric [max]='productAmount|async'
               [formControl]='itemCountControl'
               *ngIf='inCartCount|async'

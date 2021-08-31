@@ -1,6 +1,5 @@
 :host {
   margin: 10px;
-  padding-bottom: 22px;
   flex: 0.5 1 31%;
   display: flex;
   flex-direction: column;
@@ -23,6 +22,21 @@
   }
 }
 
-.to-cart {
-  margin-top: 20px;
+
+.card-footer {
+  width: 100%;
+  padding: 20px 10px 12px;
+  align-self: center;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  .to-cart {
+
+  }
+
+  .to-chosen {
+    margin-top: 15px;
+  }
 }

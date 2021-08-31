@@ -30,12 +30,6 @@
 .main {
   display: flex;
 
-  img {
-    flex: 1 1 auto;
-    height: auto;
-    max-width: 60%;
-    object-fit: contain;
-  }
 
   .description {
     padding-left: 10px;
@@ -67,4 +61,13 @@
       border-left: none;
     }
   }
+}
+
+.loader {
+  margin: 85px auto 0;
+}
+
+.image-box {
+  margin-right: 20px;
+  width: 50%;
 }

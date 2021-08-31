@@ -1,0 +1,2 @@
+<button *ngIf='isInChosen$|async' class='shop-button' (click)='router.navigateByUrl("/chosen")'>Перейти</button>
+<button *ngIf='!(isInChosen$|async)' class='shop-button' (click)='chosenService.addItem(productId)'>В избранное</button>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common'
 import { ProductItemComponent } from './product-item.component'
 import { RouterModule } from '@angular/router'
 import { ToCartButtonModule } from '../cart/to-cart-button/to-cart-button.module'
+import { ChosenModule } from '../chosen/chosen.module'
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ToCartButtonModule } from '../cart/to-cart-button/to-cart-button.module
   imports: [
     CommonModule,
     RouterModule,
-    ToCartButtonModule
+    ToCartButtonModule,
+    ChosenModule
   ]
 })
 export class ProductItemModule {

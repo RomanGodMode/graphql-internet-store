@@ -61,7 +61,7 @@ main.to-order {
   justify-content: center;
 
   .sum {
-    margin-right: 20px;
+    margin-right: 40px;
     font-size: 22px;
 
     span {
@@ -83,6 +83,26 @@ main.to-order {
 
     &:active {
       border-color: var(--bright-fore-color);
+    }
+  }
+}
+
+.empty {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 23px;
+
+  a {
+    margin-left: 20px;
+    padding: 8px;
+    border: 1px solid var(--main-fore-color);
+
+    &:hover {
+      border: 1px solid var(--pale-fore-color);
+    }
+
+    &:active {
+      border: 1px solid var(--bright-fore-color);
     }
   }
 }

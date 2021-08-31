@@ -3,4 +3,7 @@
   <a [routerLink]='["/products",categoryId,product.id]' class='name'>{{product.name}}</a>
   <div class='price'>{{product.price}} ₽</div>
 </div>
-<shop-to-cart-button [productId]='product.id' class='to-cart'></shop-to-cart-button>
+<div class='card-footer'>
+  <shop-to-cart-button [productId]='product.id' class='to-cart'></shop-to-cart-button>
+  <shop-to-chosen class='to-chosen' [productId]='product.id'></shop-to-chosen>
+</div>

@@ -175,3 +175,50 @@ input[type=number]::-webkit-inner-spin-button {
   color: var(--danger-color);
   font-style: italic;
 }
+
+.image-box {
+  position: relative;
+  width: 100%;
+
+
+  &::before {
+    content: "";
+    display: block;
+    padding-top: 100%;
+  }
+
+  img {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+  }
+}
+
+button.shop-button {
+  min-width: 150px;
+  border-radius: 10px;
+  min-height: 33px;
+  transition: all .4s ease;
+  background-color: transparent;
+  border: 1px solid var(--main-fore-color);
+  color: var(--main-fore-color);
+  cursor: pointer;
+
+  &:hover {
+    border: var(--pale-fore-color) 1px solid;
+  }
+
+  &:active {
+    border: var(--bright-fore-color) 1px solid;
+  }
+
+}
+
+.minimized {
+  width: min-content;
+  display: block;
+}
