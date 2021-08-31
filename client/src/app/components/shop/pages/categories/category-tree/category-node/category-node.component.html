@@ -1,8 +1,8 @@
 <div class='caption'>
   <a routerLinkActive='selected' [routerLink]='["/catalog", node.id]'
      [queryParams]='{pageNumber: 1}'
-     *ngIf='!node.children.length' class='title'>{{node.title}}</a>
-  <span *ngIf='node.children.length' class='title'>{{node.title}}</span>
+     class='title'>{{node.title}}</a>
+  <!--  <span *ngIf='node.children.length' class='title'>{{node.title}}</span>-->
 </div>
 
 <div class='children' *ngIf='node.children.length'>

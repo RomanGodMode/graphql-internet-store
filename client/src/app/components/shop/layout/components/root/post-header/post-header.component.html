@@ -3,7 +3,12 @@
     <a routerLinkActive='selected' [routerLink]='["categories", 0]'>Все</a>
   </li>
   <li class='category' *ngFor='let category of categories$|async'>
-    <a routerLinkActive='selected' [routerLink]='["categories",category.id]'>{{category.title}}</a>
+    <a *ngIf='category.children.length' routerLinkActive='selected'
+       [routerLink]='["categories",category.id]'
+    >{{category.title}}</a>
+    <a *ngIf='!category.children.length' routerLinkActive='selected'
+       [routerLink]='["/catalog", category.id]' [queryParams]='{pageNumber: 1}'
+    >{{category.title}}</a>
   </li>
   <app-long-loader class='loader' *ngIf='isLoading$|async'></app-long-loader>
 </ul>

@@ -1,17 +1,18 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Category } from './entities/category.entity'
-import { Between, DeepPartial, LessThanOrEqual, Like, MoreThanOrEqual, Not, Repository } from 'typeorm'
+import { Between, DeepPartial, In, LessThanOrEqual, Like, MoreThanOrEqual, Not, Repository } from 'typeorm'
 import { Product } from '../products/entities/product.entity'
 
 
 @Injectable()
 export class CategoryService {
 
-  async getMinMax(id: number) {
+  async getMinMax(ids: number[]) {
     const query = this.productRepo.createQueryBuilder('product')
     query.select('MAX(product.price), MIN(product.price)')
-    query.where('product.category = :id', { id })
+    query.where('product.category IN (:...ids)', { ids })
+
     const { max, min } = await query.getRawOne()
     return { max: +max, min: +min }
   }
@@ -22,21 +23,20 @@ export class CategoryService {
   ) {
   }
 
-  async getEntireTree() {
-
-    const addChildren = async (root: DeepPartial<Category>) => {
-      root.children = await this.categoryRepo.find({ where: { parentId: root.id } })
-      delete root.parentId
-      delete root.productInfoFields
-      for (const r of root.children) {
-        await addChildren(r)
-      }
+  async addChildren(root: DeepPartial<Category>) {
+    root.children = await this.categoryRepo.find({ where: { parentId: root.id } })
+    delete root.parentId
+    delete root.productInfoFields
+    for (const r of root.children) {
+      await this.addChildren(r)
     }
+  }
 
+  async getEntireTree() {
     const result: DeepPartial<Category>[] = await this.categoryRepo.find({ where: { parentId: null } })
 
     for (const root of result) {
-      await addChildren(root)
+      await this.addChildren(root)
     }
 
     return result
@@ -52,11 +52,24 @@ export class CategoryService {
     return category
   }
 
+  async getIdsFromSubcategory(category: Category) {
+    await this.addChildren(category)
+    const ids = [] as number[]
+    const stack = [] as Category[]
+    stack.push(category)
+    while (stack.length) {
+      const node = stack.pop()
+      ids.push(node.id)
+      node.children.forEach(child => stack.push(child))
+    }
+
+    return ids
+  }
+
   async getCategory(
     id: number, withProducts = false, showOutOfStock = false,
     pageNumber: number = null, ordering: string = null, name: string = null, minPrice: number = null, maxPrice: number = null
   ) {
-
     const category = withProducts
       ? await this.categoryRepo.findOne({ where: { id }, relations: ['products'] })
       : await this.categoryRepo.findOne({ where: { id } })
@@ -65,7 +78,9 @@ export class CategoryService {
       throw new NotFoundException('Скорее всего эта категория удалена')
     }
 
-    const { max, min } = await this.getMinMax(id)
+    const categoryIds = await this.getIdsFromSubcategory({ ...category })
+
+    const { max, min } = await this.getMinMax(categoryIds)
 
     pageNumber = pageNumber || 1
     const take = 6
@@ -110,7 +125,7 @@ export class CategoryService {
     const [result, productsCount] = await this.productRepo.findAndCount(
       {
         where: {
-          category: category.id,
+          category: In(categoryIds),
           ...filterMutant
         },
         loadRelationIds: true,
