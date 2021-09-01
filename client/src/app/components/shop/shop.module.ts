@@ -57,6 +57,12 @@ import { ChosenModule } from './shared/components/chosen/chosen.module'
             loadChildren: () => import('./pages/chosen/chosen-page.module').then(m => m.ChosenPageModule),
             canLoad: [BuyerAuthGuard],
             canActivate: [BuyerAuthGuard]
+          },
+          {
+            path: 'cabinet',
+            loadChildren: () => import('./pages/cabinet/cabinet.module').then(m => m.CabinetModule),
+            canLoad: [BuyerAuthGuard],
+            canActivate: [BuyerAuthGuard]
           }
         ]
       },

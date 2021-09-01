@@ -38,7 +38,7 @@
     <div class='sum'>
       Сумма: <span>{{(cartService.cart$|async)?.totalPrice}}</span> ₽
     </div>
-    <a href=''>Оформить заказ</a>
+    <button (click)='pushOrder()'>Оформить заказ</button>
   </main>
 </ng-container>
 <h2 *ngIf='!($items|async)?.length && !(cartService.isLoading$|async)' class='empty'>

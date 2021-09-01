@@ -6,7 +6,7 @@ export type Cart = {
   items: {
     [key: string]: {
       'product': CategorizedProduct,
-      'count': 3
+      'count': number
     }
   },
   totalPrice: number

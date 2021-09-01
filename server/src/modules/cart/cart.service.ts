@@ -74,4 +74,10 @@ export class CartService {
     return updatedUser.cart
   }
 
+  async clearCart(userId: number) {
+    const user = await this.userRepo.findOne({ where: { id: userId } })
+    user.cart.items = []
+    return this.userRepo.save(user)
+  }
+
 }

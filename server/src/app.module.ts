@@ -13,6 +13,7 @@ import { ServeStaticModule } from '@nestjs/serve-static'
 import * as path from 'path'
 import { CartModule } from './modules/cart/cart.module'
 import { ChosenModule } from './modules/chosen/chosenModule'
+import { OrderModule } from './modules/order/order.module'
 
 
 const isDebug = process.env.NODE_ENV !== 'production'
@@ -54,7 +55,8 @@ const isDebug = process.env.NODE_ENV !== 'production'
     CategoryModule,
     ProductModule,
     CartModule,
-    ChosenModule
+    ChosenModule,
+    OrderModule
   ],
   controllers: [AppController],
   providers: [AppService]

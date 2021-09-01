@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { CabinetComponent } from './cabinet.component'
 import { RouterModule } from '@angular/router'
-import { CartComponent } from './cart.component'
 import { SharedComponentsModule } from '../../../shared/shared-components.module'
-import { ToCartButtonModule } from '../../shared/components/cart/to-cart-button/to-cart-button.module'
 import { OrderingModule } from '../../shared/components/ordering/ordering.module'
 
 
 @NgModule({
-  declarations: [CartComponent],
+  declarations: [
+    CabinetComponent
+  ],
   imports: [
     CommonModule,
+    RouterModule.forChild([{ path: '', component: CabinetComponent }]),
     OrderingModule,
-    RouterModule.forChild([{ path: '', component: CartComponent }]),
-    SharedComponentsModule,
-    ToCartButtonModule
+    SharedComponentsModule
   ]
 })
-export class CartPageModule {
+export class CabinetModule {
 }
