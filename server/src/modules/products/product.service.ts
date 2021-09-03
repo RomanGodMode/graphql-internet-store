@@ -1,6 +1,6 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common'
 import { Product } from './entities/product.entity'
-import { Repository } from 'typeorm'
+import { Not, Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
 import { FileUpload } from 'graphql-upload'
 import { FilesService } from '../files/files.service'
@@ -52,5 +52,9 @@ export class ProductService {
   async deleteProduct(id: number) {
     const result = await this.productRepo.delete({ id })
     return !!result.affected
+  }
+
+  async getNewProducts() {
+    return this.productRepo.find({ where: { amount: Not(0) }, order: { id: 'DESC' }, take: 9 })
   }
 }

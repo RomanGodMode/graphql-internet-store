@@ -1,4 +1,19 @@
-<p style='padding-bottom: 60px;'>Гучи картинка</p>
+<section>
+  <app-decorated-title-wrapper>
+    <a class='selected' href='#'><h4>Новинки</h4></a>
+  </app-decorated-title-wrapper>
+  <div *ngIf='isLoading$|async' class='loader-container'>
+    <app-long-loader></app-long-loader>
+  </div>
+
+  <div *ngIf='!(isLoading$|async)' class='products-list'>
+    <shop-product-item
+      *ngFor='let product of newProducts$|async'
+      [product]='product'
+      [categoryId]='product.category'
+    ></shop-product-item>
+  </div>
+</section>
 <app-decorated-title-wrapper>
   <a class='selected' href='#'><h4>Преимущества компании</h4></a>
 </app-decorated-title-wrapper>
@@ -16,3 +31,12 @@
     <p>ГАРАНТИИ КАЧЕСТВА ПРОДУКЦИИ</p>
   </li>
 </ul>
+
+<app-decorated-title-wrapper>
+  <h4 class='selected'>Важно</h4>
+</app-decorated-title-wrapper>
+<section class='important'>
+  <p>Добро пожаловать в интернет-магазин замечательных товаров!</p>
+  <p>Мы с радостью принимаем и обслуживаем заказы 7 дней в неделю с 10 до 18 по московскому времени.</p>
+  <p>чтобы забрать свой заказ, идите в пункт самовывоза(Муром, Московская 54, подьезд 2, квартира 59)</p>
+</section>

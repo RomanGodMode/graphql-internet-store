@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common'
 import { HomeComponent } from './home.component'
 import { RouterModule } from '@angular/router'
 import { SharedComponentsModule } from '../../../shared/shared-components.module'
+import { ProductItemModule } from '../../shared/components/product-item/product-item.module'
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { SharedComponentsModule } from '../../../shared/shared-components.module
       path: '',
       component: HomeComponent
     }]),
-    SharedComponentsModule
+    SharedComponentsModule,
+    ProductItemModule
   ]
 })
 export class HomeModule {

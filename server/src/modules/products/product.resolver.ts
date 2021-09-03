@@ -7,6 +7,7 @@ import { CreateProductInput } from './input/create-product.input'
 import { ReplaceProductInput } from './input/replace-product.input'
 import { UseGuards } from '@nestjs/common'
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
+import GraphQLJSON from 'graphql-type-json'
 
 
 @Resolver(() => Product)
@@ -18,6 +19,11 @@ export class ProductResolver {
   @Query(() => Product)
   getProduct(@Args() { id }: GetProductArgs) {
     return this.productService.getProduct(id)
+  }
+
+  @Query(() => GraphQLJSON)
+  getNewProducts() {
+    return this.productService.getNewProducts()
   }
 
   @UseGuards(AdminAuthGuard)
