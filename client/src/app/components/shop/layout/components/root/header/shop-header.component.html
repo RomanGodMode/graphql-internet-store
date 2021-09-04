@@ -1,11 +1,13 @@
 <app-container class='content'>
+  <button class='burgir' (click)='toggleShowBurgir()'>
+    <app-colored-svg class='icon' src='assets/img/burgir.svg'></app-colored-svg>
+  </button>
   <ul class='list'>
-    <li class='item'><a routerLinkActive='selected' routerLink='home'>Дом</a></li>
+    <li class='item'><a routerLinkActive='selected' routerLink='home'>Главная</a></li>
     <li class='item'><a routerLinkActive='selected' routerLink='catalog'>Каталог</a></li>
-
   </ul>
 
-  <ul class='list' *ngIf='authService.isAuth$ | async else authOptions'>
+  <ul class='list additional-features' *ngIf='authService.isAuth$ | async else authOptions'>
     <li class='item'>
       <a routerLinkActive='selected' routerLink='chosen'>
         <img src='../../../../../../../assets/img/analytics.svg' alt=''>
@@ -30,10 +32,44 @@
     </li>
   </ul>
   <ng-template #authOptions>
-    <ul class='list'>
+    <ul class='list additional-features'>
       <li class='item'><a routerLinkActive='selected' routerLink='register'>Регистрация</a></li>
       <li class='item'><a routerLinkActive='selected' routerLink='login'>Логин</a></li>
     </ul>
   </ng-template>
 
 </app-container>
+
+<nav class='burgir-menu' *ngIf='isBurgirShown'>
+  <ul class='list mobile-additional-features' *ngIf='authService.isAuth$ | async else authOptions'>
+    <li class='item'>
+      <a routerLinkActive='selected' routerLink='chosen'>
+        <img src='../../../../../../../assets/img/analytics.svg' alt=''>
+        Избранное
+      </a>
+    </li>
+    <li class='item'>
+      <a routerLinkActive='selected' routerLink='cart'>
+        <img src='../../../../../../../assets/img/shopping-cart.svg' alt=''>
+        Корзина
+      </a>
+    </li>
+    <li class='item'>
+      <a routerLinkActive='selected' routerLink='cabinet'>
+        Кабинет
+      </a>
+    </li>
+    <li class='item'>
+      <a class='logout' (click)='authService.logout()'>
+        Выйти
+      </a>
+    </li>
+  </ul>
+  <ng-template #authOptions>
+    <ul class='list mobile-additional-features'>
+      <li class='item'><a routerLinkActive='selected' routerLink='register'>Регистрация</a></li>
+      <li class='item'><a routerLinkActive='selected' routerLink='login'>Логин</a></li>
+    </ul>
+  </ng-template>
+</nav>
+

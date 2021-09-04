@@ -8,10 +8,17 @@ import { BuyerAuthService } from '../../../../buyer-auth/buyer-auth.service'
 })
 export class ShopHeaderComponent implements OnInit {
 
+  isBurgirShown = false
+
   constructor(public authService: BuyerAuthService) {
   }
 
+
   ngOnInit(): void {
+  }
+
+  toggleShowBurgir() {
+    this.isBurgirShown = !this.isBurgirShown
   }
 
 }

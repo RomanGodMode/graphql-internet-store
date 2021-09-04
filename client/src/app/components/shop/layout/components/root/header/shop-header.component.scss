@@ -7,6 +7,54 @@
   right: 0;
 }
 
+.burgir {
+  display: none;
+  width: auto;
+  height: auto;
+  align-self: center;
+  border: none;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+
+  .icon {
+    background-color: var(--main-fore-color);
+    width: 40px;
+    height: 40px;
+    transition: all .4s ease;
+  }
+
+  &:hover {
+    .icon {
+      background-color: var(--pale-fore-color);
+    }
+  }
+
+  &:active {
+    .icon {
+      background-color: var(--bright-fore-color);
+    }
+  }
+
+}
+
+.burgir-menu {
+  position: fixed;
+  top: 62px;
+  right: 0;
+  left: 0;
+  background-color: var(--deep-back-color);
+
+  .mobile-additional-features {
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .item {
+      margin: 10px;
+    }
+  }
+}
+
 .content {
   display: flex;
   justify-content: space-between;
@@ -33,3 +81,12 @@
   }
 }
 
+@media (max-width: 700px) {
+  .burgir {
+    display: inline-block;
+  }
+
+  .additional-features {
+    display: none;
+  }
+}

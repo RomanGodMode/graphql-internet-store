@@ -12,13 +12,14 @@
 
 .advantages-list {
   display: flex;
-  justify-content: space-between;
-  padding: 35px 80px 50px;
+  justify-content: center;
+  padding: 35px 6px 50px;
 
   .item {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 20px;
 
     img {
       width: 50px;
@@ -35,6 +36,7 @@
 section.important {
   padding-top: 14px;
   padding-left: 20px;
+  padding-bottom: 20px;
 
   p {
     text-align: left;
@@ -44,3 +46,22 @@ section.important {
     margin-top: 5px;
   }
 }
+
+@media (max-width: 660px) {
+  .advantages-list {
+    padding: 25px 45px 40px;
+  }
+}
+
+@media (max-width: 420px) {
+  .advantages-list {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 655px) {
+  .products-list {
+    justify-content: center;
+  }
+}
+
