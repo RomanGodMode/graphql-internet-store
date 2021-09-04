@@ -15,3 +15,9 @@
     }
   }
 }
+
+@media(max-width: 590px) {
+  .catalogue {
+    flex-direction: column;
+  }
+}

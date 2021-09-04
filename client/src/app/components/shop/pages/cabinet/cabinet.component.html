@@ -7,52 +7,57 @@
 </div>
 
 <ng-template #content>
-  <table *ngIf='(orderService.orders$|async)?.length else placeholder' class='table'>
-    <thead>
-    <tr>
-      <td>id</td>
-      <td>Дата оформления</td>
-      <td>Статус</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor='let order of orderService.orders$|async'>
-      <td><a routerLinkActive='selected' [routerLink]='[]' [queryParams]='{orderId: order.id}'>{{order.id}}</a></td>
-      <td>{{order.orderingDate}}</td>
-      <td>{{order.status}}</td>
-    </tr>
-    </tbody>
-  </table>
+  <div class='table-wrapper'>
+    <table *ngIf='(orderService.orders$|async)?.length else placeholder' class='table'>
+      <thead>
+      <tr>
+        <td>id</td>
+        <td>Дата оформления</td>
+        <td>Статус</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor='let order of orderService.orders$|async'>
+        <td><a routerLinkActive='selected' [routerLink]='[]' [queryParams]='{orderId: order.id}'>{{order.id}}</a></td>
+        <td>{{order.orderingDate}}</td>
+        <td>{{order.status}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
   <section *ngIf='selectedCart$|async' class='cart-contents'>
 
     <app-decorated-title-wrapper>
       <h1 class='selected'>Корзина выбранного заказа</h1>
     </app-decorated-title-wrapper>
 
-    <table class='table'>
-      <thead>
-      <tr>
-        <td>Название</td>
-        <td>Количество</td>
-        <td>Цена ₽</td>
-        <td></td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor='let item of cartItems$|async'>
-        <td class='name'>
-          <img class='photo' [src]='staticUrl(item.product.image)' alt=''>
-          <a [routerLink]='["/products",item.product.category,item.product.id]'>
-            {{item.product.name}}
-          </a>
-        </td>
-        <td>
-          {{item.count}}
-        </td>
-        <td>{{item.product.price}}</td>
-      </tr>
-      </tbody>
-    </table>
+    <div class='table-wrapper'>
+      <table class='table'>
+        <thead>
+        <tr>
+          <td>Название</td>
+          <td>Количество</td>
+          <td>Цена ₽</td>
+          <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor='let item of cartItems$|async'>
+          <td class='name'>
+            <img class='photo' [src]='staticUrl(item.product.image)' alt=''>
+            <a [routerLink]='["/products",item.product.category,item.product.id]'>
+              {{item.product.name}}
+            </a>
+          </td>
+          <td>
+            {{item.count}}
+          </td>
+          <td>{{item.product.price}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
     <div class='sum'>
       Сумма: {{(selectedCart$|async)?.totalPrice}} ₽
     </div>

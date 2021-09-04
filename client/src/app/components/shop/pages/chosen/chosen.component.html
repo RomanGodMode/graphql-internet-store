@@ -4,35 +4,37 @@
 
 <app-long-loader class='loader' *ngIf='chosenService.isLoading$|async'></app-long-loader>
 
-<table *ngIf='!(chosenService.isLoading$|async) && ($items|async)?.length' class='table'>
-  <thead>
-  <tr>
-    <td>Название</td>
-    <td>Купить</td>
-    <td>Цена ₽</td>
-    <td></td>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor='let product of $items|async'>
-    <td class='name'>
-      <img class='photo' [src]='staticUrl(product.image)' alt=''>
-      <a [routerLink]='["/products",product.category,product.id]'>
-        {{product.name}}
-      </a>
-    </td>
-    <td>
-      <shop-to-cart-button [productId]='product.id' class='to-cart minimized'></shop-to-cart-button>
-    </td>
-    <td>{{product.price}}</td>
-    <td>
-      <button class='delete' (click)='chosenService.deleteItem(product.id)'>
-        <app-colored-svg class='icon' src='assets/img/delete-cross.svg'></app-colored-svg>
-      </button>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<div class='table-wrapper'>
+  <table *ngIf='!(chosenService.isLoading$|async) && ($items|async)?.length' class='table'>
+    <thead>
+    <tr>
+      <td>Название</td>
+      <td>Купить</td>
+      <td>Цена ₽</td>
+      <td></td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor='let product of $items|async'>
+      <td class='name'>
+        <img class='photo' [src]='staticUrl(product.image)' alt=''>
+        <a [routerLink]='["/products",product.category,product.id]'>
+          {{product.name}}
+        </a>
+      </td>
+      <td>
+        <shop-to-cart-button [productId]='product.id' class='to-cart minimized'></shop-to-cart-button>
+      </td>
+      <td>{{product.price}}</td>
+      <td>
+        <button class='delete' (click)='chosenService.deleteItem(product.id)'>
+          <app-colored-svg class='icon' src='assets/img/delete-cross.svg'></app-colored-svg>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 <h2 *ngIf='!($items|async)?.length && !(chosenService.isLoading$|async)' class='empty'>
   Список избранного пуст
   <a routerLink='/catalog'>В каталог</a>
