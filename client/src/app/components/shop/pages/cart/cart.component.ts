@@ -3,7 +3,7 @@ import { CartService } from '../../shared/components/cart/cart.service'
 import { map } from 'rxjs/operators'
 import { staticUrl } from '../../../../functions/static-url'
 import { OrderService } from '../../shared/components/ordering/order.service'
-import { Router } from '@angular/router'
+import { BehaviorSubject } from 'rxjs'
 
 @Component({
   selector: 'app-cart',
@@ -17,11 +17,11 @@ export class CartComponent implements OnInit {
   $items = this.cartService.cart$.pipe(
     map(cart => Object.values(cart.items))
   )
+  isSuccessfulOrder$ = new BehaviorSubject(false)
 
   constructor(
     public cartService: CartService,
-    private orderService: OrderService,
-    private router: Router
+    private orderService: OrderService
   ) {
   }
 
@@ -30,7 +30,10 @@ export class CartComponent implements OnInit {
   }
 
   pushOrder() {
-    this.orderService.pushOrder(() => this.router.navigateByUrl('/cabinet'))
+    this.orderService.pushOrder(() => {
+      // this.router.navigateByUrl('/cabinet').then()
+      this.isSuccessfulOrder$.next(true)
+    })
   }
 
 }

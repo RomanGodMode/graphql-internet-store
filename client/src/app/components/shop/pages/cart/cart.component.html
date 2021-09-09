@@ -48,3 +48,10 @@
   <a routerLink='/catalog'>В каталог</a>
 </h2>
 
+<article *ngIf='isSuccessfulOrder$|async' class='successful-order-popup'>
+  <button (click)='isSuccessfulOrder$.next(false)' class='close-popup'>
+    <app-colored-svg class='icon' src='assets/img/delete-cross.svg'></app-colored-svg>
+  </button>
+  <h2>Поздравляем с успешным оформлением заказа</h2>
+  <h3>Заказ можно отследить в <a routerLink='/cabinet'>Личном кабинете</a></h3>
+</article>
