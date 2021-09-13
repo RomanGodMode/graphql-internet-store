@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core'
 import { BehaviorSubject, EMPTY, Observable } from 'rxjs'
 import { MessagesService } from '../buyer-notification/messages.service'
-import { catchError, map, tap } from 'rxjs/operators'
+import { catchError, filter, map, switchMap, tap } from 'rxjs/operators'
 import { ChosenProducts, GetChosenProducts } from './query/get-chosen-products.query'
 import { SetChosenProducts } from './mutation/set-chosen-products.mutation'
+import { BuyerAuthService } from '../../../buyer-auth/buyer-auth.service'
 
 @Injectable()
 export class ChosenService {
@@ -13,10 +14,13 @@ export class ChosenService {
   constructor(
     private getChosenProducts: GetChosenProducts,
     private setChosenProducts: SetChosenProducts,
-    private messagesService: MessagesService
+    private messagesService: MessagesService,
+    private authService: BuyerAuthService
   ) {
     this.isLoading$.next(true)
-    this.chosenProducts$ = getChosenProducts.watch({}, { fetchPolicy: 'network-only' }).valueChanges.pipe(
+    this.chosenProducts$ = authService.isAuth$.pipe(
+      filter(isAuth => isAuth),
+      switchMap(() => getChosenProducts.watch({}, { fetchPolicy: 'network-only' }).valueChanges),
       tap(() => this.isLoading$.next(false)),
       catchError(err => {
         err.message === 'Forbidden resource'
@@ -27,6 +31,7 @@ export class ChosenService {
       }),
       map(res => res.data.getChosenProducts)
     )
+
   }
 
   setProduct(productId: number, isDelete = false) {

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core'
 import { BehaviorSubject, EMPTY, Observable, of } from 'rxjs'
 import { Cart, GetCartGQL } from '../../../../shared/quyery/get-cart.query'
-import { catchError, map, tap } from 'rxjs/operators'
+import { catchError, filter, map, switchMap, tap } from 'rxjs/operators'
 import { MessagesService } from '../buyer-notification/messages.service'
 import { CartItemInput, SetCartItemsGQL } from '../../mutation/setCartItems.mutation'
+import { BuyerAuthService } from '../../../buyer-auth/buyer-auth.service'
 
 
 @Injectable()
@@ -14,10 +15,13 @@ export class CartService {
   constructor(
     private getCart: GetCartGQL,
     private setCart: SetCartItemsGQL,
-    private messagesService: MessagesService
+    private messagesService: MessagesService,
+    private authService: BuyerAuthService
   ) {
     this.isLoading$.next(true)
-    this.cart$ = getCart.watch({}, { fetchPolicy: 'network-only' }).valueChanges.pipe(
+    this.cart$ = authService.isAuth$.pipe(
+      filter(isAuth => isAuth),
+      switchMap(() => getCart.watch({}, { fetchPolicy: 'network-only' }).valueChanges),
       tap(() => this.isLoading$.next(false)),
       catchError(err => {
         err.message === 'Forbidden resource'
