@@ -2,22 +2,27 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
 
-## How to run
+# How to run
 
-### Installation
-in folders server and client
+## running the production
+
+in root of project
+
+```bash
+$ docker-compose -f docker-compose.prod.yml up --build
+```
+
+## development in watch mode
+
+in folders **'server/'** and **'client/'**
 
 ```bash
 $ npm install
 ```
 
-### Running the app
-in root of project
-```bash
-# development in watch mode
-$ docker-compose -f docker-compose.dev.yml up --build
+then in root of project
 
-# production
-$ docker-compose -f docker-compose.prod.yml up --build
+```bash
+$ docker-compose -f docker-compose.dev.yml up --build
 ```
 
