@@ -14,6 +14,7 @@ import * as path from 'path'
 import { CartModule } from './modules/cart/cart.module'
 import { ChosenModule } from './modules/chosen/chosenModule'
 import { OrderModule } from './modules/order/order.module'
+import { SeedingModule } from './modules/db/seeding.module'
 
 
 const isDebug = process.env.NODE_ENV !== 'production'
@@ -21,6 +22,7 @@ const isDebug = process.env.NODE_ENV !== 'production'
 @Module({
   imports: [
     DatabaseModule,
+    SeedingModule,
     GraphQLModule.forRoot({
       path: 'graphql',
       uploads: false,

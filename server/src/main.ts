@@ -4,16 +4,18 @@ import * as redis from 'redis'
 import * as session from 'express-session'
 import * as Store from 'connect-redis'
 import { ValidationPipe } from '@nestjs/common'
+import { seed } from './modules/db/seed'
 
 async function bootstrap() {
   const RedisStore = Store(session)
 
   const redisClient = redis.createClient({
     host: process.env.REDIS_HOST,
-    port: +process.env.REDIS_PORT,
+    port: +process.env.REDIS_PORT
   })
 
   const app = await NestFactory.create(AppModule)
+  await seed(app)
 
   app.enableCors({
     origin: ['http://localhost:4200'],
