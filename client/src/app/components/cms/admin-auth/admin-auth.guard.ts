@@ -1,36 +1,28 @@
 import { Injectable } from '@angular/core'
-import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, Router, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router'
-import { Observable } from 'rxjs'
+import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, Router, RouterStateSnapshot, UrlSegment } from '@angular/router'
 import { AdminAuthService } from './admin-auth.service'
+import { tap } from 'rxjs/operators'
 
 @Injectable()
 export class AdminAuthGuard implements CanActivate, CanLoad {
-  constructor(private buyerAuthService: AdminAuthService, private router: Router) {
+  constructor(private adminAuthService: AdminAuthService, private router: Router) {
   }
+
+  noUntilAuth = this.adminAuthService.isAuth$.pipe(
+    tap(isAuth => !isAuth && this.router.navigateByUrl('/admin/login'))
+  )
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    this.buyerAuthService.isAuth$.subscribe(
-      isAuth => {
-        if (!isAuth) {
-          this.router.navigateByUrl('/admin/login').then()
-        }
-      }
-    )
-    return this.buyerAuthService.isAuth$
+    state: RouterStateSnapshot
+  ) {
+    return this.noUntilAuth
   }
 
   canLoad(
     route: Route,
-    segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    this.buyerAuthService.isAuth$.subscribe(
-      isAuth => {
-        if (!isAuth) {
-          this.router.navigateByUrl('/admin/login').then()
-        }
-      }
-    )
-    return this.buyerAuthService.isAuth$
+    segments: UrlSegment[]
+  ) {
+    return this.noUntilAuth
   }
 }

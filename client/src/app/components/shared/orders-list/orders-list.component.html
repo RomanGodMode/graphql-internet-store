@@ -1,0 +1,71 @@
+<div class='loader-container' *ngIf='orderService.isLoading$|async else content'>
+  <app-long-loader></app-long-loader>
+</div>
+
+<ng-template #content>
+  <div [ngClass]='{"table-wrapper": (orderService.orders$|async)?.length}'>
+    <table *ngIf='(orderService.orders$|async)?.length else placeholder' class='table'>
+      <thead>
+      <tr>
+        <td>Номер</td>
+        <td>Дата оформления</td>
+        <td>Статус</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor='let order of orderService.orders$|async'>
+        <td><a routerLinkActive='selected' [routerLink]='[]' [queryParams]='{orderId: order.id}'>{{order.id}}</a></td>
+        <td>{{order.orderingDate}}</td>
+        <td>{{order.status}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <section *ngIf='selectedCart$|async' class='cart-contents'>
+
+    <app-decorated-title-wrapper>
+      <h1 class='selected'>Корзина выбранного заказа</h1>
+    </app-decorated-title-wrapper>
+
+    <div class='table-wrapper'>
+      <table class='table'>
+        <thead>
+        <tr>
+          <td>Название</td>
+          <td>Количество</td>
+          <td>Цена ₽</td>
+          <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor='let item of cartItems$|async'>
+          <td class='name'>
+            <img class='photo' [src]='staticUrl(item.product.image)' alt=''>
+            <a [routerLink]='["/products",item.product.category,item.product.id]'>
+              {{item.product.name}}
+            </a>
+          </td>
+          <td>
+            {{item.count}}
+          </td>
+          <td>{{item.product.price}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class='summary'>
+      <div class='sum'>Сумма: {{(selectedCart$|async)?.totalPrice}} ₽</div>
+      <button *ngIf='isAdmin && orderService._isSelectedOrderedOrder$|async' (click)='confirmOrderComplete()'
+              class='shop-button'>Подтвердить завершение заказа
+      </button>
+    </div>
+  </section>
+</ng-template>
+
+<ng-template #placeholder>
+  <h2 class='empty'>
+    Ни одного заказа.
+    <span *ngIf='!isAdmin'>Заказ можно сделать из <a style='margin-left: 3px;' routerLink='/cart'>корзины</a></span>
+  </h2>
+</ng-template>

@@ -31,8 +31,5 @@ export class BuyerNotificationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.buyerNotificationService.showMessage('СНБЫВ ЫАЫВА')
   }
-
-
 }

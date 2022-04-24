@@ -26,8 +26,8 @@ export class CategoryResolver {
   }
 
   @Query(() => PaginatedCategoryObject)
-  async getCategory(@Args() { id, showOutOfStock, pageNumber, ordering, name, minPrice, maxPrice }: GetCategoryArgs) {
-    return this.categoryService.getCategory(id, true, showOutOfStock, pageNumber, ordering, name, minPrice, maxPrice)
+  async getCategory(@Args() { id, showOutOfStock, pageNumber, ordering, name, minPrice, maxPrice, infoValues }: GetCategoryArgs) {
+    return this.categoryService.getCategory(id, true, showOutOfStock, pageNumber, ordering, name, minPrice, maxPrice, infoValues)
   }
 
   @UseGuards(AdminAuthGuard)

@@ -6,12 +6,14 @@ import { EditCategoryGQL } from './mutation/edit-category.mutation'
 import { FullCategory } from '../../../../types/category'
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
+import { EntireCategoryTreeGQL } from '../../../shared/quyery/entire-tree.query'
+import { MessagesService } from '../../../shop/shared/components/buyer-notification/messages.service'
 
 @Component({
   selector: 'app-edit-categories',
   templateUrl: './edit-categories.component.html',
   styleUrls: ['./edit-categories.component.scss'],
-  providers: [GetFullCategoryGQL, EditCategoryGQL]
+  providers: [GetFullCategoryGQL, EditCategoryGQL, EntireCategoryTreeGQL]
 })
 export class EditCategoriesComponent implements OnInit, OnDestroy {
 
@@ -75,7 +77,9 @@ export class EditCategoriesComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private getFullCategoryGQL: GetFullCategoryGQL,
-    private editCategoryGQL: EditCategoryGQL
+    private editCategoryGQL: EditCategoryGQL,
+    private entireCategoryTreeGQL: EntireCategoryTreeGQL,
+    private messagesService: MessagesService
   ) {
   }
 
@@ -90,15 +94,17 @@ export class EditCategoriesComponent implements OnInit, OnDestroy {
       update: (cache, mutationResult) => {
         cache.writeQuery({
           query: this.getFullCategoryGQL.document,
+          variables: { id: mutationResult.data.editCategory.id },
           data: {
-            editCategory: mutationResult.data.editCategory
+            getCategory: mutationResult.data
           }
         })
-      }
+      },
+      refetchQueries: [{ query: this.entireCategoryTreeGQL.document }]
     }).pipe(
       map(r => r.data)
     ).subscribe(
-      () => null,
+      () => this.messagesService.showSuccessMessage('Категория успешно обновлена'),
       err => this._error$.next(err.message),
       () => this._loading$.next(false)
     )

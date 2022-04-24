@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { CartService } from '../../shared/components/cart/cart.service'
 import { map } from 'rxjs/operators'
 import { staticUrl } from '../../../../functions/static-url'
-import { OrderService } from '../../shared/components/ordering/order.service'
+import { OrderService } from '../../shared/components/order/order.service'
 import { BehaviorSubject } from 'rxjs'
 
 @Component({

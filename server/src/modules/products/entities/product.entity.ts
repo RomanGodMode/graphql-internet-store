@@ -3,6 +3,14 @@ import { Field, Int, ObjectType } from '@nestjs/graphql'
 import { GraphQLJSON } from 'graphql-type-json'
 import { Category } from '../../category/entities/category.entity'
 
+export type InfoValue = {
+  name: string
+} & ({
+  value: string
+} | {
+  minValue: number
+  maxValue: number
+})
 
 @ObjectType()
 @Entity()
@@ -29,7 +37,7 @@ export class Product {
 
   @Field(() => GraphQLJSON)
   @Column({ type: 'jsonb' })
-  infoValues: {}
+  infoValues: InfoValue[]
 
   @ManyToOne(() => Category, category => category.products)
   category: Category

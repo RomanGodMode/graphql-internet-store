@@ -36,7 +36,7 @@ export class PriceFilterFormComponent implements OnInit {
       map(([_, data]) => data),
       switchMap(data => this.form.valueChanges
         .pipe(
-          debounceTime(2000),
+          debounceTime(500),
           distinctUntilChanged(),
           map(({ maxPrice, minPrice }) => ({
             maxPrice: Math.max(Math.min(maxPrice, data.maxPrice), data.minPrice),

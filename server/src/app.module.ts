@@ -27,6 +27,9 @@ const isDebug = process.env.NODE_ENV !== 'production'
       path: 'graphql',
       uploads: false,
       autoSchemaFile: 'schema.gql',
+      buildSchemaOptions: {
+        dateScalarMode: 'timestamp'
+      },
       debug: isDebug,
       playground: {
         settings: {

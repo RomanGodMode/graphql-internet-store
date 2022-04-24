@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { IsAuthGQL } from './query/is-auth.query'
-import { BehaviorSubject } from 'rxjs'
+import { ReplaySubject } from 'rxjs'
 import { LoginGQL } from './mutations/login.mutation'
 import { RegisterGQL } from './mutations/register.mutation'
 import { map } from 'rxjs/operators'
@@ -10,7 +10,7 @@ import { Router } from '@angular/router'
 @Injectable()
 export class AdminAuthService {
 
-  _isAuth$ = new BehaviorSubject(false)
+  _isAuth$ = new ReplaySubject<boolean>(1)
   isAuth$ = this._isAuth$.asObservable()
 
   constructor(
@@ -20,7 +20,6 @@ export class AdminAuthService {
     private logoutGQL: LogoutGQL,
     private router: Router
   ) {
-    this.isAuth$.subscribe(console.log)
     isAuthGQL.watch({}, { errorPolicy: 'ignore' }).valueChanges
       .pipe(
         map(res => res.data ? !!res.data.testAdmin : false)

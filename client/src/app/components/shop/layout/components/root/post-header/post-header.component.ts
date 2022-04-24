@@ -32,7 +32,7 @@ export class PostHeaderComponent implements OnInit, OnDestroy {
     this.isLoading$.next(true)
     this.categories$ = this.getEntireCategoryTreeGQL.fetch().pipe(
       catchError(() => {
-        this.messagesService.showMessage('Категории не смогли загрузиться')
+        this.messagesService.showErrorMessage('Категории не смогли загрузиться')
         return of({ data: { getEntireTree: [] } })
       }),
       tap(() => this.isLoading$.next(false)),

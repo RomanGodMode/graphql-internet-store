@@ -4,3 +4,8 @@
 </form>
 
 <shop-price-filter-form></shop-price-filter-form>
+
+<shop-additional-field-filter
+  *ngFor='let field of without((catalogService.catalogData$|async)?.category?.productInfoFields)'
+  [field]='field'
+></shop-additional-field-filter>

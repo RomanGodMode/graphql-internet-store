@@ -1,0 +1,20 @@
+.search-form {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+  gap: 10px;
+
+  .group {
+    flex: 0 1 33%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .select {
+      min-height: 45px;
+      display: flex;
+      justify-content: stretch;
+      align-items: stretch;
+    }
+  }
+}

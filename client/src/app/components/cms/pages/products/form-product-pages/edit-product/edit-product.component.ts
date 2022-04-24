@@ -107,7 +107,10 @@ export class EditProductComponent implements OnInit, OnDestroy {
       {
         id: this._product$.value.id,
         image: this._image$.value,
-        infoValues: form.infoValues.map(infoValue => ({ name: infoValue.name, value: infoValue.value })),
+        infoValues: form.infoValues.map(infoValue => ({
+          name: infoValue.name,
+          value: infoValue.type === 'bool' ? !!infoValue.value : infoValue.value
+        })),
         name: form.name,
         price: form.price,
         amount: form.amount

@@ -6,6 +6,8 @@ import { CmsHeaderComponent } from './layout/components/cms-header/cms-header.co
 import { SharedComponentsModule } from '../shared/shared-components.module'
 import { AdminAuthModule } from './admin-auth/admin-auth.module'
 import { AdminAuthGuard } from './admin-auth/admin-auth.guard'
+import { BuyerNotificationModule } from '../shop/shared/components/buyer-notification/buyer-notification.module'
+
 
 @NgModule({
   declarations: [
@@ -20,7 +22,6 @@ import { AdminAuthGuard } from './admin-auth/admin-auth.guard'
           path: '',
           component: ModestAdminLayoutComponent,
           children: [
-            { path: '', redirectTo: 'login' },
             {
               path: 'categories/:id',
               loadChildren: () => import('./pages/edit-categories/edit-categories.module').then(m => m.EditCategoriesModule),
@@ -58,6 +59,12 @@ import { AdminAuthGuard } from './admin-auth/admin-auth.guard'
               canActivate: [AdminAuthGuard]
             },
             {
+              path: 'orders',
+              loadChildren: () => import('./pages/orders/orders.module').then(m => m.OrdersModule),
+              canLoad: [AdminAuthGuard],
+              canActivate: [AdminAuthGuard]
+            },
+            {
               path: 'login',
               loadChildren: () => import('./pages/auth-pages/admin-login/admin-login.module').then(m => m.AdminLoginModule)
             },
@@ -66,12 +73,14 @@ import { AdminAuthGuard } from './admin-auth/admin-auth.guard'
               loadChildren: () => import('./pages/auth-pages/admin-register/admin-register.module').then(m => m.AdminRegisterModule),
               canLoad: [AdminAuthGuard],
               canActivate: [AdminAuthGuard]
-            }
+            },
+            { path: '**', redirectTo: 'login', pathMatch: 'full' }
           ]
         }
       ]
     ),
-    SharedComponentsModule
+    SharedComponentsModule,
+    BuyerNotificationModule
   ]
 })
 export class CmsModule {

@@ -2,8 +2,7 @@ import { BadRequestException, ConflictException, Injectable, NotFoundException }
 import { InjectRepository } from '@nestjs/typeorm'
 import { Category } from './entities/category.entity'
 import { Between, DeepPartial, In, LessThanOrEqual, Like, MoreThanOrEqual, Not, Repository } from 'typeorm'
-import { Product } from '../products/entities/product.entity'
-
+import { InfoValue, Product } from '../products/entities/product.entity'
 
 @Injectable()
 export class CategoryService {
@@ -68,7 +67,9 @@ export class CategoryService {
 
   async getCategory(
     id: number, withProducts = false, showOutOfStock = false,
-    pageNumber: number = null, ordering: string = null, name: string = null, minPrice: number = null, maxPrice: number = null
+    pageNumber: number = null, ordering: string = null, name: string = null,
+    minPrice: number = null, maxPrice: number = null,
+    infoValues: InfoValue[] = []
   ) {
     const category = withProducts
       ? await this.categoryRepo.findOne({ where: { id }, relations: ['products'] })
@@ -122,21 +123,58 @@ export class CategoryService {
       gigaSwitch[ordering]()
     }
 
-    const [result, productsCount] = await this.productRepo.findAndCount(
+    const products = await this.productRepo.find(
       {
         where: {
           category: In(categoryIds),
           ...filterMutant
         },
-        loadRelationIds: true,
-        order,
-        take,
-        skip
+        relations: ['category'],
+        order
       }
     )
 
-    category.products = result
-    return { category, productsCount, maxPrice: max, minPrice: min }
+    const isMatchedFilter = (product: Product) => {
+      const fieldsWithType = product.category.productInfoFields
+        .map(field => ({
+          ...field,
+          productField: product.infoValues.find(productField => productField.name === field.name)
+        }))
+        .filter(({ productField }) => !!productField)
+        .map(({ productField, ...field }) => {
+          return {
+            ...field,
+            value: (productField as any).value
+          }
+        })
+
+      return infoValues.every(filterInfo => {
+        const currentField = fieldsWithType.find(productInfo => productInfo.name === filterInfo.name)
+
+        if (!currentField) {
+          throw new BadRequestException(`Нет такого доп поля ${product.name}`)
+        }
+
+
+        const typeMatch = {
+          'num': () => currentField.value >= (filterInfo as any).minValue && currentField.value <= (filterInfo as any).maxValue,
+          'string': () => currentField.value.toUpperCase().includes((filterInfo as any).value.toUpperCase()),
+          'bool': () => currentField.value === (filterInfo as any).value,
+          'enum': () => currentField.value === (filterInfo as any).value
+        }
+
+        return typeMatch[currentField.type]()
+      })
+    }
+
+    category.products = products
+      .filter(isMatchedFilter)
+      .map(product => ({ ...product, category: product.category.id as any }))
+      .slice(skip)
+      .slice(0, take)
+
+
+    return { category, productsCount: category.products.length, maxPrice: max, minPrice: min }
   }
 
   async editCategory(id: number, payload: DeepPartial<Category>) {

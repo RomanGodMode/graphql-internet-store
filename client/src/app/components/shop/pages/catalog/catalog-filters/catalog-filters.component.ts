@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
 import { ActivatedRoute, Router } from '@angular/router'
+import { CatalogService } from '../catalog.service'
 
 @Component({
   selector: 'shop-catalog-filters',
@@ -16,8 +17,9 @@ export class CatalogFiltersComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router
+    public route: ActivatedRoute,
+    private router: Router,
+    public catalogService: CatalogService
   ) {
   }
 
@@ -35,7 +37,7 @@ export class CatalogFiltersComponent implements OnInit {
 
     this.form.valueChanges.pipe(
       map(form => form.name),
-      debounceTime(2000),
+      debounceTime(500),
       distinctUntilChanged()
     ).subscribe(name => {
         this.router.navigate(
@@ -48,6 +50,10 @@ export class CatalogFiltersComponent implements OnInit {
       }
     )
 
+  }
+
+  without(values) {
+    return values//?.filter(val => val.name === 'Производитель') || []
   }
 
 }

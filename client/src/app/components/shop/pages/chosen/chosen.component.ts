@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ChosenService } from '../../shared/components/chosen/chosen.service'
-import { map, tap } from 'rxjs/operators'
+import { map } from 'rxjs/operators'
 import { staticUrl } from 'src/app/functions/static-url'
 
 @Component({
@@ -13,8 +13,7 @@ export class ChosenComponent implements OnInit {
   staticUrl = staticUrl
 
   $items = this.chosenService.chosenProducts$.pipe(
-    map(products => Object.values(products)),
-    tap(console.log)
+    map(products => Object.values(products))
   )
 
   constructor(

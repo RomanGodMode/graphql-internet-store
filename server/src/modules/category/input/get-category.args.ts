@@ -1,5 +1,7 @@
 import { IsInt, IsNumber, IsPositive } from 'class-validator'
 import { ArgsType, Field, Float, Int } from '@nestjs/graphql'
+import { InfoValue } from '../../products/entities/product.entity'
+import { GraphQLJSON } from 'graphql-type-json'
 
 @ArgsType()
 export class GetCategoryArgs {
@@ -26,5 +28,8 @@ export class GetCategoryArgs {
 
   @Field(() => Float, { nullable: true })
   maxPrice: number
+
+  @Field(() => GraphQLJSON, { nullable: true })
+  infoValues: InfoValue[]
 
 }

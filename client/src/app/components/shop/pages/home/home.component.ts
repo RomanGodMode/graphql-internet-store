@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
     this.isLoading$.next(true)
     this.newProducts$ = this.getNewProductsGQL.fetch().pipe(
       catchError(err => {
-        this.messagesService.showMessage(err.message)
+        this.messagesService.showErrorMessage(err.message)
         return EMPTY
       }),
       tap(() => this.isLoading$.next(false)),

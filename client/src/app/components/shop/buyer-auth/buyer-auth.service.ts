@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { IsAuthGQL } from './query/is-auth.query'
-import { BehaviorSubject } from 'rxjs'
+import { ReplaySubject } from 'rxjs'
 import { LoginGQL } from './mutations/login.mutation'
 import { RegisterGQL } from './mutations/register.mutation'
 import { map } from 'rxjs/operators'
@@ -10,7 +10,7 @@ import { Router } from '@angular/router'
 @Injectable()
 export class BuyerAuthService {
 
-  isAuthSubject = new BehaviorSubject(false)
+  isAuthSubject = new ReplaySubject<boolean>(1)
   isAuth$ = this.isAuthSubject.asObservable()
 
   constructor(

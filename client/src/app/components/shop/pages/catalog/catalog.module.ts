@@ -11,10 +11,13 @@ import { SelectModule } from '../../../cms/shared/components/select/select.modul
 import { ReactiveFormsModule } from '@angular/forms'
 import { ProductItemModule } from '../../shared/components/product-item/product-item.module'
 import { SharedComponentsModule } from '../../../shared/shared-components.module'
+import { AdditionalFieldFilterComponent } from './catalog-filters/additional-field-filter/additional-field-filter.component'
+import { CheckboxModule } from '../../../cms/shared/components/checkbox/checkbox.module'
+import { NumericModule } from '../../../cms/shared/components/numeric/numeric.module'
 
 
 @NgModule({
-  declarations: [CatalogComponent, CatalogFiltersComponent, ProductsListComponent, CatalogSorterComponent],
+  declarations: [CatalogComponent, CatalogFiltersComponent, ProductsListComponent, CatalogSorterComponent, AdditionalFieldFilterComponent],
   imports: [
     CommonModule,
     RouterModule.forChild([{
@@ -26,7 +29,9 @@ import { SharedComponentsModule } from '../../../shared/shared-components.module
     SelectModule,
     ReactiveFormsModule,
     ProductItemModule,
-    SharedComponentsModule
+    SharedComponentsModule,
+    CheckboxModule,
+    NumericModule
   ]
 })
 export class CatalogModule {

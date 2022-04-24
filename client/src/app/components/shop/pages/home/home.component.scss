@@ -33,20 +33,6 @@
   }
 }
 
-section.important {
-  padding-top: 14px;
-  padding-left: 20px;
-  padding-bottom: 20px;
-
-  p {
-    text-align: left;
-  }
-
-  p + p {
-    margin-top: 5px;
-  }
-}
-
 @media (max-width: 660px) {
   .advantages-list {
     padding: 25px 45px 40px;

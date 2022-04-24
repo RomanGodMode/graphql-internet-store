@@ -24,9 +24,10 @@ export class CartService {
       switchMap(() => getCart.watch({}, { fetchPolicy: 'network-only' }).valueChanges),
       tap(() => this.isLoading$.next(false)),
       catchError(err => {
-        err.message === 'Forbidden resource'
-          ? messagesService.showMessage('Совершать покупки можно только авторизованными пользователям')
-          : messagesService.showMessage(err.message)
+        messagesService.showErrorMessage(
+          err.message,
+          'Совершать покупки можно только авторизованными пользователям'
+        )
 
         return of({ data: { getCart: { items: [] as any, totalPrice: 0 } } })
       }),
@@ -40,7 +41,10 @@ export class CartService {
       { refetchQueries: [{ query: this.getCart.document }] }
     ).pipe(
       catchError(err => {
-        this.messagesService.showMessage(err.message)
+        this.messagesService.showErrorMessage(
+          err.message,
+          'Совершать покупки можно только авторизованными пользователям'
+        )
         return EMPTY
       })
     ).subscribe()

@@ -4,6 +4,7 @@
       <ul *ngIf='authService.isAuth$ | async' class='list'>
         <li><a routerLinkActive='selected' routerLink='/admin/categories'>Категории</a></li>
         <li><a routerLinkActive='selected' routerLink='/admin/products'>Товары</a></li>
+        <li><a routerLinkActive='selected' routerLink='/admin/orders'>Заказы</a></li>
       </ul>
       <ul *ngIf='!(authService.isAuth$ | async)' class='list'>
         <li><a routerLinkActive='selected' routerLink='/admin/login'>Логин</a></li>

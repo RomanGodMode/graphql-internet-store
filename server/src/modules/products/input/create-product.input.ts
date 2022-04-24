@@ -1,5 +1,6 @@
 import { Field, InputType, Int } from '@nestjs/graphql'
 import { GraphQLJSON } from 'graphql-type-json'
+import { InfoValue } from '../entities/product.entity'
 
 @InputType()
 export class CreateProductInput {
@@ -17,5 +18,5 @@ export class CreateProductInput {
   amount: number
 
   @Field(() => GraphQLJSON)
-  infoValues: {}
+  infoValues: InfoValue[]
 }

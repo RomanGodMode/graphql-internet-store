@@ -1,4 +1,5 @@
-import { Status } from '../components/shop/shared/query/get-orders.query'
+import { Status } from '../components/shop/shared/query/types'
+
 
 const resolver = {
   ordered: 'Заказан',

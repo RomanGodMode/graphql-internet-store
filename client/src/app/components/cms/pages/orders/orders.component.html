@@ -1,0 +1,17 @@
+<app-decorated-title-wrapper>
+  <h1 class='selected'>Найти заказ</h1>
+</app-decorated-title-wrapper>
+
+<form [formGroup]='searchForm' class='search-form'>
+  <div class='group small'>
+    <label>Номер заказа</label>
+    <app-numeric formControlName='id'></app-numeric>
+  </div>
+
+  <div class='group small'>
+    <label>Статус заказа</label>
+    <cms-select formControlName='status' class='select' [options]='statusOptions'></cms-select>
+  </div>
+</form>
+
+<app-orders-list [isAdmin]='true'></app-orders-list>

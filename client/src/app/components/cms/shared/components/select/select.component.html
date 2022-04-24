@@ -1,7 +1,8 @@
 <select class='select'
         [name]=name
         [(ngModel)]='value'
-        (ngModelChange)='onChange($event)'
+        #item
+        (ngModelChange)='onChange(item.value)'
 >
   <option *ngFor='let option of options' [value]='option.value'>{{option.text}}</option>
 </select>

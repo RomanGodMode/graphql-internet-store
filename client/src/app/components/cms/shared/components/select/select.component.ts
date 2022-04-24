@@ -71,5 +71,4 @@ export class SelectComponent implements ControlValueAccessor, Validator {
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled
   }
-
 }

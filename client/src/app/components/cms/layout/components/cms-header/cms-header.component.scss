@@ -1,3 +1,7 @@
+:host {
+  z-index: 1000;
+}
+
 header {
   background-color: var(--deep-back-color);
   z-index: 100;

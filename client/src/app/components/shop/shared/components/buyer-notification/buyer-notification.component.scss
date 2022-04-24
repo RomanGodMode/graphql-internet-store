@@ -16,7 +16,6 @@
   display: flex;
   align-items: center;
   position: relative;
-  background-color: rgba(#e67e22, .6);
   color: var(--main-fore-color);
 
   .close {
@@ -41,4 +40,12 @@
       }
     }
   }
+}
+
+.error {
+  background-color: rgba(#e67e22, .6);
+}
+
+.success {
+  background-color: rgba(#33CC66, .6);
 }

@@ -47,7 +47,10 @@ export class AddProductComponent implements OnInit, OnDestroy {
     this.createProductGQL.mutate(
       {
         image: this._image$.value,
-        infoValues: form.infoValues.map(infoValue => ({ name: infoValue.name, value: infoValue.value })),
+        infoValues: form.infoValues.map(infoValue => ({
+          name: infoValue.name,
+          value: infoValue.type === 'bool' ? !!infoValue.value : infoValue.value
+        })),
         name: form.name,
         categoryId: this._category$.value.id,
         price: form.price,

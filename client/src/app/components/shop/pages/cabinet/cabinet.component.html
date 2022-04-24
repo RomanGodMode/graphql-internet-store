@@ -2,72 +2,14 @@
   <h1 class='selected'>Заказы</h1>
 </app-decorated-title-wrapper>
 
-<div class='loader-container' *ngIf='orderService.isLoading$|async else content'>
-  <app-long-loader></app-long-loader>
-</div>
+<app-orders-list [isAdmin]='false'></app-orders-list>
 
-<ng-template #content>
-  <div class='table-wrapper'>
-    <table *ngIf='(orderService.orders$|async)?.length else placeholder' class='table'>
-      <thead>
-      <tr>
-        <td>id</td>
-        <td>Дата оформления</td>
-        <td>Статус</td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor='let order of orderService.orders$|async'>
-        <td><a routerLinkActive='selected' [routerLink]='[]' [queryParams]='{orderId: order.id}'>{{order.id}}</a></td>
-        <td>{{order.orderingDate}}</td>
-        <td>{{order.status}}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-  <section *ngIf='selectedCart$|async' class='cart-contents'>
+<app-decorated-title-wrapper>
+  <h4 class='selected'>Важно</h4>
+</app-decorated-title-wrapper>
 
-    <app-decorated-title-wrapper>
-      <h1 class='selected'>Корзина выбранного заказа</h1>
-    </app-decorated-title-wrapper>
-
-    <div class='table-wrapper'>
-      <table class='table'>
-        <thead>
-        <tr>
-          <td>Название</td>
-          <td>Количество</td>
-          <td>Цена ₽</td>
-          <td></td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor='let item of cartItems$|async'>
-          <td class='name'>
-            <img class='photo' [src]='staticUrl(item.product.image)' alt=''>
-            <a [routerLink]='["/products",item.product.category,item.product.id]'>
-              {{item.product.name}}
-            </a>
-          </td>
-          <td>
-            {{item.count}}
-          </td>
-          <td>{{item.product.price}}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class='sum'>
-      Сумма: {{(selectedCart$|async)?.totalPrice}} ₽
-    </div>
-  </section>
-</ng-template>
-
-<ng-template #placeholder>
-  <h2 class='empty'>
-    Ни одного заказа.
-    Заказ можно сделать из <a style='margin-left: 3px;' routerLink='/cart'>корзины</a>
-  </h2>
-</ng-template>
+<section class='important'>
+  <p>Мы с радостью принимаем и обслуживаем заказы 7 дней в неделю с 10 до 18 по московскому времени.</p>
+  <p>чтобы забрать свой заказ, идите в пункт самовывоза(Муром, Московская 54, подьезд 2, квартира 59)</p>
+</section>
 

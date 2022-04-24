@@ -222,3 +222,17 @@ button.shop-button {
   width: min-content;
   display: block;
 }
+
+section.important {
+  padding-top: 14px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+
+  p {
+    text-align: left;
+  }
+
+  p + p {
+    margin-top: 5px;
+  }
+}

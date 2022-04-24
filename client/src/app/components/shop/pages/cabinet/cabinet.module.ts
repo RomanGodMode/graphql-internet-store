@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common'
 import { CabinetComponent } from './cabinet.component'
 import { RouterModule } from '@angular/router'
 import { SharedComponentsModule } from '../../../shared/shared-components.module'
-import { OrderingModule } from '../../shared/components/ordering/ordering.module'
+import { OrderingModule } from '../../shared/components/order/ordering.module'
+import { OrdersListModule } from '../../../shared/orders-list/orders-list.module'
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { OrderingModule } from '../../shared/components/ordering/ordering.module
     CommonModule,
     RouterModule.forChild([{ path: '', component: CabinetComponent }]),
     OrderingModule,
-    SharedComponentsModule
+    SharedComponentsModule,
+    OrdersListModule
   ]
 })
 export class CabinetModule {

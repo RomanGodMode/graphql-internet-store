@@ -23,9 +23,10 @@ export class ChosenService {
       switchMap(() => getChosenProducts.watch({}, { fetchPolicy: 'network-only' }).valueChanges),
       tap(() => this.isLoading$.next(false)),
       catchError(err => {
-        err.message === 'Forbidden resource'
-          ? messagesService.showMessage('Добавлять в избранное можно только авторизованными пользователям')
-          : messagesService.showMessage(err.message)
+        messagesService.showErrorMessage(
+          err.message,
+          'Добавлять в избранное можно только авторизованными пользователям'
+        )
 
         return EMPTY
       }),
@@ -40,7 +41,10 @@ export class ChosenService {
       { refetchQueries: [{ query: this.getChosenProducts.document }] }
     ).pipe(
       catchError(err => {
-        this.messagesService.showMessage(err.message)
+        this.messagesService.showErrorMessage(
+          err.message,
+          'Совершать покупки можно только авторизованными пользователям'
+        )
         return EMPTY
       })
     ).subscribe()
