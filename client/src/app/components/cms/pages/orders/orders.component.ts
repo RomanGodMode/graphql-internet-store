@@ -1,17 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { SearchOrdersGQL } from '../../../shop/shared/query/search-orders.query'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { debounceTime, distinctUntilChanged, map, startWith, switchMap, takeUntil, tap } from 'rxjs/operators'
 import { OrderService } from '../../../shop/shared/components/order/order.service'
 import { falsyValuesToNull } from '../../../../functions/falsy-values-to-null'
 import { combineLatest, ReplaySubject } from 'rxjs'
-import { PatchOrderGQL } from '../../../shop/shared/mutation/patch-order.mutation'
 
 @Component({
   selector: 'cms-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.scss'],
-  providers: [SearchOrdersGQL, PatchOrderGQL, OrderService]
+  providers: [OrderService]
 })
 export class OrdersComponent implements OnInit, OnDestroy {
 
